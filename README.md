@@ -172,6 +172,8 @@ SPARQL is used to retrieve:
 
 This strengthens the solution because the final skill gap analysis retrieves semantic relationships from the RDF graph instead of relying only on Python dictionaries.
 
+The SPARQL implementation can be seen in both `skill_gap_analysis.py` and `gui_app.py`. The file `skill_gap_analysis.py` provides a terminal-based version of the analyzer, while `gui_app.py` provides the final GUI-based version. Both versions query the RDF graph using SPARQL to retrieve career options, required skills, course recommendations, prerequisite skills, and alternative career suggestions.
+
 ### 4.5 Python and Tkinter GUI
 
 Python is used to implement the application logic. Python handles:
