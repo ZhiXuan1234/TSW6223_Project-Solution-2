@@ -94,20 +94,20 @@ The system does not directly scrape or fetch live data from O*NET during runtime
 
 The dataset currently uses one source:
 
-| Source ID | Source Name | Source URL | Usage |
-|---|---|---|---|
-| SRC001 | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
+| Source ID | Source Name  | Source URL                  | Usage                                                           |
+|-----------|--------------|-----------------------------|-----------------------------------------------------------------|
+| SRC001    | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
 
 ## 6. Career Mapping Used in the Dataset
 
 Some modern job titles are not always available as exact O*NET occupation titles. Therefore, the project career names are mapped to the closest available O*NET occupation profiles.
 
-| Project Career Name | O*NET Occupation Title Used | O*NET Code | Reason for Mapping |
-|---|---|---|---|
-| Data Analyst | Data Scientists | 15-2051.00 | Used as a close data-related occupation because O*NET search maps data analyst-related work to data science and business intelligence roles. |
-| Software Developer | Software Developers | 15-1252.00 | Direct match with O*NET occupation title. |
-| Cybersecurity Analyst | Information Security Analysts | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work. |
-| AI Engineer | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title. |
+| Project Career Name   | O*NET Occupation Title Used                  | O*NET Code | Reason for Mapping                                     |
+|-----------------------|----------------------------------------------|------------|--------------------------------------------------------|
+| Data Analyst          | Data Scientists                              | 15-2051.00 | Used as a close data-related occupation because O*NET search maps data analyst-related work to data science and business intelligence roles. |
+| Software Developer    | Software Developers                          | 15-1252.00 | Direct match with O*NET occupation title. |
+| Cybersecurity Analyst | Information Security Analysts                | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work. |
+| AI Engineer           | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title. |
 
 This mapping is stored directly in the XML using fields such as `sourceOccupationCode`, `sourceOccupationTitle`, and `sourceNote`.
 
@@ -222,39 +222,22 @@ Alternative Career Suggestions:
 3. Cybersecurity Analyst - 25% match
 ```
 
-## 10. Why This Solution Has Novelty
-
-The novelty of Solution 2 is that it does not only list missing skills. It adds a semantic and explainable skill gap analysis process.
-
-The system includes:
-
-- Real-world occupation mapping using O*NET.
-- XML-based structured dataset.
-- XSD-based data validation.
-- Skill alias and typo handling before semantic matching.
-- RDF/RDFS conversion for semantic relationships.
-- SPARQL-based retrieval of career, skill, and course relationships.
-- Career readiness score.
-- Missing skill priority ranking.
-- Recommended courses for missing skills.
-- Alternative career suggestions based on skill match percentage.
-
-## 11. Planned Functional Testing
+## 10. Planned Functional Testing
 
 Planned test cases include:
 
-| Test Case ID | Test Description | Expected Result |
-|---|---|---|
-| S2-TC01 | Validate correct XML against XSD | XML validation successful |
-| S2-TC02 | Enter invalid priority value in XML | XSD validation fails |
-| S2-TC03 | Enter skill alias such as `ml` | System maps it to `Machine Learning` |
-| S2-TC04 | Enter typo such as `pyhton` | System suggests or corrects to `Python` |
-| S2-TC05 | Select AI Engineer with Python and SQL only | System shows matched and missing skills correctly |
-| S2-TC06 | Missing skill has related course | System recommends the correct course |
-| S2-TC07 | Student already has all required skills | Career readiness score becomes 100% |
-| S2-TC08 | Unknown skill entered | System asks user to confirm or ignore the skill |
+| Test Case ID |                Test Description             |                    Expected Result                |
+|--------------|---------------------------------------------|---------------------------------------------------|
+| S2-TC01      | Validate correct XML against XSD            | XML validation successful                         |
+| S2-TC02      | Enter invalid priority value in XML         | XSD validation fails                              |
+| S2-TC03      | Enter skill alias such as `ml`              | System maps it to `Machine Learning`              |
+| S2-TC04      | Enter typo such as `pyhton`                 | System suggests or corrects to `Python`           |
+| S2-TC05      | Select AI Engineer with Python and SQL only | System shows matched and missing skills correctly |
+| S2-TC06      | Missing skill has related course            | System recommends the correct course              |
+| S2-TC07      | Student already has all required skills     | Career readiness score becomes 100%               |
+| S2-TC08      | Unknown skill entered                       | System asks user to confirm or ignore the skill   |
 
-## 12. Future Improvements
+## 11. Future Improvements
 
 Possible future improvements include:
 
@@ -267,7 +250,7 @@ Possible future improvements include:
 - Connecting Solution 2 with Solution 1 course recommendation.
 - Using real university course data and programme structures.
 
-## 13. Files in This Solution
+## 12. Files in This Solution
 
 The planned files are:
 
@@ -283,6 +266,6 @@ solution2/
 └── README.md
 ```
 
-## 14. Summary
+## 13. Summary
 
 Solution 2 is a semantic web-based Career Path / Skill Gap Analysis prototype. It uses a small O*NET-based dataset prepared in XML format and validated with XSD. The validated XML data will be parsed by Python and converted into RDF/RDFS triples. SPARQL will then be used to query the semantic relationships between careers, skills, and courses. The final result will be displayed through a terminal-based interface that provides students with matched skills, missing skills, readiness scores, recommended courses, and alternative career paths.
