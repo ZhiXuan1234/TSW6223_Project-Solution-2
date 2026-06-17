@@ -255,15 +255,20 @@ Possible future improvements include:
 The planned files are:
 
 ```text
-solution2/
+TSW6223_Project-Solution-2/
 │
 ├── career_skill_data.xml
 ├── career_skill_schema.xsd
-├── validate_xml.py
-├── xml_to_rdf.py
 ├── career_skill_graph.ttl
+├── xml_to_rdf.py
+├── skill_gap_analysis.py
 ├── main.py
-└── README.md
+├── README.md
+│
+└── testing/
+    ├── validate_xml.py
+    ├── parse_xml.py
+    └── skill_normalizer.py
 ```
 
 ## 13. Summary
