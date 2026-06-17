@@ -121,11 +121,16 @@ def main():
 
     # Step 3: Launch final skill gap analyzer
     print("\n===== Step 3: Launch Skill Gap Analyzer =====")
+    print("A popup window will open for user interaction.")
 
-    analysis_success = run_python_file("skill_gap_analysis.py")
+    analysis_success = run_python_file("gui_app.py")
+    # ============================================================#
+    # For terminal-based version (Backup)
+    # analysis_success = run_python_file("skill_gap_analysis.py") 
+    # ============================================================#
 
     if not analysis_success:
-        print("\nSkill gap analysis did not complete successfully.")
+        print("\nGUI skill gap analyzer did not complete successfully.")
         return
 
     print("\nProgram completed successfully.")

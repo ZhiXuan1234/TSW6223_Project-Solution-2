@@ -456,8 +456,9 @@ TSW6223_Project-Solution-2/
 ├── career_skill_schema.xsd
 ├── career_skill_graph.ttl
 ├── xml_to_rdf.py
-├── skill_gap_analysis.py
-├── main.py
+├── skill_gap_analysis.py      ← keep as terminal version / backup
+├── gui_app.py                 ← GUI version
+├── main.py                    ← final launcher
 ├── README.md
 │
 └── testing/
