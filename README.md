@@ -199,9 +199,9 @@ The system does **not** directly scrape or fetch live data from O*NET during run
 
 The dataset currently uses one source:
 
-| Source ID | Source Name | Source URL | Usage |
-|---|---|---|---|
-| SRC001 | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
+| Source ID | Source Name  | Source URL                  | Usage                                                 |
+|-----------|--------------|-----------------------------|-------------------------------------------------------|
+| SRC001    | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
 
 ---
 
@@ -209,12 +209,12 @@ The dataset currently uses one source:
 
 Some modern job titles are not always available as exact O*NET occupation titles. Therefore, the project career names are mapped to the closest available O*NET occupation profiles.
 
-| Project Career Name | O*NET Occupation Title Used | O*NET Code | Reason for Mapping |
-|---|---|---|---|
-| Data Analyst | Data Scientists | 15-2051.00 | Used as a close data-related occupation because O*NET search maps data analyst-related work to data science and business intelligence roles. |
-| Software Developer | Software Developers | 15-1252.00 | Direct match with O*NET occupation title. |
-| Cybersecurity Analyst | Information Security Analysts | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work. |
-| AI Engineer | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title. |
+| Project Career Name   | O*NET Occupation Title Used                  | O*NET Code | Reason for Mapping |
+|-----------------------|----------------------------------------------|------------|--------------------|
+| Data Analyst          | Data Scientists                              | 15-2051.00 | Used as a close data-related occupation because O*NET search maps data analyst-related work to data science and business intelligence roles. |
+| Software Developer    | Software Developers                          | 15-1252.00 | Direct match with O*NET occupation title. |
+| Cybersecurity Analyst | Information Security Analysts                | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work. |
+| AI Engineer           | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title. |
 
 This mapping is stored directly in the XML using fields such as:
 
@@ -359,9 +359,9 @@ py -m pip install lxml rdflib
 
 The required libraries are:
 
-| Library | Purpose |
-|---|---|
-| `lxml` | Used to validate the XML file against the XSD schema. |
+| Library  | Purpose                                                 |
+|----------|---------------------------------------------------------|
+| `lxml`   | Used to validate the XML file against the XSD schema.   |
 | `rdflib` | Used to create RDF/RDFS triples and run SPARQL queries. |
 
 Tkinter is used for the GUI popup window. It is normally included with standard Python installations on Windows, so no extra installation is usually needed.
@@ -518,20 +518,20 @@ Alternative Career Suggestions Retrieved Using SPARQL:
 
 Recommended test cases include:
 
-| Test Case ID | Test Description | Expected Result |
-|---|---|---|
-| S2-TC01 | Validate correct XML against XSD | XML validation successful |
-| S2-TC02 | Enter invalid priority value in XML | XSD validation fails |
-| S2-TC03 | Enter skill alias such as `ml` | System maps it to `Machine Learning` |
-| S2-TC04 | Enter typo such as `pyhton` or `pythn` | System maps or suggests correction to `Python` |
-| S2-TC05 | Select Software Developer with Python only | System shows Python as matched and other required skills as missing |
-| S2-TC06 | Missing skill has related course | System recommends the correct course using SPARQL |
-| S2-TC07 | Student already has all required skills | Career readiness score becomes 100% |
-| S2-TC08 | Unknown skill entered | System marks it as unknown or asks user to confirm correction |
-| S2-TC09 | Run `py main.py` | XML validation, RDF generation, SPARQL test, and GUI analyzer run successfully |
-| S2-TC10 | Delete or rename `career_skill_graph.ttl`, then run `py main.py` | TTL file is regenerated automatically |
-| S2-TC11 | Enter `pythn` in the GUI | Popup asks whether the user meant `Python` |
-| S2-TC12 | Run `py testing/validate_xml.py` from the main folder | XML validation test runs successfully |
+| Test Case ID | Test Description                                                 | Expected Result                                                                |
+|--------------|------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| S2-TC01      | Validate correct XML against XSD                                 | XML validation successful                                                      |
+| S2-TC02      | Enter invalid priority value in XML                              | XSD validation fails                                                           |
+| S2-TC03      | Enter skill alias such as `ml`                                   | System maps it to `Machine Learning`                                           |
+| S2-TC04      | Enter typo such as `pyhton` or `pythn`                           | System maps or suggests correction to `Python`                                 |
+| S2-TC05      | Select Software Developer with Python only                       | System shows Python as matched and other required skills as missing            |
+| S2-TC06      | Missing skill has related course                                 | System recommends the correct course using SPARQL                              |
+| S2-TC07      | Student already has all required skills                          | Career readiness score becomes 100%                                            |
+| S2-TC08      | Unknown skill entered                                            | System marks it as unknown or asks user to confirm correction                  |
+| S2-TC09      | Run `py main.py`                                                 | XML validation, RDF generation, SPARQL test, and GUI analyzer run successfully |
+| S2-TC10      | Delete or rename `career_skill_graph.ttl`, then run `py main.py` | TTL file is regenerated automatically                                          |
+| S2-TC11      | Enter `pythn` in the GUI                                         | Popup asks whether the user meant `Python`                                     |
+| S2-TC12      | Run `py testing/validate_xml.py` from the main folder            | XML validation test runs successfully                                          |
 
 ---
 
@@ -558,22 +558,22 @@ TSW6223_Project-Solution-2/
 ### 12.1 Main Files
 
 | File | Purpose |
-|---|---|
-| `career_skill_data.xml` | Stores the structured career, skill, course, source, and student data. |
-| `career_skill_schema.xsd` | Validates the XML structure, controlled values, and ID references. |
-| `career_skill_graph.ttl` | Generated RDF/RDFS Turtle graph created from the XML data. |
-| `xml_to_rdf.py` | Converts XML data into RDF/RDFS triples and runs SPARQL test queries. |
-| `skill_gap_analysis.py` | Runs the terminal-based SPARQL-powered skill gap analyzer. It is kept as a backup version. |
-| `gui_app.py` | Runs the GUI-based SPARQL-powered skill gap analyzer for final user interaction. |
-| `main.py` | Main launcher that validates XML, regenerates RDF/RDFS, runs SPARQL tests, and starts the GUI analyzer. |
-| `README.md` | Project explanation and running instructions. |
+|---------------------------|----------------------------------------------------------------------------------------------------------|
+| `career_skill_data.xml`   | Stores the structured career, skill, course, source, and student data.                                   |
+| `career_skill_schema.xsd` | Validates the XML structure, controlled values, and ID references.                                       |
+| `career_skill_graph.ttl`  | Generated RDF/RDFS Turtle graph created from the XML data.                                               |
+| `xml_to_rdf.py`           | Converts XML data into RDF/RDFS triples and runs SPARQL test queries.                                    |
+| `skill_gap_analysis.py`   | Runs the terminal-based SPARQL-powered skill gap analyzer. It is kept as a backup version.               |
+| `gui_app.py`              | Runs the GUI-based SPARQL-powered skill gap analyzer for final user interaction.                         |
+| `main.py`                 | Main launcher that validates XML, regenerates RDF/RDFS, runs SPARQL tests, and starts the GUI analyzer.  |
+| `README.md`               | Project explanation and running instructions.                                                            |
 
 ### 12.2 Testing Files
 
-| File | Purpose |
-|---|---|
-| `testing/validate_xml.py` | Tests XML validation against XSD. |
-| `testing/parse_xml.py` | Tests whether Python can correctly read and extract XML data. |
+| File                          | Purpose                                                         |
+|-------------------------------|-----------------------------------------------------------------|
+| `testing/validate_xml.py`     | Tests XML validation against XSD.                               |
+| `testing/parse_xml.py`        | Tests whether Python can correctly read and extract XML data.   |
 | `testing/skill_normalizer.py` | Tests alias matching and typo handling for user-entered skills. |
 
 ---
