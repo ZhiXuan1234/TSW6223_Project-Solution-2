@@ -13,7 +13,7 @@ import sys
 # It performs the complete flow:
 # 1. Validate XML using XSD
 # 2. Convert XML data into RDF/RDFS Turtle format
-# 3. Run the terminal-based skill gap analysis application
+# 3. Launch the GUI-based skill gap analysis application
 #
 # This allows the project demo to be executed using:
 # py main.py
