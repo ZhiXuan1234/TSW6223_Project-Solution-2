@@ -8,104 +8,11 @@ ex:Course a rdfs:Class .
 
 ex:Skill a rdfs:Class .
 
+ex:SkillRequirement a rdfs:Class .
+
 ex:Source a rdfs:Class .
 
 ex:Student a rdfs:Class .
-
-ex:AIEngineer_DataVisualization_Requirement a ex:SkillRequirement ;
-    ex:careerName "AI Engineer" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:DataVisualization .
-
-ex:AIEngineer_MachineLearning_Requirement a ex:SkillRequirement ;
-    ex:careerName "AI Engineer" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:MachineLearning .
-
-ex:AIEngineer_ProblemSolving_Requirement a ex:SkillRequirement ;
-    ex:careerName "AI Engineer" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:ProblemSolving .
-
-ex:AIEngineer_Python_Requirement a ex:SkillRequirement ;
-    ex:careerName "AI Engineer" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:Python .
-
-ex:AIEngineer_Statistics_Requirement a ex:SkillRequirement ;
-    ex:careerName "AI Engineer" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:Statistics .
-
-ex:CybersecurityAnalyst a ex:Career ;
-    ex:careerLevel "Intermediate" ;
-    ex:careerName "Cybersecurity Analyst" ;
-    ex:requiresSkill ex:Cybersecurity,
-        ex:Networking,
-        ex:ProblemSolving,
-        ex:SQL ;
-    ex:sourceNote "Cybersecurity Analyst is represented using the closest O*NET occupation, Information Security Analysts, because O*NET uses official occupation titles rather than every informal job-market title." ;
-    ex:sourceOccupationCode "15-1212.00" ;
-    ex:sourceOccupationTitle "Information Security Analysts" ;
-    ex:usesSource ex:SRC001 .
-
-ex:CybersecurityAnalyst_Cybersecurity_Requirement a ex:SkillRequirement ;
-    ex:careerName "Cybersecurity Analyst" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:Cybersecurity .
-
-ex:CybersecurityAnalyst_Networking_Requirement a ex:SkillRequirement ;
-    ex:careerName "Cybersecurity Analyst" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:Networking .
-
-ex:CybersecurityAnalyst_ProblemSolving_Requirement a ex:SkillRequirement ;
-    ex:careerName "Cybersecurity Analyst" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:ProblemSolving .
-
-ex:CybersecurityAnalyst_SQL_Requirement a ex:SkillRequirement ;
-    ex:careerName "Cybersecurity Analyst" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:SQL .
-
-ex:DataAnalyst a ex:Career ;
-    ex:careerLevel "Intermediate" ;
-    ex:careerName "Data Analyst" ;
-    ex:requiresSkill ex:DataVisualization,
-        ex:ProblemSolving,
-        ex:Python,
-        ex:SQL,
-        ex:Statistics ;
-    ex:sourceNote "Data Analyst is represented using O*NET Data Scientists as a close data-related occupation for this prototype because O*NET search maps data analyst-related work to data science and business intelligence roles." ;
-    ex:sourceOccupationCode "15-2051.00" ;
-    ex:sourceOccupationTitle "Data Scientists" ;
-    ex:usesSource ex:SRC001 .
-
-ex:DataAnalyst_DataVisualization_Requirement a ex:SkillRequirement ;
-    ex:careerName "Data Analyst" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:DataVisualization .
-
-ex:DataAnalyst_ProblemSolving_Requirement a ex:SkillRequirement ;
-    ex:careerName "Data Analyst" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:ProblemSolving .
-
-ex:DataAnalyst_Python_Requirement a ex:SkillRequirement ;
-    ex:careerName "Data Analyst" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:Python .
-
-ex:DataAnalyst_SQL_Requirement a ex:SkillRequirement ;
-    ex:careerName "Data Analyst" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:SQL .
-
-ex:DataAnalyst_Statistics_Requirement a ex:SkillRequirement ;
-    ex:careerName "Data Analyst" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:Statistics .
 
 ex:DataVisualizationFundamentals a ex:Course ;
     ex:courseName "Data Visualization Fundamentals" ;
@@ -142,44 +49,6 @@ ex:S001 a ex:Student ;
     ex:studentName "Sample Student" ;
     ex:targetsCareer ex:AIEngineer .
 
-ex:SoftwareDeveloper a ex:Career ;
-    ex:careerLevel "Intermediate" ;
-    ex:careerName "Software Developer" ;
-    ex:requiresSkill ex:DatabaseManagement,
-        ex:ProblemSolving,
-        ex:Python,
-        ex:SQL,
-        ex:WebDevelopment ;
-    ex:sourceNote "Software Developer is directly mapped to O*NET Software Developers. The selected skills reflect programming, development environment software, database-related tools, web platform development software, and essential problem-solving skills shown in O*NET worker requirements." ;
-    ex:sourceOccupationCode "15-1252.00" ;
-    ex:sourceOccupationTitle "Software Developers" ;
-    ex:usesSource ex:SRC001 .
-
-ex:SoftwareDeveloper_DatabaseManagement_Requirement a ex:SkillRequirement ;
-    ex:careerName "Software Developer" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:DatabaseManagement .
-
-ex:SoftwareDeveloper_ProblemSolving_Requirement a ex:SkillRequirement ;
-    ex:careerName "Software Developer" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:ProblemSolving .
-
-ex:SoftwareDeveloper_Python_Requirement a ex:SkillRequirement ;
-    ex:careerName "Software Developer" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:Python .
-
-ex:SoftwareDeveloper_SQL_Requirement a ex:SkillRequirement ;
-    ex:careerName "Software Developer" ;
-    ex:priority "Medium" ;
-    ex:requiresSkill ex:SQL .
-
-ex:SoftwareDeveloper_WebDevelopment_Requirement a ex:SkillRequirement ;
-    ex:careerName "Software Developer" ;
-    ex:priority "High" ;
-    ex:requiresSkill ex:WebDevelopment .
-
 ex:StatisticsforDataAnalytics a ex:Course ;
     ex:courseName "Statistics for Data Analytics" ;
     ex:teachesSkill ex:Statistics .
@@ -204,6 +73,9 @@ ex:courseName a rdf:Property ;
 ex:description a rdf:Property ;
     rdfs:label "Description" .
 
+ex:hasRequirement a rdf:Property ;
+    rdfs:label "Career has a skill requirement record" .
+
 ex:hasSkill a rdf:Property ;
     rdfs:label "Student has a skill" .
 
@@ -212,6 +84,9 @@ ex:prerequisiteSkill a rdf:Property ;
 
 ex:priority a rdf:Property ;
     rdfs:label "Skill priority" .
+
+ex:requirementForCareer a rdf:Property ;
+    rdfs:label "Skill requirement belongs to a career" .
 
 ex:requiresSkill a rdf:Property ;
     rdfs:label "Career requires a skill" .
@@ -249,18 +124,100 @@ ex:teachesSkill a rdf:Property ;
 ex:usesSource a rdf:Property ;
     rdfs:label "Career uses a data source" .
 
-ex:AIEngineer a ex:Career ;
-    ex:careerLevel "Advanced" ;
-    ex:careerName "AI Engineer" ;
-    ex:requiresSkill ex:DataVisualization,
-        ex:MachineLearning,
-        ex:ProblemSolving,
-        ex:Python,
-        ex:Statistics ;
-    ex:sourceNote "AI Engineer is represented using the closest O*NET occupation, Computer and Information Research Scientists, because O*NET does not list AI Engineer as a direct main occupation title." ;
-    ex:sourceOccupationCode "15-1221.00" ;
-    ex:sourceOccupationTitle "Computer and Information Research Scientists" ;
-    ex:usesSource ex:SRC001 .
+ex:AIEngineer_DataVisualization_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:AIEngineer ;
+    ex:requiresSkill ex:DataVisualization .
+
+ex:AIEngineer_MachineLearning_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:AIEngineer ;
+    ex:requiresSkill ex:MachineLearning .
+
+ex:AIEngineer_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:AIEngineer ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:AIEngineer_Python_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:AIEngineer ;
+    ex:requiresSkill ex:Python .
+
+ex:AIEngineer_Statistics_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:AIEngineer ;
+    ex:requiresSkill ex:Statistics .
+
+ex:CybersecurityAnalyst_Cybersecurity_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:CybersecurityAnalyst ;
+    ex:requiresSkill ex:Cybersecurity .
+
+ex:CybersecurityAnalyst_Networking_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:CybersecurityAnalyst ;
+    ex:requiresSkill ex:Networking .
+
+ex:CybersecurityAnalyst_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:CybersecurityAnalyst ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:CybersecurityAnalyst_SQL_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:CybersecurityAnalyst ;
+    ex:requiresSkill ex:SQL .
+
+ex:DataAnalyst_DataVisualization_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:DataAnalyst ;
+    ex:requiresSkill ex:DataVisualization .
+
+ex:DataAnalyst_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:DataAnalyst ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:DataAnalyst_Python_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:DataAnalyst ;
+    ex:requiresSkill ex:Python .
+
+ex:DataAnalyst_SQL_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:DataAnalyst ;
+    ex:requiresSkill ex:SQL .
+
+ex:DataAnalyst_Statistics_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:DataAnalyst ;
+    ex:requiresSkill ex:Statistics .
+
+ex:SoftwareDeveloper_DatabaseManagement_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:SoftwareDeveloper ;
+    ex:requiresSkill ex:DatabaseManagement .
+
+ex:SoftwareDeveloper_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:SoftwareDeveloper ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:SoftwareDeveloper_Python_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:SoftwareDeveloper ;
+    ex:requiresSkill ex:Python .
+
+ex:SoftwareDeveloper_SQL_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:SoftwareDeveloper ;
+    ex:requiresSkill ex:SQL .
+
+ex:SoftwareDeveloper_WebDevelopment_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:SoftwareDeveloper ;
+    ex:requiresSkill ex:WebDevelopment .
 
 ex:Cybersecurity a ex:Skill ;
     ex:alias "cyber security",
@@ -301,10 +258,44 @@ ex:WebDevelopment a ex:Skill ;
     ex:skillCategory "Technical" ;
     ex:skillName "Web Development" .
 
+ex:CybersecurityAnalyst a ex:Career ;
+    ex:careerLevel "Intermediate" ;
+    ex:careerName "Cybersecurity Analyst" ;
+    ex:hasRequirement ex:CybersecurityAnalyst_Cybersecurity_Requirement,
+        ex:CybersecurityAnalyst_Networking_Requirement,
+        ex:CybersecurityAnalyst_ProblemSolving_Requirement,
+        ex:CybersecurityAnalyst_SQL_Requirement ;
+    ex:requiresSkill ex:Cybersecurity,
+        ex:Networking,
+        ex:ProblemSolving,
+        ex:SQL ;
+    ex:sourceNote "Cybersecurity Analyst is represented using the closest O*NET occupation, Information Security Analysts, because O*NET uses official occupation titles rather than every informal job-market title." ;
+    ex:sourceOccupationCode "15-1212.00" ;
+    ex:sourceOccupationTitle "Information Security Analysts" ;
+    ex:usesSource ex:SRC001 .
+
 ex:SRC001 a ex:Source ;
     ex:description "Used as a real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships." ;
     ex:sourceName "O*NET OnLine" ;
     ex:sourceUrl "https://www.onetonline.org/" .
+
+ex:DataAnalyst a ex:Career ;
+    ex:careerLevel "Intermediate" ;
+    ex:careerName "Data Analyst" ;
+    ex:hasRequirement ex:DataAnalyst_DataVisualization_Requirement,
+        ex:DataAnalyst_ProblemSolving_Requirement,
+        ex:DataAnalyst_Python_Requirement,
+        ex:DataAnalyst_SQL_Requirement,
+        ex:DataAnalyst_Statistics_Requirement ;
+    ex:requiresSkill ex:DataVisualization,
+        ex:ProblemSolving,
+        ex:Python,
+        ex:SQL,
+        ex:Statistics ;
+    ex:sourceNote "Data Analyst is represented using O*NET Data Scientists as a close data-related occupation for this prototype because O*NET search maps data analyst-related work to data science and business intelligence roles." ;
+    ex:sourceOccupationCode "15-2051.00" ;
+    ex:sourceOccupationTitle "Data Scientists" ;
+    ex:usesSource ex:SRC001 .
 
 ex:DataVisualization a ex:Skill ;
     ex:alias "dashboard",
@@ -313,6 +304,42 @@ ex:DataVisualization a ex:Skill ;
         "visualization" ;
     ex:skillCategory "Technical" ;
     ex:skillName "Data Visualization" .
+
+ex:SoftwareDeveloper a ex:Career ;
+    ex:careerLevel "Intermediate" ;
+    ex:careerName "Software Developer" ;
+    ex:hasRequirement ex:SoftwareDeveloper_DatabaseManagement_Requirement,
+        ex:SoftwareDeveloper_ProblemSolving_Requirement,
+        ex:SoftwareDeveloper_Python_Requirement,
+        ex:SoftwareDeveloper_SQL_Requirement,
+        ex:SoftwareDeveloper_WebDevelopment_Requirement ;
+    ex:requiresSkill ex:DatabaseManagement,
+        ex:ProblemSolving,
+        ex:Python,
+        ex:SQL,
+        ex:WebDevelopment ;
+    ex:sourceNote "Software Developer is directly mapped to O*NET Software Developers. The selected skills reflect programming, development environment software, database-related tools, web platform development software, and essential problem-solving skills shown in O*NET worker requirements." ;
+    ex:sourceOccupationCode "15-1252.00" ;
+    ex:sourceOccupationTitle "Software Developers" ;
+    ex:usesSource ex:SRC001 .
+
+ex:AIEngineer a ex:Career ;
+    ex:careerLevel "Advanced" ;
+    ex:careerName "AI Engineer" ;
+    ex:hasRequirement ex:AIEngineer_DataVisualization_Requirement,
+        ex:AIEngineer_MachineLearning_Requirement,
+        ex:AIEngineer_ProblemSolving_Requirement,
+        ex:AIEngineer_Python_Requirement,
+        ex:AIEngineer_Statistics_Requirement ;
+    ex:requiresSkill ex:DataVisualization,
+        ex:MachineLearning,
+        ex:ProblemSolving,
+        ex:Python,
+        ex:Statistics ;
+    ex:sourceNote "AI Engineer is represented using the closest O*NET occupation, Computer and Information Research Scientists, because O*NET does not list AI Engineer as a direct main occupation title." ;
+    ex:sourceOccupationCode "15-1221.00" ;
+    ex:sourceOccupationTitle "Computer and Information Research Scientists" ;
+    ex:usesSource ex:SRC001 .
 
 ex:Statistics a ex:Skill ;
     ex:alias "statistic",

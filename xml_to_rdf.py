@@ -89,7 +89,8 @@ def add_rdfs_schema(g):
         "Skill",
         "Career",
         "Course",
-        "Student"
+        "Student",
+        "SkillRequirement"
     ]
 
     for class_name in classes:
@@ -106,7 +107,12 @@ def add_rdfs_schema(g):
         "prerequisiteSkill": "Course has a prerequisite skill",
         "targetsCareer": "Student targets a career",
         "hasSkill": "Student has a skill",
-        "usesSource": "Career uses a data source"
+        "usesSource": "Career uses a data source",
+
+        # These two properties make it easier for SPARQL
+        # to retrieve the priority of each career-skill requirement.
+        "hasRequirement": "Career has a skill requirement record",
+        "requirementForCareer": "Skill requirement belongs to a career"
     }
 
     for property_name, label in object_properties.items():
@@ -259,9 +265,23 @@ def convert_careers(root, g, skill_uri_map, source_uri_map):
                     + "_Requirement"
                 ]
 
+                # This requirement node stores extra information about the
+                # relationship between one career and one required skill.
+                #
+                # Example:
+                # AI Engineer requires Machine Learning with High priority.
                 g.add((requirement_uri, RDF.type, EX.SkillRequirement))
-                g.add((requirement_uri, EX.careerName, Literal(career_name)))
+
+                # Link the career to the requirement node.
+                g.add((career_uri, EX.hasRequirement, requirement_uri))
+
+                # Link the requirement node back to the career.
+                g.add((requirement_uri, EX.requirementForCareer, career_uri))
+
+                # Link the requirement node to the required skill.
                 g.add((requirement_uri, EX.requiresSkill, skill_uri))
+
+                # Store the priority of this required skill for this career.
                 g.add((requirement_uri, EX.priority, Literal(priority)))
 
         career_uri_map[career_id] = career_uri
