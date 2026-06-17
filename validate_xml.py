@@ -30,3 +30,9 @@ def validate_xml(xml_file, xsd_file):
 
 
 validate_xml("career_skill_data.xml", "career_skill_schema.xsd")
+
+# =============================================================================================================================
+# Command for testing: py validate_xml.py
+# - Expected output: XML validation successful. career_skill_data.xml follows the structure defined in career_skill_schema.xsd.
+# - Test in the terminal to confirm that the XML file is valid against the XSD schema.
+# =============================================================================================================================
