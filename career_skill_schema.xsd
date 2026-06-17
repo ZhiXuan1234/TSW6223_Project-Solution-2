@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="https://tsw6223.example.edu/career-skill"
+    xmlns="https://tsw6223.example.edu/career-skill"
+    elementFormDefault="qualified">
+
+    <xs:simpleType name="PriorityType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="High"/>
+            <xs:enumeration value="Medium"/>
+            <xs:enumeration value="Low"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CareerLevelType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Beginner"/>
+            <xs:enumeration value="Intermediate"/>
+            <xs:enumeration value="Advanced"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="SkillCategoryType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Technical"/>
+            <xs:enumeration value="Essential"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="careerSkillSystem">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dataSources" type="DataSourcesType"/>
+                <xs:element name="skills" type="SkillsType"/>
+                <xs:element name="careers" type="CareersType"/>
+                <xs:element name="courses" type="CoursesType"/>
+                <xs:element name="students" type="StudentsType" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:key name="sourceIdKey">
+            <xs:selector xpath="dataSources/source"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+
+        <xs:key name="skillIdKey">
+            <xs:selector xpath="skills/skill"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+
+        <xs:key name="careerIdKey">
+            <xs:selector xpath="careers/career"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+
+        <xs:key name="courseIdKey">
+            <xs:selector xpath="courses/course"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+
+        <xs:keyref name="careerSourceRef" refer="sourceIdKey">
+            <xs:selector xpath="careers/career"/>
+            <xs:field xpath="@sourceRef"/>
+        </xs:keyref>
+
+        <xs:keyref name="careerRequiredSkillRef" refer="skillIdKey">
+            <xs:selector xpath="careers/career/requiredSkills/requiredSkill"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+
+        <xs:keyref name="courseTeachesSkillRef" refer="skillIdKey">
+            <xs:selector xpath="courses/course/teachesSkill"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+
+        <xs:keyref name="coursePrerequisiteSkillRef" refer="skillIdKey">
+            <xs:selector xpath="courses/course/prerequisiteSkill"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+
+        <xs:keyref name="studentTargetCareerRef" refer="careerIdKey">
+            <xs:selector xpath="students/student/targetCareer"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+
+        <xs:keyref name="studentCurrentSkillRef" refer="skillIdKey">
+            <xs:selector xpath="students/student/currentSkills/currentSkill"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:complexType name="DataSourcesType">
+        <xs:sequence>
+            <xs:element name="source" type="SourceType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SourceType">
+        <xs:sequence>
+            <xs:element name="sourceName" type="xs:string"/>
+            <xs:element name="sourceUrl" type="xs:anyURI"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="SkillsType">
+        <xs:sequence>
+            <xs:element name="skill" type="SkillType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SkillType">
+        <xs:sequence>
+            <xs:element name="skillName" type="xs:string"/>
+            <xs:element name="skillCategory" type="SkillCategoryType"/>
+            <xs:element name="aliases" type="AliasesType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="AliasesType">
+        <xs:sequence>
+            <xs:element name="alias" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CareersType">
+        <xs:sequence>
+            <xs:element name="career" type="CareerType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CareerType">
+        <xs:sequence>
+            <xs:element name="careerName" type="xs:string"/>
+            <xs:element name="sourceOccupationTitle" type="xs:string"/>
+            <xs:element name="careerLevel" type="CareerLevelType"/>
+            <xs:element name="sourceNote" type="xs:string"/>
+            <xs:element name="requiredSkills" type="RequiredSkillsType"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+        <xs:attribute name="sourceRef" type="xs:IDREF" use="required"/>
+        <xs:attribute name="sourceOccupationCode" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="RequiredSkillsType">
+        <xs:sequence>
+            <xs:element name="requiredSkill" type="RequiredSkillType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RequiredSkillType">
+        <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+        <xs:attribute name="priority" type="PriorityType" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="CoursesType">
+        <xs:sequence>
+            <xs:element name="course" type="CourseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CourseType">
+        <xs:sequence>
+            <xs:element name="courseName" type="xs:string"/>
+            <xs:element name="teachesSkill" type="SkillReferenceType" maxOccurs="unbounded"/>
+            <xs:element name="prerequisiteSkill" type="SkillReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="SkillReferenceType">
+        <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="StudentsType">
+        <xs:sequence>
+            <xs:element name="student" type="StudentType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="StudentType">
+        <xs:sequence>
+            <xs:element name="studentName" type="xs:string"/>
+            <xs:element name="targetCareer" type="CareerReferenceType"/>
+            <xs:element name="currentSkills" type="CurrentSkillsType"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="CareerReferenceType">
+        <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="CurrentSkillsType">
+        <xs:sequence>
+            <xs:element name="currentSkill" type="SkillReferenceType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

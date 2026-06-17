@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<careerSkillSystem
+    xmlns="https://tsw6223.example.edu/career-skill"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://tsw6223.example.edu/career-skill career_skill_schema.xsd">
+
+    <dataSources>
+        <source id="SRC001">
+            <sourceName>O*NET OnLine</sourceName>
+            <sourceUrl>https://www.onetonline.org/</sourceUrl>
+            <description>Used as a real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships.</description>
+        </source>
+
+        <source id="SRC002">
+            <sourceName>ESCO</sourceName>
+            <sourceUrl>https://esco.ec.europa.eu/</sourceUrl>
+            <description>Used as a real-world reference for the concept of linking occupations, skills, competences, and learning or career pathways.</description>
+        </source>
+    </dataSources>
+
+    <skills>
+        <skill id="SK001">
+            <skillName>Python</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>python</alias>
+                <alias>py</alias>
+                <alias>python programming</alias>
+                <alias>pyhton</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK002">
+            <skillName>SQL</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>sql</alias>
+                <alias>structured query language</alias>
+                <alias>database query</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK003">
+            <skillName>Machine Learning</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>machine learning</alias>
+                <alias>ml</alias>
+                <alias>machien learning</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK004">
+            <skillName>Statistics</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>statistics</alias>
+                <alias>statistic</alias>
+                <alias>stats</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK005">
+            <skillName>Data Visualization</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>data visualization</alias>
+                <alias>data visualisation</alias>
+                <alias>visualization</alias>
+                <alias>dashboard</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK006">
+            <skillName>Problem Solving</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>problem solving</alias>
+                <alias>problem-solving</alias>
+                <alias>analytical thinking</alias>
+                <alias>critical thinking</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK007">
+            <skillName>Web Development</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>web development</alias>
+                <alias>html css javascript</alias>
+                <alias>frontend</alias>
+                <alias>front end</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK008">
+            <skillName>Database Management</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>database management</alias>
+                <alias>database</alias>
+                <alias>dbms</alias>
+                <alias>database systems</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK009">
+            <skillName>Cybersecurity</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>cybersecurity</alias>
+                <alias>cyber security</alias>
+                <alias>security</alias>
+                <alias>information security</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK010">
+            <skillName>Networking</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>networking</alias>
+                <alias>computer network</alias>
+                <alias>network</alias>
+                <alias>computer networking</alias>
+            </aliases>
+        </skill>
+    </skills>
+
+    <careers>
+        <career id="C001" sourceRef="SRC001" sourceOccupationCode="15-2051.00">
+            <careerName>Data Analyst</careerName>
+            <sourceOccupationTitle>Data Scientists</sourceOccupationTitle>
+            <careerLevel>Intermediate</careerLevel>
+            <sourceNote>Data Analyst is represented using O*NET Data Scientists as a close data-related occupation for this prototype because O*NET search maps data analyst-related work to data science and business intelligence roles.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK001" priority="High"/>
+                <requiredSkill ref="SK002" priority="High"/>
+                <requiredSkill ref="SK004" priority="High"/>
+                <requiredSkill ref="SK005" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
+
+        <career id="C002" sourceRef="SRC001" sourceOccupationCode="15-1252.00">
+            <careerName>Software Developer</careerName>
+            <sourceOccupationTitle>Software Developers</sourceOccupationTitle>
+            <careerLevel>Intermediate</careerLevel>
+            <sourceNote>Software Developer is directly mapped to O*NET Software Developers. The selected skills reflect programming, development environment software, database-related tools, web platform development software, and essential problem-solving skills shown in O*NET worker requirements.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK001" priority="High"/>
+                <requiredSkill ref="SK007" priority="High"/>
+                <requiredSkill ref="SK008" priority="Medium"/>
+                <requiredSkill ref="SK002" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
+
+        <career id="C003" sourceRef="SRC001" sourceOccupationCode="15-1212.00">
+            <careerName>Cybersecurity Analyst</careerName>
+            <sourceOccupationTitle>Information Security Analysts</sourceOccupationTitle>
+            <careerLevel>Intermediate</careerLevel>
+            <sourceNote>Cybersecurity Analyst is represented using the closest O*NET occupation, Information Security Analysts, because O*NET uses official occupation titles rather than every informal job-market title.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK009" priority="High"/>
+                <requiredSkill ref="SK010" priority="High"/>
+                <requiredSkill ref="SK002" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
+
+        <career id="C004" sourceRef="SRC001" sourceOccupationCode="15-1221.00">
+            <careerName>AI Engineer</careerName>
+            <sourceOccupationTitle>Computer and Information Research Scientists</sourceOccupationTitle>
+            <careerLevel>Advanced</careerLevel>
+            <sourceNote>AI Engineer is represented using the closest O*NET occupation, Computer and Information Research Scientists, because O*NET does not list AI Engineer as a direct main occupation title.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK001" priority="High"/>
+                <requiredSkill ref="SK003" priority="High"/>
+                <requiredSkill ref="SK004" priority="High"/>
+                <requiredSkill ref="SK005" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
+    </careers>
+
+    <courses>
+        <course id="CRS001">
+            <courseName>Python Programming</courseName>
+            <teachesSkill ref="SK001"/>
+        </course>
+
+        <course id="CRS002">
+            <courseName>Database Systems</courseName>
+            <teachesSkill ref="SK002"/>
+            <teachesSkill ref="SK008"/>
+        </course>
+
+        <course id="CRS003">
+            <courseName>Statistics for Data Analytics</courseName>
+            <teachesSkill ref="SK004"/>
+        </course>
+
+        <course id="CRS004">
+            <courseName>Data Visualization Fundamentals</courseName>
+            <teachesSkill ref="SK005"/>
+            <prerequisiteSkill ref="SK004"/>
+        </course>
+
+        <course id="CRS005">
+            <courseName>Machine Learning Fundamentals</courseName>
+            <teachesSkill ref="SK003"/>
+            <prerequisiteSkill ref="SK004"/>
+            <prerequisiteSkill ref="SK001"/>
+        </course>
+
+        <course id="CRS006">
+            <courseName>Web Application Development</courseName>
+            <teachesSkill ref="SK007"/>
+            <prerequisiteSkill ref="SK001"/>
+        </course>
+
+        <course id="CRS007">
+            <courseName>Network Security</courseName>
+            <teachesSkill ref="SK009"/>
+            <teachesSkill ref="SK010"/>
+        </course>
+
+        <course id="CRS008">
+            <courseName>Problem Solving for Computing</courseName>
+            <teachesSkill ref="SK006"/>
+        </course>
+    </courses>
+
+    <students>
+        <student id="S001">
+            <studentName>Sample Student</studentName>
+            <targetCareer ref="C004"/>
+            <currentSkills>
+                <currentSkill ref="SK001"/>
+                <currentSkill ref="SK002"/>
+            </currentSkills>
+        </student>
+    </students>
+
+</careerSkillSystem>
