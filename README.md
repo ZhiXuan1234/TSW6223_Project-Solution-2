@@ -2,11 +2,17 @@
 
 ## 1. Solution Overview
 
-Solution 2 focuses on the education domain, specifically the subdomain of Career Path / Skill Gap Analysis. The purpose of this solution is to help students understand how close their current skills are to a selected career path and what skills they still need to learn.
+Solution 2 focuses on the education domain, specifically the subdomain of **Career Path / Skill Gap Analysis**. The purpose of this solution is to help students understand how close their current skills are to a selected career path and what skills they still need to learn.
 
-The system is designed as a semantic web-based prototype that uses XML as the structured data layer, XSD as the validation layer, RDF/RDFS as the semantic representation layer, SPARQL as the query layer, and Python as the implementation language.
+The system is implemented as a semantic web-based prototype using:
 
-The main idea is that a student can enter their current skills and select a target career. The system then compares the student's skills with the required skills of that career and produces a skill gap analysis. The output includes matched skills, missing skills, missing skill priority, career readiness score, recommended courses, and alternative career suggestions.
+- **XML** as the structured data layer
+- **XSD** as the XML validation layer
+- **RDF/RDFS** as the semantic representation layer
+- **SPARQL** as the semantic query layer
+- **Python** as the implementation language and terminal interface
+
+A student selects a target career and enters their current skills. The system then analyses the student's skills against the required skills of the selected career. The output includes matched skills, missing skills, missing skill priority, career readiness score, recommended courses, prerequisite skills, and alternative career suggestions.
 
 ## 2. Problem Addressed
 
@@ -14,9 +20,9 @@ Students often struggle to choose suitable courses and career paths because they
 
 This solution addresses the problem by structuring career, skill, and course data in a machine-readable format and using semantic web technologies to represent and query the relationships between them.
 
-## 3. Planned System Architecture
+## 3. Implemented System Architecture
 
-The planned architecture for Solution 2 is:
+The implemented architecture for Solution 2 is:
 
 ```text
 Real-world occupation and skill reference
@@ -26,27 +32,41 @@ Selected prototype dataset
 career_skill_data.xml
         ↓ validated by
 career_skill_schema.xsd
-        ↓ parsed by Python
+        ↓ processed by Python
 XML validation + input normalisation
         ↓
 Convert XML to RDF/RDFS triples
         ↓
-SPARQL query
+career_skill_graph.ttl
         ↓
-Terminal-based user interface output
+SPARQL queries over RDF graph
+        ↓
+Terminal-based skill gap analysis output
 ```
 
-The system will be built in stages:
+The final application flow is:
 
-1. Prepare the XML dataset.
-2. Prepare the XSD schema for XML validation.
-3. Validate the XML file using Python.
-4. Parse the XML data using Python.
-5. Normalise user skill input, including alias matching and typo handling.
-6. Convert XML data into RDF/RDFS triples.
-7. Use SPARQL queries to retrieve career, skill, and course relationships.
-8. Display the skill gap analysis through a terminal-based user interface.
-9. Conduct functional testing and document the results.
+```text
+py main.py
+   ↓
+Validate XML using XSD
+   ↓
+Generate or update RDF/RDFS Turtle file
+   ↓
+Run SPARQL test queries
+   ↓
+Launch SPARQL-powered skill gap analyzer
+   ↓
+User selects target career
+   ↓
+User enters current skills
+   ↓
+System normalises input using aliases and typo handling
+   ↓
+System retrieves required skills and courses using SPARQL
+   ↓
+System displays skill gap analysis result
+```
 
 ## 4. Semantic Web Technologies Used
 
@@ -54,64 +74,140 @@ The system will be built in stages:
 
 XML is used as the main structured data format. It stores data about sources, skills, careers, courses, and sample student profiles. XML is suitable because it allows the data to be organised in a clear hierarchical structure before being transformed into semantic triples.
 
+The XML file used in this solution is:
+
+```text
+career_skill_data.xml
+```
+
 ### 4.2 XSD
 
-XSD is used to validate the XML file. It ensures that the XML follows the correct structure and that important values are controlled. For example, the XSD checks that skill priority can only be `High`, `Medium`, or `Low`, and that career level can only be `Beginner`, `Intermediate`, or `Advanced`.
+XSD is used to validate the XML file. It ensures that the XML follows the correct structure and that important values are controlled.
 
-The XSD also validates references between elements. For example, when a career requires skill `SK001`, the schema ensures that `SK001` exists in the skills section.
+For example, the XSD checks that:
+
+- skill priority can only be `High`, `Medium`, or `Low`
+- career level can only be `Beginner`, `Intermediate`, or `Advanced`
+- skill category can only be `Technical` or `Essential`
+- referenced skills, careers, and sources must exist in the XML file
+
+The XSD file used in this solution is:
+
+```text
+career_skill_schema.xsd
+```
 
 ### 4.3 RDF/RDFS
 
-RDF/RDFS will be used after the XML data is parsed. The XML data will be converted into RDF triples so that relationships such as the following can be represented semantically:
+RDF/RDFS is used to convert the validated XML data into semantic triples. The generated RDF graph represents meaningful relationships such as:
 
 ```text
 AI Engineer requiresSkill Machine Learning
-Machine Learning isTaughtBy Machine Learning Fundamentals
-Student hasSkill Python
+Machine Learning Fundamentals teachesSkill Machine Learning
+Sample Student hasSkill Python
+Software Developer usesSource O*NET OnLine
 ```
 
-RDFS will be used to define the classes and properties, such as `Student`, `Career`, `Skill`, `Course`, `hasSkill`, `requiresSkill`, and `teachesSkill`.
+RDFS is used to define semantic classes and properties, including:
+
+```text
+Classes:
+- Source
+- Skill
+- Career
+- Course
+- Student
+- SkillRequirement
+
+Properties:
+- requiresSkill
+- teachesSkill
+- prerequisiteSkill
+- targetsCareer
+- hasSkill
+- usesSource
+- hasRequirement
+- requirementForCareer
+```
+
+The generated RDF/RDFS Turtle file is:
+
+```text
+career_skill_graph.ttl
+```
+
+This file can be regenerated by running:
+
+```bash
+py xml_to_rdf.py
+```
+
+or by running the full application:
+
+```bash
+py main.py
+```
 
 ### 4.4 SPARQL
 
-SPARQL will be used to query the RDF graph. Example query purposes include:
+SPARQL is used to query the RDF graph. In the current implementation, SPARQL is used in the final application logic, not only for testing.
 
-- Retrieve all skills required by a selected career.
-- Retrieve all courses that teach missing skills.
-- Retrieve prerequisite skills for recommended courses.
-- Compare skill requirements across different careers.
-- Support alternative career suggestions based on skill match percentage.
+SPARQL is used to retrieve:
+
+- available career options
+- required skills for the selected career
+- skill priority and skill category
+- courses that teach missing skills
+- prerequisite skills for recommended courses
+- alternative career suggestions based on skill match percentage
+
+This strengthens the solution because the final skill gap analysis retrieves semantic relationships from the RDF graph instead of relying only on Python dictionaries.
 
 ### 4.5 Python
 
-Python is used to implement the system logic. Python will handle XML parsing, XML validation, skill input normalisation, RDF generation, SPARQL queries, skill gap calculation, and terminal-based output.
+Python is used to implement the application logic and terminal interface. Python handles:
+
+- XML validation using XSD
+- XML parsing
+- XML-to-RDF/RDFS conversion
+- SPARQL query execution using RDFLib
+- user input normalisation
+- alias matching and fuzzy typo correction
+- readiness score calculation
+- terminal-based result display
 
 ## 5. Dataset Preparation and Source Usage
 
-The dataset is prepared as a small prototype dataset based on selected real-world occupation information from O*NET OnLine. O*NET is used because it provides occupation profiles, worker requirements, software skills, essential skills, and occupation-related information.
+The dataset is prepared as a small prototype dataset based on selected real-world occupation information from **O*NET OnLine**. O*NET is used because it provides occupation profiles, worker requirements, software skills, essential skills, and occupation-related information.
 
-The system does not directly scrape or fetch live data from O*NET during runtime. Instead, a small selected chunk of relevant occupation information is manually reviewed and transformed into XML. This makes the prototype more stable for development, testing, and demonstration.
+The system does **not** directly scrape or fetch live data from O*NET during runtime. Instead, a small selected chunk of relevant occupation information was manually reviewed and transformed into XML. This makes the prototype more stable for development, testing, and demonstration.
 
 The dataset currently uses one source:
 
-| Source ID | Source Name  | Source URL                  | Usage                                                           |
-|-----------|--------------|-----------------------------|-----------------------------------------------------------------|
-| SRC001    | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
+| Source ID | Source Name | Source URL | Usage |
+|---|---|---|---|
+| SRC001 | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
 
 ## 6. Career Mapping Used in the Dataset
 
 Some modern job titles are not always available as exact O*NET occupation titles. Therefore, the project career names are mapped to the closest available O*NET occupation profiles.
 
-| Project Career Name   | O*NET Occupation Title Used                  | O*NET Code | Reason for Mapping                                     |
-|-----------------------|----------------------------------------------|------------|--------------------------------------------------------|
-| Data Analyst          | Data Scientists                              | 15-2051.00 | Used as a close data-related occupation because O*NET search maps data analyst-related work to data science and business intelligence roles. |
-| Software Developer    | Software Developers                          | 15-1252.00 | Direct match with O*NET occupation title. |
-| Cybersecurity Analyst | Information Security Analysts                | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work. |
-| AI Engineer           | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title. |
+| Project Career Name | O*NET Occupation Title Used | O*NET Code | Reason for Mapping |
+|---|---|---|---|
+| Data Analyst | Data Scientists | 15-2051.00 | Used as a close data-related occupation because O*NET search maps data analyst-related work to data science and business intelligence roles. |
+| Software Developer | Software Developers | 15-1252.00 | Direct match with O*NET occupation title. |
+| Cybersecurity Analyst | Information Security Analysts | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work. |
+| AI Engineer | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title. |
 
-This mapping is stored directly in the XML using fields such as `sourceOccupationCode`, `sourceOccupationTitle`, and `sourceNote`.
+This mapping is stored directly in the XML using fields such as:
 
-## 7. Current XML Dataset Design
+```text
+sourceOccupationCode
+sourceOccupationTitle
+sourceNote
+```
+
+## 7. XML Dataset Design
 
 The XML file is named:
 
@@ -119,7 +215,7 @@ The XML file is named:
 career_skill_data.xml
 ```
 
-It contains the following main sections:
+It contains the following main sections.
 
 ### 7.1 dataSources
 
@@ -127,11 +223,21 @@ Stores information about the source used to prepare the prototype dataset.
 
 ### 7.2 skills
 
-Stores the standard skill names, skill categories, and aliases. Aliases are included to support user input normalisation. For example, `py`, `python programming`, and `pyhton` can be mapped to the standard skill name `Python`.
+Stores standard skill names, skill categories, and aliases. Aliases are included to support user input normalisation.
+
+Example:
+
+```text
+py → Python
+python programming → Python
+pyhton → Python
+ml → Machine Learning
+machien learning → Machine Learning
+```
 
 ### 7.3 careers
 
-Stores the project career paths, their mapped O*NET occupation titles and codes, career level, source note, and required skills. Each required skill uses a skill ID reference and priority level.
+Stores the project career paths, mapped O*NET occupation titles and codes, career level, source note, and required skills. Each required skill uses a skill ID reference and priority level.
 
 ### 7.4 courses
 
@@ -139,13 +245,13 @@ Stores recommended courses and the skills they teach. Some courses also include 
 
 ### 7.5 students
 
-Stores a sample student profile for testing. This section can be used to test whether the system can compare a student's current skills with the selected target career.
+Stores a sample student profile for testing. The final application also allows users to enter their own skills through the terminal.
 
-## 8. Input Handling Plan
+## 8. Input Handling Design
 
-The system will include an input pre-processing layer to reduce matching problems caused by strict semantic resource names.
+The system includes an input pre-processing layer to reduce matching problems caused by strict semantic resource names.
 
-The planned input handling flow is:
+The input handling flow is:
 
 ```text
 Input Layer:
@@ -155,12 +261,12 @@ Pre-processing Layer:
 - Convert input to lowercase
 - Remove extra spaces
 - Match aliases, e.g. "ml" → "Machine Learning"
-- Use fuzzy matching for typos, e.g. "pyhton" → "Python"
-- Ask user to confirm correction
+- Use fuzzy matching for typos, e.g. "pythn" → "Python"
+- Ask user to confirm fuzzy correction
 
 Semantic Layer:
-- Convert confirmed skills to RDF resource names
-- Run SPARQL queries using standardised skill names
+- Use confirmed standardised skill names
+- Retrieve career and course data from RDF graph using SPARQL
 
 Output Layer:
 - Show matched skills
@@ -170,89 +276,178 @@ Output Layer:
 - Show alternative careers
 ```
 
-This design is important because SPARQL and RDF resource matching are strict. The input normalisation layer helps ensure that casual user input can still be matched to standardised skill names.
+This design is important because RDF and SPARQL matching are strict. The input normalisation layer helps ensure that casual user input can still be matched to standardised skill names.
 
-## 9. Expected System Output
+## 9. How to Run the Application
+
+### 9.1 Requirements
+
+Install Python 3 first. Then install the required Python libraries:
+
+```bash
+py -m pip install lxml rdflib
+```
+
+### 9.2 Run the Full Application
+
+Run the final application from the main project folder:
+
+```bash
+py main.py
+```
+
+The application will automatically:
+
+```text
+1. Validate career_skill_data.xml using career_skill_schema.xsd
+2. Generate or update career_skill_graph.ttl
+3. Run SPARQL test queries
+4. Launch the SPARQL-powered skill gap analyzer
+```
+
+### 9.3 Example Input
+
+```text
+Select your target career number: 4
+Your skills: python
+```
+
+or:
+
+```text
+Select your target career number: 1
+Your skills: pyhton, sql, ml
+```
+
+### 9.4 Run Individual Development or Testing Files
+
+The main app should be run using:
+
+```bash
+py main.py
+```
+
+For development evidence or debugging, individual files can also be run.
+
+Generate or update the RDF/RDFS Turtle file:
+
+```bash
+py xml_to_rdf.py
+```
+
+Run the standalone skill gap analyzer:
+
+```bash
+py skill_gap_analysis.py
+```
+
+Run XML validation test:
+
+```bash
+py testing/validate_xml.py
+```
+
+Run XML parsing test:
+
+```bash
+py testing/parse_xml.py
+```
+
+Run skill input normalisation test:
+
+```bash
+py testing/skill_normalizer.py
+```
+
+Important: run the testing commands from the main project folder, not from inside the `testing` folder.
+
+## 10. Example System Output
 
 A sample terminal output may look like this:
 
 ```text
+===== Available Careers Retrieved Using SPARQL =====
+1. AI Engineer
+2. Cybersecurity Analyst
+3. Data Analyst
+4. Software Developer
+
+Select your target career number: 4
+
+Enter your current skills separated by comma.
+Example: pyhton, sql, ml
+Your skills: python
+
+===== Input Validation =====
+- "python" matched to "Python"
+
 ===== Semantic Career Path / Skill Gap Analyzer =====
 
-Available Careers:
-1. Data Analyst
-2. Software Developer
-3. Cybersecurity Analyst
-4. AI Engineer
+Target Career: Software Developer
+O*NET Source Title: Software Developers
+O*NET Code: 15-1252.00
+Career Level: Intermediate
 
-Select your target career: AI Engineer
+Confirmed Current Skills:
+- Python
 
-Enter your current skills:
-pyhton, sql, ml
-
-Input Validation:
-- "pyhton" was corrected to "Python"
-- "sql" matched to "SQL"
-- "ml" matched to "Machine Learning"
-
-Target Career: AI Engineer
+Required Skills Retrieved Using SPARQL:
+- Python (High, Technical)
+- Web Development (High, Technical)
+- Database Management (Medium, Technical)
+- Problem Solving (Medium, Essential)
+- SQL (Medium, Technical)
 
 Matched Skills:
 - Python
-- Machine Learning
 
 Missing Skills by Priority:
+
 [HIGH]
-- Statistics
+- Web Development (Technical)
 
 [MEDIUM]
-- Data Visualization
-- Problem Solving
+- Database Management (Technical)
+- Problem Solving (Essential)
+- SQL (Technical)
 
-Career Readiness Score: 40%
+Career Readiness Score: 20%
 
-Recommended Learning Path:
-1. Statistics for Data Analytics
-2. Data Visualization Fundamentals
-3. Problem Solving for Computing
+Recommended Learning Path Retrieved Using SPARQL:
+1. Database Systems
+   Reason: This course teaches missing skill(s): Database Management, SQL.
+   Prerequisite skill(s): None.
+2. Problem Solving for Computing
+   Reason: This course teaches missing skill(s): Problem Solving.
+   Prerequisite skill(s): None.
+3. Web Application Development
+   Reason: This course teaches missing skill(s): Web Development.
+   Prerequisite skill(s): Python.
 
-Alternative Career Suggestions:
-1. Software Developer - 60% match
-2. Data Analyst - 40% match
-3. Cybersecurity Analyst - 25% match
+Alternative Career Suggestions Retrieved Using SPARQL:
+1. AI Engineer - 20% match
+2. Data Analyst - 20% match
+3. Cybersecurity Analyst - 0% match
 ```
 
-## 10. Planned Functional Testing
+## 11. Functional Testing
 
-Planned test cases include:
+Recommended test cases include:
 
-| Test Case ID |                Test Description             |                    Expected Result                |
-|--------------|---------------------------------------------|---------------------------------------------------|
-| S2-TC01      | Validate correct XML against XSD            | XML validation successful                         |
-| S2-TC02      | Enter invalid priority value in XML         | XSD validation fails                              |
-| S2-TC03      | Enter skill alias such as `ml`              | System maps it to `Machine Learning`              |
-| S2-TC04      | Enter typo such as `pyhton`                 | System suggests or corrects to `Python`           |
-| S2-TC05      | Select AI Engineer with Python and SQL only | System shows matched and missing skills correctly |
-| S2-TC06      | Missing skill has related course            | System recommends the correct course              |
-| S2-TC07      | Student already has all required skills     | Career readiness score becomes 100%               |
-| S2-TC08      | Unknown skill entered                       | System asks user to confirm or ignore the skill   |
-
-## 11. Future Improvements
-
-Possible future improvements include:
-
-- Integrating live data from O*NET or other career-skill APIs.
-- Expanding the number of careers, skills, and courses.
-- Aligning the system with ESCO for broader occupation-skill interoperability.
-- Adding OWL inference to infer related or equivalent skills.
-- Building a web-based user interface.
-- Adding student login and saved skill profiles.
-- Connecting Solution 2 with Solution 1 course recommendation.
-- Using real university course data and programme structures.
+| Test Case ID | Test Description | Expected Result |
+|---|---|---|
+| S2-TC01 | Validate correct XML against XSD | XML validation successful |
+| S2-TC02 | Enter invalid priority value in XML | XSD validation fails |
+| S2-TC03 | Enter skill alias such as `ml` | System maps it to `Machine Learning` |
+| S2-TC04 | Enter typo such as `pyhton` or `pythn` | System maps or suggests correction to `Python` |
+| S2-TC05 | Select Software Developer with Python only | System shows Python as matched and other required skills as missing |
+| S2-TC06 | Missing skill has related course | System recommends the correct course using SPARQL |
+| S2-TC07 | Student already has all required skills | Career readiness score becomes 100% |
+| S2-TC08 | Unknown skill entered | System marks it as unknown or asks user to confirm correction |
+| S2-TC09 | Run `py main.py` | XML validation, RDF generation, SPARQL test, and skill gap analyzer run successfully |
+| S2-TC10 | Delete or rename `career_skill_graph.ttl`, then run `py main.py` | TTL file is regenerated automatically |
 
 ## 12. Files in This Solution
-
-The planned files are:
 
 ```text
 TSW6223_Project-Solution-2/
@@ -271,6 +466,58 @@ TSW6223_Project-Solution-2/
     └── skill_normalizer.py
 ```
 
-## 13. Summary
+### 12.1 Main Files
 
-Solution 2 is a semantic web-based Career Path / Skill Gap Analysis prototype. It uses a small O*NET-based dataset prepared in XML format and validated with XSD. The validated XML data will be parsed by Python and converted into RDF/RDFS triples. SPARQL will then be used to query the semantic relationships between careers, skills, and courses. The final result will be displayed through a terminal-based interface that provides students with matched skills, missing skills, readiness scores, recommended courses, and alternative career paths.
+| File | Purpose |
+|---|---|
+| `career_skill_data.xml` | Stores the structured career, skill, course, source, and student data. |
+| `career_skill_schema.xsd` | Validates the XML structure, controlled values, and ID references. |
+| `career_skill_graph.ttl` | Generated RDF/RDFS Turtle graph created from the XML data. |
+| `xml_to_rdf.py` | Converts XML data into RDF/RDFS triples and runs SPARQL test queries. |
+| `skill_gap_analysis.py` | Runs the SPARQL-powered skill gap analyzer. |
+| `main.py` | Main launcher that validates XML, regenerates RDF/RDFS, runs SPARQL tests, and starts the analyzer. |
+| `README.md` | Project explanation and running instructions. |
+
+### 12.2 Testing Files
+
+| File | Purpose |
+|---|---|
+| `testing/validate_xml.py` | Tests XML validation against XSD. |
+| `testing/parse_xml.py` | Tests whether Python can correctly read and extract XML data. |
+| `testing/skill_normalizer.py` | Tests alias matching and typo handling for user-entered skills. |
+
+## 13. Novelty of the Solution
+
+The novelty of Solution 2 is that it does not only list missing skills. It provides a semantic and explainable skill gap analysis by combining XML, XSD, RDF/RDFS, SPARQL, and Python.
+
+The system includes:
+
+- source-tracked career data based on O*NET occupation profiles
+- XML validation using XSD
+- RDF/RDFS semantic representation
+- SPARQL-powered retrieval of careers, skills, courses, and alternatives
+- skill alias matching and typo handling
+- missing skill priority ranking
+- career readiness score
+- course recommendation with reasons
+- prerequisite skill display
+- alternative career suggestions based on skill match percentage
+
+## 14. Future Improvements
+
+Possible future improvements include:
+
+- Integrating live data from O*NET or other career-skill APIs.
+- Expanding the number of careers, skills, and courses.
+- Aligning the system with ESCO for broader occupation-skill interoperability.
+- Adding OWL inference to infer related or equivalent skills.
+- Building a web-based user interface.
+- Adding student login and saved skill profiles.
+- Connecting Solution 2 with Solution 1 course recommendation.
+- Using real university course data and programme structures.
+
+## 15. Summary
+
+Solution 2 is a semantic web-based Career Path / Skill Gap Analysis prototype. It uses a small O*NET-based dataset prepared in XML format and validated with XSD. The validated XML data is converted into RDF/RDFS triples and saved as a Turtle file. SPARQL is then used in the final application to query semantic relationships between careers, skills, and courses.
+
+The final result is displayed through a terminal-based interface that provides students with matched skills, missing skills, readiness scores, recommended learning paths, prerequisite skills, and alternative career suggestions.
