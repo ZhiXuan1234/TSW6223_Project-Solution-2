@@ -11,12 +11,6 @@
             <sourceUrl>https://www.onetonline.org/</sourceUrl>
             <description>Used as a real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships.</description>
         </source>
-
-        <source id="SRC002">
-            <sourceName>ESCO</sourceName>
-            <sourceUrl>https://esco.ec.europa.eu/</sourceUrl>
-            <description>Used as a real-world reference for the concept of linking occupations, skills, competences, and learning or career pathways.</description>
-        </source>
     </dataSources>
 
     <skills>
