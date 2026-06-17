@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 
+XSD answers questions like:
+===========================
+- Must every skill have an ID?
+- Can priority be "Very Important"?
+- Can a career refer to a skill that does not exist?
+- Can careerLevel be "Expert"?
+- Must every course teach at least one skill?
+-->
+
+
 <xs:schema
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     targetNamespace="https://tsw6223.example.edu/career-skill"
@@ -31,7 +42,9 @@
 
     <xs:element name="careerSkillSystem">
         <xs:complexType>
+        <!-- This part shows the root element must contain elements in this exact order:-->
             <xs:sequence>
+                <!-- The order of these elements is significant -->
                 <xs:element name="dataSources" type="DataSourcesType"/>
                 <xs:element name="skills" type="SkillsType"/>
                 <xs:element name="careers" type="CareersType"/>
@@ -40,52 +53,63 @@
             </xs:sequence>
         </xs:complexType>
 
+        <!-- The following keys and keyrefs enforce referential integrity -->
         <xs:key name="sourceIdKey">
+            <!-- Every source inside dataSources/source must have a unique id -->
             <xs:selector xpath="dataSources/source"/>
             <xs:field xpath="@id"/>
         </xs:key>
 
         <xs:key name="skillIdKey">
+            <!-- Every skill inside skills/skill must have a unique id -->
             <xs:selector xpath="skills/skill"/>
             <xs:field xpath="@id"/>
         </xs:key>
 
         <xs:key name="careerIdKey">
+            <!-- Every career inside careers/career must have a unique id -->
             <xs:selector xpath="careers/career"/>
             <xs:field xpath="@id"/>
         </xs:key>
 
         <xs:key name="courseIdKey">
+            <!-- Every course inside courses/course must have a unique id -->
             <xs:selector xpath="courses/course"/>
             <xs:field xpath="@id"/>
         </xs:key>
 
         <xs:keyref name="careerSourceRef" refer="sourceIdKey">
+            <!-- Every career's sourceRef must refer to an existing source id -->
             <xs:selector xpath="careers/career"/>
             <xs:field xpath="@sourceRef"/>
         </xs:keyref>
 
         <xs:keyref name="careerRequiredSkillRef" refer="skillIdKey">
+            <!-- Every career's requiredSkill refs must refer to existing skill ids -->
             <xs:selector xpath="careers/career/requiredSkills/requiredSkill"/>
             <xs:field xpath="@ref"/>
         </xs:keyref>
 
         <xs:keyref name="courseTeachesSkillRef" refer="skillIdKey">
+            <!-- Every course's teachesSkill ref must refer to an existing skill id -->
             <xs:selector xpath="courses/course/teachesSkill"/>
             <xs:field xpath="@ref"/>
         </xs:keyref>
 
         <xs:keyref name="coursePrerequisiteSkillRef" refer="skillIdKey">
+            <!-- Every course's prerequisiteSkill ref must refer to an existing skill id -->
             <xs:selector xpath="courses/course/prerequisiteSkill"/>
             <xs:field xpath="@ref"/>
         </xs:keyref>
 
         <xs:keyref name="studentTargetCareerRef" refer="careerIdKey">
+            <!-- Every student's targetCareer ref must refer to an existing career id -->
             <xs:selector xpath="students/student/targetCareer"/>
             <xs:field xpath="@ref"/>
         </xs:keyref>
 
         <xs:keyref name="studentCurrentSkillRef" refer="skillIdKey">
+            <!-- Every student's currentSkill refs must refer to existing skill ids -->
             <xs:selector xpath="students/student/currentSkills/currentSkill"/>
             <xs:field xpath="@ref"/>
         </xs:keyref>
@@ -93,6 +117,9 @@
 
     <xs:complexType name="DataSourcesType">
         <xs:sequence>
+            <!-- dataSources contains one or more source elements -->
+            <!-- unbounded means there can be any number of source elements -->
+            <!-- No minOccurs is given, so the default is minOccurs = 1 -->
             <xs:element name="source" type="SourceType" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
