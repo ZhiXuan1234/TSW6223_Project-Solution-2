@@ -1,0 +1,346 @@
+@prefix ex: <http://example.org/career-skill#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Career a rdfs:Class .
+
+ex:Course a rdfs:Class .
+
+ex:Skill a rdfs:Class .
+
+ex:Source a rdfs:Class .
+
+ex:Student a rdfs:Class .
+
+ex:AIEngineer_DataVisualization_Requirement a ex:SkillRequirement ;
+    ex:careerName "AI Engineer" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:DataVisualization .
+
+ex:AIEngineer_MachineLearning_Requirement a ex:SkillRequirement ;
+    ex:careerName "AI Engineer" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:MachineLearning .
+
+ex:AIEngineer_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:careerName "AI Engineer" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:AIEngineer_Python_Requirement a ex:SkillRequirement ;
+    ex:careerName "AI Engineer" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:Python .
+
+ex:AIEngineer_Statistics_Requirement a ex:SkillRequirement ;
+    ex:careerName "AI Engineer" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:Statistics .
+
+ex:CybersecurityAnalyst a ex:Career ;
+    ex:careerLevel "Intermediate" ;
+    ex:careerName "Cybersecurity Analyst" ;
+    ex:requiresSkill ex:Cybersecurity,
+        ex:Networking,
+        ex:ProblemSolving,
+        ex:SQL ;
+    ex:sourceNote "Cybersecurity Analyst is represented using the closest O*NET occupation, Information Security Analysts, because O*NET uses official occupation titles rather than every informal job-market title." ;
+    ex:sourceOccupationCode "15-1212.00" ;
+    ex:sourceOccupationTitle "Information Security Analysts" ;
+    ex:usesSource ex:SRC001 .
+
+ex:CybersecurityAnalyst_Cybersecurity_Requirement a ex:SkillRequirement ;
+    ex:careerName "Cybersecurity Analyst" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:Cybersecurity .
+
+ex:CybersecurityAnalyst_Networking_Requirement a ex:SkillRequirement ;
+    ex:careerName "Cybersecurity Analyst" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:Networking .
+
+ex:CybersecurityAnalyst_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:careerName "Cybersecurity Analyst" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:CybersecurityAnalyst_SQL_Requirement a ex:SkillRequirement ;
+    ex:careerName "Cybersecurity Analyst" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:SQL .
+
+ex:DataAnalyst a ex:Career ;
+    ex:careerLevel "Intermediate" ;
+    ex:careerName "Data Analyst" ;
+    ex:requiresSkill ex:DataVisualization,
+        ex:ProblemSolving,
+        ex:Python,
+        ex:SQL,
+        ex:Statistics ;
+    ex:sourceNote "Data Analyst is represented using O*NET Data Scientists as a close data-related occupation for this prototype because O*NET search maps data analyst-related work to data science and business intelligence roles." ;
+    ex:sourceOccupationCode "15-2051.00" ;
+    ex:sourceOccupationTitle "Data Scientists" ;
+    ex:usesSource ex:SRC001 .
+
+ex:DataAnalyst_DataVisualization_Requirement a ex:SkillRequirement ;
+    ex:careerName "Data Analyst" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:DataVisualization .
+
+ex:DataAnalyst_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:careerName "Data Analyst" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:DataAnalyst_Python_Requirement a ex:SkillRequirement ;
+    ex:careerName "Data Analyst" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:Python .
+
+ex:DataAnalyst_SQL_Requirement a ex:SkillRequirement ;
+    ex:careerName "Data Analyst" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:SQL .
+
+ex:DataAnalyst_Statistics_Requirement a ex:SkillRequirement ;
+    ex:careerName "Data Analyst" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:Statistics .
+
+ex:DataVisualizationFundamentals a ex:Course ;
+    ex:courseName "Data Visualization Fundamentals" ;
+    ex:prerequisiteSkill ex:Statistics ;
+    ex:teachesSkill ex:DataVisualization .
+
+ex:DatabaseSystems a ex:Course ;
+    ex:courseName "Database Systems" ;
+    ex:teachesSkill ex:DatabaseManagement,
+        ex:SQL .
+
+ex:MachineLearningFundamentals a ex:Course ;
+    ex:courseName "Machine Learning Fundamentals" ;
+    ex:prerequisiteSkill ex:Python,
+        ex:Statistics ;
+    ex:teachesSkill ex:MachineLearning .
+
+ex:NetworkSecurity a ex:Course ;
+    ex:courseName "Network Security" ;
+    ex:teachesSkill ex:Cybersecurity,
+        ex:Networking .
+
+ex:ProblemSolvingforComputing a ex:Course ;
+    ex:courseName "Problem Solving for Computing" ;
+    ex:teachesSkill ex:ProblemSolving .
+
+ex:PythonProgramming a ex:Course ;
+    ex:courseName "Python Programming" ;
+    ex:teachesSkill ex:Python .
+
+ex:S001 a ex:Student ;
+    ex:hasSkill ex:Python,
+        ex:SQL ;
+    ex:studentName "Sample Student" ;
+    ex:targetsCareer ex:AIEngineer .
+
+ex:SoftwareDeveloper a ex:Career ;
+    ex:careerLevel "Intermediate" ;
+    ex:careerName "Software Developer" ;
+    ex:requiresSkill ex:DatabaseManagement,
+        ex:ProblemSolving,
+        ex:Python,
+        ex:SQL,
+        ex:WebDevelopment ;
+    ex:sourceNote "Software Developer is directly mapped to O*NET Software Developers. The selected skills reflect programming, development environment software, database-related tools, web platform development software, and essential problem-solving skills shown in O*NET worker requirements." ;
+    ex:sourceOccupationCode "15-1252.00" ;
+    ex:sourceOccupationTitle "Software Developers" ;
+    ex:usesSource ex:SRC001 .
+
+ex:SoftwareDeveloper_DatabaseManagement_Requirement a ex:SkillRequirement ;
+    ex:careerName "Software Developer" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:DatabaseManagement .
+
+ex:SoftwareDeveloper_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:careerName "Software Developer" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:SoftwareDeveloper_Python_Requirement a ex:SkillRequirement ;
+    ex:careerName "Software Developer" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:Python .
+
+ex:SoftwareDeveloper_SQL_Requirement a ex:SkillRequirement ;
+    ex:careerName "Software Developer" ;
+    ex:priority "Medium" ;
+    ex:requiresSkill ex:SQL .
+
+ex:SoftwareDeveloper_WebDevelopment_Requirement a ex:SkillRequirement ;
+    ex:careerName "Software Developer" ;
+    ex:priority "High" ;
+    ex:requiresSkill ex:WebDevelopment .
+
+ex:StatisticsforDataAnalytics a ex:Course ;
+    ex:courseName "Statistics for Data Analytics" ;
+    ex:teachesSkill ex:Statistics .
+
+ex:WebApplicationDevelopment a ex:Course ;
+    ex:courseName "Web Application Development" ;
+    ex:prerequisiteSkill ex:Python ;
+    ex:teachesSkill ex:WebDevelopment .
+
+ex:alias a rdf:Property ;
+    rdfs:label "Skill alias" .
+
+ex:careerLevel a rdf:Property ;
+    rdfs:label "Career level" .
+
+ex:careerName a rdf:Property ;
+    rdfs:label "Career name" .
+
+ex:courseName a rdf:Property ;
+    rdfs:label "Course name" .
+
+ex:description a rdf:Property ;
+    rdfs:label "Description" .
+
+ex:hasSkill a rdf:Property ;
+    rdfs:label "Student has a skill" .
+
+ex:prerequisiteSkill a rdf:Property ;
+    rdfs:label "Course has a prerequisite skill" .
+
+ex:priority a rdf:Property ;
+    rdfs:label "Skill priority" .
+
+ex:requiresSkill a rdf:Property ;
+    rdfs:label "Career requires a skill" .
+
+ex:skillCategory a rdf:Property ;
+    rdfs:label "Skill category" .
+
+ex:skillName a rdf:Property ;
+    rdfs:label "Skill name" .
+
+ex:sourceName a rdf:Property ;
+    rdfs:label "Source name" .
+
+ex:sourceNote a rdf:Property ;
+    rdfs:label "Source mapping note" .
+
+ex:sourceOccupationCode a rdf:Property ;
+    rdfs:label "O*NET occupation code" .
+
+ex:sourceOccupationTitle a rdf:Property ;
+    rdfs:label "O*NET occupation title" .
+
+ex:sourceUrl a rdf:Property ;
+    rdfs:label "Source URL" .
+
+ex:studentName a rdf:Property ;
+    rdfs:label "Student name" .
+
+ex:targetsCareer a rdf:Property ;
+    rdfs:label "Student targets a career" .
+
+ex:teachesSkill a rdf:Property ;
+    rdfs:label "Course teaches a skill" .
+
+ex:usesSource a rdf:Property ;
+    rdfs:label "Career uses a data source" .
+
+ex:AIEngineer a ex:Career ;
+    ex:careerLevel "Advanced" ;
+    ex:careerName "AI Engineer" ;
+    ex:requiresSkill ex:DataVisualization,
+        ex:MachineLearning,
+        ex:ProblemSolving,
+        ex:Python,
+        ex:Statistics ;
+    ex:sourceNote "AI Engineer is represented using the closest O*NET occupation, Computer and Information Research Scientists, because O*NET does not list AI Engineer as a direct main occupation title." ;
+    ex:sourceOccupationCode "15-1221.00" ;
+    ex:sourceOccupationTitle "Computer and Information Research Scientists" ;
+    ex:usesSource ex:SRC001 .
+
+ex:Cybersecurity a ex:Skill ;
+    ex:alias "cyber security",
+        "cybersecurity",
+        "information security",
+        "security" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Cybersecurity" .
+
+ex:DatabaseManagement a ex:Skill ;
+    ex:alias "database",
+        "database management",
+        "database systems",
+        "dbms" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Database Management" .
+
+ex:MachineLearning a ex:Skill ;
+    ex:alias "machien learning",
+        "machine learning",
+        "ml" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Machine Learning" .
+
+ex:Networking a ex:Skill ;
+    ex:alias "computer network",
+        "computer networking",
+        "network",
+        "networking" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Networking" .
+
+ex:WebDevelopment a ex:Skill ;
+    ex:alias "front end",
+        "frontend",
+        "html css javascript",
+        "web development" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Web Development" .
+
+ex:SRC001 a ex:Source ;
+    ex:description "Used as a real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships." ;
+    ex:sourceName "O*NET OnLine" ;
+    ex:sourceUrl "https://www.onetonline.org/" .
+
+ex:DataVisualization a ex:Skill ;
+    ex:alias "dashboard",
+        "data visualisation",
+        "data visualization",
+        "visualization" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Data Visualization" .
+
+ex:Statistics a ex:Skill ;
+    ex:alias "statistic",
+        "statistics",
+        "stats" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Statistics" .
+
+ex:SQL a ex:Skill ;
+    ex:alias "database query",
+        "sql",
+        "structured query language" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "SQL" .
+
+ex:ProblemSolving a ex:Skill ;
+    ex:alias "analytical thinking",
+        "critical thinking",
+        "problem solving",
+        "problem-solving" ;
+    ex:skillCategory "Essential" ;
+    ex:skillName "Problem Solving" .
+
+ex:Python a ex:Skill ;
+    ex:alias "py",
+        "pyhton",
+        "python",
+        "python programming" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Python" .
+
