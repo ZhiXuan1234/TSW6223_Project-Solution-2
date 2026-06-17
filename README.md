@@ -10,15 +10,22 @@ The system is implemented as a semantic web-based prototype using:
 - **XSD** as the XML validation layer
 - **RDF/RDFS** as the semantic representation layer
 - **SPARQL** as the semantic query layer
-- **Python** as the implementation language and terminal interface
+- **Python** as the implementation language
+- **Tkinter GUI** as the user interaction interface
 
 A student selects a target career and enters their current skills. The system then analyses the student's skills against the required skills of the selected career. The output includes matched skills, missing skills, missing skill priority, career readiness score, recommended courses, prerequisite skills, and alternative career suggestions.
+
+The final application uses the terminal to show the backend semantic processing steps, including XML validation, RDF/RDFS conversion, and SPARQL proof queries. After that, a GUI popup window is launched for user interaction.
+
+---
 
 ## 2. Problem Addressed
 
 Students often struggle to choose suitable courses and career paths because they may not clearly understand the relationship between their current skills, course learning outcomes, and career requirements. A normal course list does not clearly show which skills are needed for a particular career or which courses can help close a skill gap.
 
 This solution addresses the problem by structuring career, skill, and course data in a machine-readable format and using semantic web technologies to represent and query the relationships between them.
+
+---
 
 ## 3. Implemented System Architecture
 
@@ -41,7 +48,7 @@ career_skill_graph.ttl
         ↓
 SPARQL queries over RDF graph
         ↓
-Terminal-based skill gap analysis output
+GUI-based skill gap analysis output
 ```
 
 The final application flow is:
@@ -53,9 +60,9 @@ Validate XML using XSD
    ↓
 Generate or update RDF/RDFS Turtle file
    ↓
-Run SPARQL test queries
+Run SPARQL test queries in terminal
    ↓
-Launch SPARQL-powered skill gap analyzer
+Launch GUI Skill Gap Analyzer
    ↓
 User selects target career
    ↓
@@ -65,8 +72,10 @@ System normalises input using aliases and typo handling
    ↓
 System retrieves required skills and courses using SPARQL
    ↓
-System displays skill gap analysis result
+System displays skill gap analysis result in the GUI window
 ```
+
+---
 
 ## 4. Semantic Web Technologies Used
 
@@ -163,9 +172,9 @@ SPARQL is used to retrieve:
 
 This strengthens the solution because the final skill gap analysis retrieves semantic relationships from the RDF graph instead of relying only on Python dictionaries.
 
-### 4.5 Python
+### 4.5 Python and Tkinter GUI
 
-Python is used to implement the application logic and terminal interface. Python handles:
+Python is used to implement the application logic. Python handles:
 
 - XML validation using XSD
 - XML parsing
@@ -174,7 +183,11 @@ Python is used to implement the application logic and terminal interface. Python
 - user input normalisation
 - alias matching and fuzzy typo correction
 - readiness score calculation
-- terminal-based result display
+- GUI result display
+
+Tkinter is used to provide a simple GUI popup window. The GUI allows the user to select a target career, enter current skills, and view the skill gap analysis result in a more user-friendly format.
+
+---
 
 ## 5. Dataset Preparation and Source Usage
 
@@ -187,6 +200,8 @@ The dataset currently uses one source:
 | Source ID | Source Name | Source URL | Usage |
 |---|---|---|---|
 | SRC001 | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
+
+---
 
 ## 6. Career Mapping Used in the Dataset
 
@@ -206,6 +221,8 @@ sourceOccupationCode
 sourceOccupationTitle
 sourceNote
 ```
+
+---
 
 ## 7. XML Dataset Design
 
@@ -245,7 +262,9 @@ Stores recommended courses and the skills they teach. Some courses also include 
 
 ### 7.5 students
 
-Stores a sample student profile for testing. The final application also allows users to enter their own skills through the terminal.
+Stores a sample student profile for testing. The final application also allows users to enter their own skills through the GUI.
+
+---
 
 ## 8. Input Handling Design
 
@@ -255,14 +274,14 @@ The input handling flow is:
 
 ```text
 Input Layer:
-- Accept comma-separated skills from user
+- Accept comma-separated skills from user through the GUI
 
 Pre-processing Layer:
 - Convert input to lowercase
 - Remove extra spaces
 - Match aliases, e.g. "ml" → "Machine Learning"
 - Use fuzzy matching for typos, e.g. "pythn" → "Python"
-- Ask user to confirm fuzzy correction
+- Ask user to confirm fuzzy correction using a popup confirmation box
 
 Semantic Layer:
 - Use confirmed standardised skill names
@@ -278,109 +297,170 @@ Output Layer:
 
 This design is important because RDF and SPARQL matching are strict. The input normalisation layer helps ensure that casual user input can still be matched to standardised skill names.
 
-## 9. How to Run the Application
+---
 
-### 9.1 Requirements
+## 9. How to Run the Application in Visual Studio Code
 
-Install Python 3 first. Then install the required Python libraries:
+This section explains how to run the project using **Visual Studio Code**.
+
+### 9.1 Open the Project Folder in Visual Studio Code
+
+1. Open **Visual Studio Code**.
+2. Click **File** from the top menu.
+3. Click **Open Folder**.
+4. Select the project folder:
+
+```text
+TSW6223_Project-Solution-2
+```
+
+5. Click **Select Folder** or **Open**.
+6. After opening the folder, make sure the Explorer panel shows the project files, such as:
+
+```text
+career_skill_data.xml
+career_skill_schema.xsd
+career_skill_graph.ttl
+xml_to_rdf.py
+skill_gap_analysis.py
+gui_app.py
+main.py
+README.md
+testing/
+```
+
+### 9.2 Open a New Terminal in Visual Studio Code
+
+After opening the project folder, open a new terminal from the top menu:
+
+```text
+Terminal → New Terminal
+```
+
+A terminal window will appear at the bottom of Visual Studio Code.
+
+Make sure the terminal is opened in the main project folder. The terminal path should end with something similar to:
+
+```text
+TSW6223_Project-Solution-2>
+```
+
+If the terminal is not in the correct folder, close it and open **Terminal → New Terminal** again after selecting the project folder in VS Code.
+
+### 9.3 Install the Required Python Libraries
+
+In the Visual Studio Code terminal, install the required libraries by running:
 
 ```bash
 py -m pip install lxml rdflib
 ```
 
-### 9.2 Run the Full Application
+The required libraries are:
 
-Run the final application from the main project folder:
+| Library | Purpose |
+|---|---|
+| `lxml` | Used to validate the XML file against the XSD schema. |
+| `rdflib` | Used to create RDF/RDFS triples and run SPARQL queries. |
+
+Tkinter is used for the GUI popup window. It is normally included with standard Python installations on Windows, so no extra installation is usually needed.
+
+### 9.4 Run the Main Application
+
+After installing the required libraries, run the main program in the same Visual Studio Code terminal:
 
 ```bash
 py main.py
 ```
 
-The application will automatically:
+The application will automatically perform the following steps:
 
 ```text
 1. Validate career_skill_data.xml using career_skill_schema.xsd
 2. Generate or update career_skill_graph.ttl
-3. Run SPARQL test queries
-4. Launch the SPARQL-powered skill gap analyzer
+3. Run SPARQL test queries in the terminal
+4. Launch the GUI Skill Gap Analyzer popup window
 ```
 
-### 9.3 Example Input
+After Step 3, a popup window will appear. In the GUI window:
+
+1. Select a target career from the dropdown list.
+2. Enter current skills separated by commas.
+3. Click **Analyse Skill Gap**.
+4. View the result in the output box.
+
+Example skill input:
 
 ```text
-Select your target career number: 4
-Your skills: python
+pyhton, sql, ml
 ```
 
-or:
+The system can map aliases and handle simple typing mistakes, such as:
 
 ```text
-Select your target career number: 1
-Your skills: pyhton, sql, ml
+pyhton → Python
+ml → Machine Learning
 ```
 
-### 9.4 Run Individual Development or Testing Files
+### 9.5 Run Validation or Testing Files
 
-The main app should be run using:
+The same Visual Studio Code terminal can also be used to run the validation and testing files.
 
-```bash
-py main.py
-```
-
-For development evidence or debugging, individual files can also be run.
-
-Generate or update the RDF/RDFS Turtle file:
-
-```bash
-py xml_to_rdf.py
-```
-
-Run the standalone skill gap analyzer:
-
-```bash
-py skill_gap_analysis.py
-```
-
-Run XML validation test:
+For example, to run XML validation only, enter:
 
 ```bash
 py testing/validate_xml.py
 ```
 
-Run XML parsing test:
+Other testing commands can also be entered in the same terminal:
 
 ```bash
 py testing/parse_xml.py
 ```
 
-Run skill input normalisation test:
-
 ```bash
 py testing/skill_normalizer.py
 ```
 
-Important: run the testing commands from the main project folder, not from inside the `testing` folder.
+For RDF/RDFS conversion testing, run:
+
+```bash
+py xml_to_rdf.py
+```
+
+For the terminal-based backup skill gap analyzer, run:
+
+```bash
+py skill_gap_analysis.py
+```
+
+Important: run these commands from the main project folder, not from inside the `testing` folder.
+
+---
 
 ## 10. Example System Output
 
-A sample terminal output may look like this:
+The terminal first shows the backend semantic processing:
 
 ```text
-===== Available Careers Retrieved Using SPARQL =====
-1. AI Engineer
-2. Cybersecurity Analyst
-3. Data Analyst
-4. Software Developer
+===== Step 1: XML Validation =====
+XML validation successful.
+career_skill_data.xml follows the structure defined in career_skill_schema.xsd.
 
-Select your target career number: 4
+===== Step 2: XML to RDF/RDFS Conversion =====
+Generating or updating career_skill_graph.ttl...
+RDF conversion completed successfully.
 
-Enter your current skills separated by comma.
-Example: pyhton, sql, ml
-Your skills: python
+===== SPARQL Test 1: Careers and Required Skills =====
+AI Engineer requires Machine Learning
+Software Developer requires Python
 
-===== Input Validation =====
-- "python" matched to "Python"
+===== Step 3: Launch GUI Skill Gap Analyzer =====
+A popup window will open for user interaction.
+```
 
+The GUI then displays the user-facing skill gap analysis result. A sample result may look like this:
+
+```text
 ===== Semantic Career Path / Skill Gap Analyzer =====
 
 Target Career: Software Developer
@@ -430,6 +510,8 @@ Alternative Career Suggestions Retrieved Using SPARQL:
 3. Cybersecurity Analyst - 0% match
 ```
 
+---
+
 ## 11. Functional Testing
 
 Recommended test cases include:
@@ -444,8 +526,12 @@ Recommended test cases include:
 | S2-TC06 | Missing skill has related course | System recommends the correct course using SPARQL |
 | S2-TC07 | Student already has all required skills | Career readiness score becomes 100% |
 | S2-TC08 | Unknown skill entered | System marks it as unknown or asks user to confirm correction |
-| S2-TC09 | Run `py main.py` | XML validation, RDF generation, SPARQL test, and skill gap analyzer run successfully |
+| S2-TC09 | Run `py main.py` | XML validation, RDF generation, SPARQL test, and GUI analyzer run successfully |
 | S2-TC10 | Delete or rename `career_skill_graph.ttl`, then run `py main.py` | TTL file is regenerated automatically |
+| S2-TC11 | Enter `pythn` in the GUI | Popup asks whether the user meant `Python` |
+| S2-TC12 | Run `py testing/validate_xml.py` from the main folder | XML validation test runs successfully |
+
+---
 
 ## 12. Files in This Solution
 
@@ -456,8 +542,8 @@ TSW6223_Project-Solution-2/
 ├── career_skill_schema.xsd
 ├── career_skill_graph.ttl
 ├── xml_to_rdf.py
-├── skill_gap_analysis.py      ← keep as terminal version / backup
-├── gui_app.py                 ← GUI version
+├── skill_gap_analysis.py      ← terminal version / backup analyzer
+├── gui_app.py                 ← GUI version for final user interaction
 ├── main.py                    ← final launcher
 ├── README.md
 │
@@ -475,8 +561,9 @@ TSW6223_Project-Solution-2/
 | `career_skill_schema.xsd` | Validates the XML structure, controlled values, and ID references. |
 | `career_skill_graph.ttl` | Generated RDF/RDFS Turtle graph created from the XML data. |
 | `xml_to_rdf.py` | Converts XML data into RDF/RDFS triples and runs SPARQL test queries. |
-| `skill_gap_analysis.py` | Runs the SPARQL-powered skill gap analyzer. |
-| `main.py` | Main launcher that validates XML, regenerates RDF/RDFS, runs SPARQL tests, and starts the analyzer. |
+| `skill_gap_analysis.py` | Runs the terminal-based SPARQL-powered skill gap analyzer. It is kept as a backup version. |
+| `gui_app.py` | Runs the GUI-based SPARQL-powered skill gap analyzer for final user interaction. |
+| `main.py` | Main launcher that validates XML, regenerates RDF/RDFS, runs SPARQL tests, and starts the GUI analyzer. |
 | `README.md` | Project explanation and running instructions. |
 
 ### 12.2 Testing Files
@@ -487,9 +574,11 @@ TSW6223_Project-Solution-2/
 | `testing/parse_xml.py` | Tests whether Python can correctly read and extract XML data. |
 | `testing/skill_normalizer.py` | Tests alias matching and typo handling for user-entered skills. |
 
+---
+
 ## 13. Novelty of the Solution
 
-The novelty of Solution 2 is that it does not only list missing skills. It provides a semantic and explainable skill gap analysis by combining XML, XSD, RDF/RDFS, SPARQL, and Python.
+The novelty of Solution 2 is that it does not only list missing skills. It provides a semantic and explainable skill gap analysis by combining XML, XSD, RDF/RDFS, SPARQL, Python, and a GUI interface.
 
 The system includes:
 
@@ -503,6 +592,9 @@ The system includes:
 - course recommendation with reasons
 - prerequisite skill display
 - alternative career suggestions based on skill match percentage
+- GUI-based user interaction after backend semantic processing
+
+---
 
 ## 14. Future Improvements
 
@@ -517,8 +609,10 @@ Possible future improvements include:
 - Connecting Solution 2 with Solution 1 course recommendation.
 - Using real university course data and programme structures.
 
+---
+
 ## 15. Summary
 
 Solution 2 is a semantic web-based Career Path / Skill Gap Analysis prototype. It uses a small O*NET-based dataset prepared in XML format and validated with XSD. The validated XML data is converted into RDF/RDFS triples and saved as a Turtle file. SPARQL is then used in the final application to query semantic relationships between careers, skills, and courses.
 
-The final result is displayed through a terminal-based interface that provides students with matched skills, missing skills, readiness scores, recommended learning paths, prerequisite skills, and alternative career suggestions.
+The final system uses the terminal to display backend semantic processing steps and launches a GUI popup window for user interaction. The GUI provides students with matched skills, missing skills, readiness scores, recommended learning paths, prerequisite skills, and alternative career suggestions.
