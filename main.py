@@ -111,7 +111,7 @@ def main():
 
     # Step 2: Convert XML into RDF/RDFS Turtle file
     print("\n===== Step 2: XML to RDF/RDFS Conversion =====")
-    print("Generating career_skill_graph.ttl...")
+    print("Generating or updating career_skill_graph.ttl...")
 
     rdf_success = run_python_file("xml_to_rdf.py")
 
