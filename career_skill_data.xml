@@ -227,6 +227,7 @@
         </course>
     </courses>
 
+    <!-- The students section is sample/testing data. The actual app uses user input from the GUI, not the fixed S001 record -->
     <students>
         <student id="S001">
             <studentName>Sample Student</studentName>
