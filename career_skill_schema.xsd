@@ -10,12 +10,25 @@ XSD answers questions like:
 - Must every course teach at least one skill?
 -->
 
-
 <xs:schema
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     targetNamespace="https://tsw6223.example.edu/career-skill"
     xmlns="https://tsw6223.example.edu/career-skill"
     elementFormDefault="qualified">
+    <!--
+    ================================================
+    xmlns="https://tsw6223.example.edu/career-skill"
+    ================================================
+    This means when the XSD refers to project-defined elements/types without a prefix, treat them as belonging to this namespace.
+    Example:
+        - xs:element = XSD instruction
+        - DataSourcesType = your project schema type
+
+    ================================================
+    elementFormDefault="qualified"
+    ================================================
+    This means All XML elements declared by this schema must belong to the target namespace.
+    -->
 
     <xs:simpleType name="PriorityType">
         <xs:restriction base="xs:string">
@@ -115,6 +128,7 @@ XSD answers questions like:
         </xs:keyref>
     </xs:element>
 
+    <!-- The following section defines what each XML section is allowed to contain.-->
     <xs:complexType name="DataSourcesType">
         <xs:sequence>
             <!-- dataSources contains one or more source elements -->
