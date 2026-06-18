@@ -10,12 +10,25 @@ XSD answers questions like:
 - Must every course teach at least one skill?
 -->
 
-
 <xs:schema
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     targetNamespace="https://tsw6223.example.edu/career-skill"
     xmlns="https://tsw6223.example.edu/career-skill"
     elementFormDefault="qualified">
+    <!--
+    ================================================
+    xmlns="https://tsw6223.example.edu/career-skill"
+    ================================================
+    This means when the XSD refers to project-defined elements/types without a prefix, treat them as belonging to this namespace.
+    Example:
+        - xs:element = XSD instruction
+        - DataSourcesType = your project schema type
+
+    ================================================
+    elementFormDefault="qualified"
+    ================================================
+    This means All XML elements declared by this schema must belong to the target namespace.
+    -->
 
     <xs:simpleType name="PriorityType">
         <xs:restriction base="xs:string">
@@ -115,6 +128,22 @@ XSD answers questions like:
         </xs:keyref>
     </xs:element>
 
+    <!-- The following section defines what each XML section is allowed to contain.
+    
+        This part of the XSD defines the detailed structure of each main XML section, such as sources, 
+        skills, careers, courses, and students. Each `xs:complexType` acts as a rule template that specifies 
+        what child elements and attributes are allowed inside an XML element. For example, `SkillType` defines 
+        that each skill must have a skill name, skill category, optional aliases, and a required unique `id` attribute.
+
+        The `xs:ID` type is used to create a unique identifier for an element, such as `SK001`, `C001`, or `CRS001`. 
+        The `xs:IDREF` type is used to refer to an existing `xs:ID` value elsewhere in the XML document. Unlike `xs:ID`, 
+        the same `xs:IDREF` value can be used more than once because many elements may refer to the same ID. 
+        For example, several careers or courses can refer to the same skill ID such as `SK001`.
+
+        Some reference structures are also made reusable through custom complex types. 
+        For example, `SkillReferenceType` contains a required `ref` attribute of type `xs:IDREF`, 
+        so it can be reused by elements such as `teachesSkill`, `prerequisiteSkill`, and `currentSkill`.
+    -->
     <xs:complexType name="DataSourcesType">
         <xs:sequence>
             <!-- dataSources contains one or more source elements -->
