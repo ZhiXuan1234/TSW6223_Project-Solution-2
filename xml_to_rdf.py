@@ -43,7 +43,8 @@ EX              = Namespace("http://example.org/career-skill#")
 
 def get_text(parent, tag_name):
     """
-    Safely get text from a child XML element.
+    Safely get text from a child XML element. 
+    (Helper Function to avoid repetitive code when extracting text from XML elements.)
     """
     element = parent.find(f"cs:{tag_name}", XML_NS)
 
@@ -57,6 +58,7 @@ def get_text(parent, tag_name):
 def make_uri_name(text):
     """
     Convert normal text into a safe RDF resource name, using python built-in functions.
+    (Helper Function to create valid RDF resource names from text.)
 
     Example:
     "AI Engineer" -> "AIEngineer"
@@ -91,7 +93,7 @@ def create_graph():
 
 def add_rdfs_schema(g):
     """
-    Add RDFS classes and properties.
+    Add and define RDFS classes and properties.
 
     This is the RDFS part of Category 2.
     It defines the meaning of the main classes and relationships.
@@ -123,12 +125,16 @@ def add_rdfs_schema(g):
     # Example: AIEngineer requiresSkill Python
     # -------------------------
     object_properties = {
-        "requiresSkill": "Career requires a skill",
-        "teachesSkill": "Course teaches a skill",
-        "prerequisiteSkill": "Course has a prerequisite skill",
-        "targetsCareer": "Student targets a career",
-        "hasSkill": "Student has a skill",
-        "usesSource": "Career uses a data source",
+        "requiresSkill": "Career requires a skill",             # eg. ex:AIEngineer  ex:requiresSkill  ex:Python
+        "teachesSkill": "Course teaches a skill",               # eg. ex:PythonCourse  ex:teachesSkill  ex:Python
+        "prerequisiteSkill": "Course has a prerequisite skill", # eg. ex:PythonCourse  ex:prerequisiteSkill  ex:Statistics
+        
+        # Used for sample XML student data. GUI user input is processed directly
+        # by Python and is not currently saved as a new RDF Student resource.
+        "targetsCareer": "Student targets a career",            # eg. ex:Student1  ex:targetsCareer  ex:AIEngineer
+        "hasSkill": "Student has a skill",                      # eg. ex:Student1  ex:hasSkill  ex:Python
+        
+        "usesSource": "Career uses a data source",              # eg. ex:AIEngineer  ex:usesSource  ex:SRC001
 
         # These two properties make it easier for SPARQL
         # to retrieve the priority of each career-skill requirement.
@@ -146,20 +152,20 @@ def add_rdfs_schema(g):
     # Example: Python skillCategory "Technical"
     # -------------------------
     data_properties = {
-        "skillName": "Skill name",
-        "skillCategory": "Skill category",
-        "alias": "Skill alias",
-        "careerName": "Career name",
-        "careerLevel": "Career level",
-        "sourceOccupationTitle": "O*NET occupation title",
-        "sourceOccupationCode": "O*NET occupation code",
-        "sourceNote": "Source mapping note",
-        "courseName": "Course name",
-        "studentName": "Student name",
-        "priority": "Skill priority",
-        "sourceName": "Source name",
-        "sourceUrl": "Source URL",
-        "description": "Description"
+        "skillName": "Skill name",                         # eg. ex:Python  ex:skillName  "Python"
+        "skillCategory": "Skill category",                 # eg. ex:Python  ex:skillCategory  "Technical"
+        "alias": "Skill alias",                            # eg. ex:Python  ex:alias  "py"
+        "careerName": "Career name",                       # eg. ex:AIEngineer  ex:careerName  "AI Engineer"
+        "careerLevel": "Career level",                     # eg. ex:AIEngineer  ex:careerLevel  "Advanced"
+        "sourceOccupationTitle": "O*NET occupation title", # eg. ex:AIEngineer  ex:sourceOccupationTitle  "Computer and Information Research Scientists"
+        "sourceOccupationCode": "O*NET occupation code",   # eg. ex:AIEngineer  ex:sourceOccupationCode  "15-1221.00"
+        "sourceNote": "Source mapping note",               # eg. ex:AIEngineer  ex:sourceNote  "Mapped from O*NET occupation title"
+        "courseName": "Course name",                       # eg. ex:PythonCourse  ex:courseName  "Introduction to Python"
+        "studentName": "Student name",                     # eg. ex:Student1  ex:studentName  "Alice"
+        "priority": "Skill priority",                      # eg. ex:AIEngineer_Python_Requirement  ex:priority  "High"
+        "sourceName": "Source name",                       # eg. ex:AIEngineer  ex:sourceName  "O*NET OnLine"
+        "sourceUrl": "Source URL",                         # eg. ex:SRC001  ex:sourceUrl  "https://www.onetonline.org/"
+        "description": "Description"                       # eg. ex:SRC001  ex:description  "Used as a real-world reference..."
     }
 
     for property_name, label in data_properties.items():
@@ -169,7 +175,7 @@ def add_rdfs_schema(g):
 
 def convert_sources(root, g):
     """
-    Convert <dataSources> XML data into RDF triples.
+    Take the <dataSources> section from the XML and convert each <source> into RDF triples.
     """
 
     source_uri_map = {}
@@ -202,6 +208,13 @@ def convert_skills(root, g):
             "SK001": ex:Python,
             "SK002": ex:SQL
         }
+    - skill_uri_map is used before SPARQL, during XML-to-RDF conversion.
+    - SPARQL later queries the RDF triples that have already been created.
+    - XML stores references using IDs like SK001.
+    - Python first creates ex:Python from the skill record.
+    - Then Python maps SK001 to ex:Python.
+    - Later, careers/courses/students use SK001 references (eg. ref = SK001, which is used as the attribute inside the element)
+      , and Python uses the map to create correct RDF relationships.
     """
 
     skill_uri_map = {}
@@ -230,6 +243,7 @@ def convert_skills(root, g):
 def convert_careers(root, g, skill_uri_map, source_uri_map):
     """
     Convert <careers> XML data into RDF triples.
+    - Notes: convert_careers() links careers to required skills and stores priority.
 
     Example triples:
     ex:AIEngineer rdf:type ex:Career
@@ -313,6 +327,7 @@ def convert_careers(root, g, skill_uri_map, source_uri_map):
 def convert_courses(root, g, skill_uri_map):
     """
     Convert <courses> XML data into RDF triples.
+    - Notes: convert_courses() links courses to taught skills and prerequisite skills.
 
     Example triples:
     ex:MachineLearningFundamentals rdf:type ex:Course
@@ -351,6 +366,7 @@ def convert_courses(root, g, skill_uri_map):
 def convert_students(root, g, skill_uri_map, career_uri_map):
     """
     Convert optional <students> XML data into RDF triples.
+    Notes: The student conversion here is mainly for the sample student record in the XML and future support for saved student profiles.
     """
 
     for student in root.findall("cs:students/cs:student", XML_NS):
@@ -449,6 +465,6 @@ def main():
 
     run_sparql_tests(g)
 
-
+# If this file is run directly, then execute main().
 if __name__ == "__main__":
     main()
