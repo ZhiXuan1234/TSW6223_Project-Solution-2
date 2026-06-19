@@ -30,9 +30,11 @@ XML_FILE        = "career_skill_data.xml"
 OUTPUT_TTL_FILE = "career_skill_graph.ttl"
 
 # XML namespace used in career_skill_data.xml
+# - Use the XML namespace when searching XML tags
 XML_NS          = {"cs": "https://tsw6223.example.edu/career-skill"}
 
 # RDF namespace for our project resources
+# - Use ex: as the RDF namespace for project resources
 # Example:
 # http://example.org/career-skill#Python
 # http://example.org/career-skill#AIEngineer
@@ -45,6 +47,7 @@ def get_text(parent, tag_name):
     """
     element = parent.find(f"cs:{tag_name}", XML_NS)
 
+    # Return the stripped text if the element exists and has text, otherwise return an empty string.
     if element is not None and element.text is not None:
         return element.text.strip()
 
