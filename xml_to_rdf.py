@@ -1,7 +1,15 @@
 import re
 import xml.etree.ElementTree as ET
 from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
-
+# re                          - Used to clean text when creating safe RDF resource names.
+# xml.etree.ElementTree as ET - Used to read and parse the XML file.
+# rdflib                      - Used to create and manipulate the RDF graph.
+# Graph                       - Creates the RDF graph.
+# Namespace                   - Creates the project RDF namespace.
+# RDF                         - Used for RDF vocabulary, such as rdf:type.
+# RDFS                        - Used for RDFS vocabulary, such as rdfs:Class and rdfs:label.
+# Literal                     - Used for text values in RDF triples.
+# URIRef                      - Used for RDF URI references, but in the current code it is imported and not really used.
 
 # ------------------------------------------------------------
 # Purpose:
@@ -18,17 +26,17 @@ from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
 # ------------------------------------------------------------
 
 
-XML_FILE = "career_skill_data.xml"
+XML_FILE        = "career_skill_data.xml"
 OUTPUT_TTL_FILE = "career_skill_graph.ttl"
 
 # XML namespace used in career_skill_data.xml
-XML_NS = {"cs": "https://tsw6223.example.edu/career-skill"}
+XML_NS          = {"cs": "https://tsw6223.example.edu/career-skill"}
 
 # RDF namespace for our project resources
 # Example:
 # http://example.org/career-skill#Python
 # http://example.org/career-skill#AIEngineer
-EX = Namespace("http://example.org/career-skill#")
+EX              = Namespace("http://example.org/career-skill#")
 
 
 def get_text(parent, tag_name):
