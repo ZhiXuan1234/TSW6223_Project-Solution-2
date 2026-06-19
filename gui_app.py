@@ -202,6 +202,8 @@ def get_available_careers(graph):
 
     This means the career list shown in the GUI is not hard-coded.
     It is retrieved from semantic RDF data.
+
+    Note: a - is a shorthand for rdf:type, which indicates the type of the resource.
     """
     query = """
     PREFIX ex: <http://example.org/career-skill#>
@@ -217,11 +219,11 @@ def get_available_careers(graph):
     ORDER BY ?careerName
     """
 
-    careers = []
+    careers = []   # Creates an empty list to store the careers.
 
     for row in graph.query(query):
         careers.append({
-            "career_uri": str(row.career),
+            "career_uri": str(row.career),        # Used by the get_required_skills_for_career(graph, career_uri)'s career_uri
             "career_name": str(row.careerName),
             "source_title": str(row.sourceTitle),
             "source_code": str(row.sourceCode),
@@ -247,6 +249,7 @@ def get_required_skills_for_career(graph, career_uri):
         <CAREER_URI> ex:requiresSkill ?skill .
 
         ?skill ex:skillName ?skillName .
+
         ?skill ex:skillCategory ?skillCategory .
 
         ?requirement a ex:SkillRequirement .
