@@ -9,7 +9,7 @@ from rdflib import Graph, Namespace, RDF, RDFS, Literal, URIRef
 # RDF                         - Used for RDF vocabulary, such as rdf:type.
 # RDFS                        - Used for RDFS vocabulary, such as rdfs:Class and rdfs:label.
 # Literal                     - Used for text values in RDF triples.
-# URIRef                      - Used for RDF URI references, but in the current code it is imported and not really used.
+# URIRef                      - Used for RDF URI references, but in the current code it is imported (EX[make_uri_name(skill_name)]) and not really used.
 
 # ------------------------------------------------------------
 # Purpose:
@@ -56,7 +56,7 @@ def get_text(parent, tag_name):
 
 def make_uri_name(text):
     """
-    Convert normal text into a safe RDF resource name.
+    Convert normal text into a safe RDF resource name, using python built-in functions.
 
     Example:
     "AI Engineer" -> "AIEngineer"
@@ -64,14 +64,19 @@ def make_uri_name(text):
 
     RDF resource names should not contain spaces or special symbols.
     """
-    cleaned_text = re.sub(r"[^A-Za-z0-9 ]", "", text)
+    # Delete anything that is NOT a letter, digit, or space.
+    cleaned_text = re.sub(r"[^A-Za-z0-9 ]", "", text) 
+
+    # Remove spaces to create a single word for the RDF resource name.
     parts = cleaned_text.split()
+
+    # Join the parts together to form a single string without spaces.
     return "".join(parts)
 
 
 def create_graph():
     """
-    Create RDF graph and bind namespace prefixes.
+    Create an empty RDF graph and bind namespace prefixes.
     """
     g = Graph()
 
@@ -105,7 +110,12 @@ def add_rdfs_schema(g):
     ]
 
     for class_name in classes:
+        # g.add(...)     - RDFLib method to add a triple
+        # EX[class_name] - Creates project resource URI
+        # RDF.type       - RDF vocabulary for “is a type of”
+        # RDFS.Class     - RDFS vocabulary for class
         g.add((EX[class_name], RDF.type, RDFS.Class))
+        # Example: ex:Skill rdf:type rdfs:Class
 
     # -------------------------
     # Define object properties
