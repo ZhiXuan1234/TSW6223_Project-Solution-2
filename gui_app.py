@@ -276,6 +276,9 @@ def get_required_skills_for_career(graph, career_uri):
 def analyse_skill_gap(required_skills, confirmed_skills):
     """
     Compare confirmed user skills with SPARQL-retrieved required skills.
+
+    Note: 
+    - The required_skills and confirmed_skills are from previous code.
     """
     matched_skills = []
     missing_skills = []
@@ -333,6 +336,8 @@ def get_courses_for_missing_skills(graph, missing_skills):
             course_uri = str(row.course)
             course_name = str(row.courseName)
 
+            # If this course is not already in the recommended dictionary, 
+            # add it with empty lists for teaches_missing_skills and prerequisite_skills.
             if course_uri not in recommended:
                 recommended[course_uri] = {
                     "course_name": course_name,
@@ -340,15 +345,19 @@ def get_courses_for_missing_skills(graph, missing_skills):
                     "prerequisite_skills": []
                 }
 
+            # If the course teaches a missing skill, add it to the teaches_missing_skills list for that course.
             if skill_name not in recommended[course_uri]["teaches_missing_skills"]:
                 recommended[course_uri]["teaches_missing_skills"].append(skill_name)
 
+            # If there is a prerequisite skill, add it to the prerequisite_skills list for that course.
             if row.prerequisiteName:
                 prerequisite_name = str(row.prerequisiteName)
 
                 if prerequisite_name not in recommended[course_uri]["prerequisite_skills"]:
                     recommended[course_uri]["prerequisite_skills"].append(prerequisite_name)
 
+    # Converts the dictionary into a list. 
+    # Each item in the list is a dictionary containing course_name, teaches_missing_skills, and prerequisite_skills.
     return list(recommended.values())
 
 
@@ -388,6 +397,8 @@ def suggest_alternative_careers(graph, selected_career_uri, confirmed_skills):
     alternatives = []
 
     for career_uri, career_data in career_skill_map.items():
+
+        # Skip the selected career itself when suggesting alternatives.
         if career_uri == selected_career_uri:
             continue
 
@@ -408,6 +419,7 @@ def suggest_alternative_careers(graph, selected_career_uri, confirmed_skills):
             "match_score": match_score
         })
 
+    # Sorts alternative careers from highest match to lowest match.
     alternatives.sort(key=lambda item: item["match_score"], reverse=True)
 
     return alternatives
@@ -416,6 +428,8 @@ def suggest_alternative_careers(graph, selected_career_uri, confirmed_skills):
 def group_missing_skills_by_priority(missing_skills):
     """
     Group missing skills into High, Medium, and Low priority.
+
+    Mainly for output formatting in the GUI, so that users can see which missing skills are most important.
     """
     grouped = {
         "High": [],
@@ -435,20 +449,20 @@ def group_missing_skills_by_priority(missing_skills):
 
 
 def format_result(
-    selected_career,
-    confirmed_skills,
-    unknown_skills,
-    required_skills,
-    matched_skills,
-    missing_skills,
-    readiness_score,
-    recommended_courses,
-    alternative_careers
+    selected_career,     # Career chosen by the user
+    confirmed_skills,    # User skills successfully recognised
+    unknown_skills,      # User inputs that could not be matched
+    required_skills,     # Skills required by selected career
+    matched_skills,      # Required skills the user already has
+    missing_skills,      # Required skills the user does not have
+    readiness_score,     # Match percentage
+    recommended_courses, # Courses for missing skills
+    alternative_careers  # Other careers with match score
 ):
     """
     Format the analysis result into readable text for the GUI output box.
     """
-    lines = []
+    lines = []           # Stores each line of the output text.
 
     lines.append("===== Semantic Career Path / Skill Gap Analyzer =====")
     lines.append("")
@@ -457,6 +471,8 @@ def format_result(
     lines.append(f"O*NET Code: {selected_career['source_code']}")
     lines.append(f"Career Level: {selected_career['career_level']}")
     lines.append("")
+    # The f prefix before the quotes tells Python to replace 
+    # anything inside {} curly braces with its actual value at runtime.
 
     lines.append("Confirmed Current Skills:")
     if confirmed_skills:
@@ -488,7 +504,8 @@ def format_result(
     lines.append("Missing Skills by Priority:")
     grouped_missing = group_missing_skills_by_priority(missing_skills)
 
-    has_missing = False
+    # Check whether the user has any missing skills.
+    has_missing = False 
 
     for priority in ["High", "Medium", "Low"]:
         if grouped_missing[priority]:
@@ -528,6 +545,7 @@ def format_result(
     else:
         lines.append("- No alternative careers available.")
 
+    # Combines all lines into one text block.
     return "\n".join(lines)
 
 
@@ -690,9 +708,12 @@ def main():
     """
     Start the popup GUI application.
     """
-    root = tk.Tk()
-    app = SkillGapGUI(root)
-    root.mainloop()
+    root = tk.Tk()           # Creates the main GUI window. (Enpty window)
+
+    app = SkillGapGUI(root)  # Creates an object from the self-defined class (class SkillGapGUI)
+                             # - Fills that empty window with the actual GUI design and logic.
+   
+    root.mainloop()          # Keep the GUI window open and wait for user actions.
 
 
 if __name__ == "__main__":
