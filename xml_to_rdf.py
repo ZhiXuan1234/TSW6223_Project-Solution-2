@@ -451,6 +451,7 @@ def main():
     add_rdfs_schema(g)
 
     print("Converting XML data into RDF triples...")
+    # Notes: The data that will be referenced later should be converted first.
     source_uri_map = convert_sources(root, g)
     skill_uri_map = convert_skills(root, g)
     career_uri_map = convert_careers(root, g, skill_uri_map, source_uri_map)
