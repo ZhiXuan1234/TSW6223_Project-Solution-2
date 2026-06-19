@@ -34,12 +34,18 @@ from tkinter import ttk, messagebox      # ttk        - Create nicer widgets, su
 XML_FILE = "career_skill_data.xml"
 TTL_FILE = "career_skill_graph.ttl"
 
+# Reading XML with namespace. 
+# The namespace prefix "cs" is defined in the XML file and used to access elements.
 XML_NS   = {"cs": "https://tsw6223.example.edu/career-skill"}
+
+# Defines your RDF namespace. 
+# This is used in SPARQL queries and when working with RDF data.
 EX       = Namespace("http://example.org/career-skill#")
 
 
 def get_text(parent, tag_name):
     """
+    Helper Function:
     Safely get text from an XML child element.
     This is mainly used to read skill names and aliases from XML.
     """
@@ -68,6 +74,7 @@ def load_rdf_graph():
         )
         return None
 
+    # Load the RDF graph from the Turtle file.
     graph = Graph()
     graph.parse(TTL_FILE, format="turtle")
     return graph
@@ -83,12 +90,16 @@ def load_skill_aliases_from_xml():
     - "pyhton" maps to "Python"
 
     This helps the system handle user input before SPARQL-based analysis.
+    1) The system reads the alias elements from the XML file that we prepared. 
+    2) Then it stores the official skill names in a list and stores the alias-to-skill mappings in a dictionary. 
+    3) Later, when the user enters skills in the GUI, Python uses this dictionary to convert inputs such as 
+       "py", "ml", or "pyhton" into the official skill names such as "Python" and "Machine Learning".
     """
     tree = ET.parse(XML_FILE)
     root = tree.getroot()
 
-    skill_names = []
-    alias_map = {}
+    skill_names = [] # Stores official skill names.
+    alias_map = {}   # Stores aliases and maps them to official skill names.
 
     for skill in root.findall("cs:skills/cs:skill", XML_NS):
         skill_name = get_text(skill, "skillName")
@@ -116,7 +127,9 @@ def clean_user_input(user_input):
     cleaned_items = []
 
     for item in user_input.split(","):
-        cleaned = item.strip().lower()
+        
+        # Remove leading/trailing whitespace and convert to lowercase for consistent matching.
+        cleaned = item.strip().lower() 
 
         if cleaned:
             cleaned_items.append(cleaned)
@@ -135,8 +148,8 @@ def normalise_skills(user_input, skill_names, alias_map):
     """
     cleaned_inputs = clean_user_input(user_input)
 
-    confirmed_skills = []
-    unknown_skills = []
+    confirmed_skills = [] # Stores skills that the system recognises.
+    unknown_skills = []   # Stores inputs that cannot be matched.
 
     official_skill_lookup = {name.lower(): name for name in skill_names}
     official_skill_lowercase = list(official_skill_lookup.keys())
@@ -155,10 +168,13 @@ def normalise_skills(user_input, skill_names, alias_map):
             possible_matches = get_close_matches(
                 item,
                 official_skill_lowercase,
-                n=1,
-                cutoff=0.7
+                n=1,        # means return only the best match.
+                cutoff=0.7  # means the match must be quite similar.
+
+                # If the word similarity is too low, it will not suggest anything.
             )
 
+            # If a close match is found, the GUI shows a popup.
             if possible_matches:
                 suggested_skill = official_skill_lookup[possible_matches[0]]
 
@@ -171,8 +187,10 @@ def normalise_skills(user_input, skill_names, alias_map):
                     if suggested_skill not in confirmed_skills:
                         confirmed_skills.append(suggested_skill)
                 else:
+                    # If the user clicks No, then the original input is stored as unknown.
                     unknown_skills.append(item)
             else:
+                # If there is no alias match and no fuzzy match, the skill is stored as unknown.
                 unknown_skills.append(item)
 
     return confirmed_skills, unknown_skills
