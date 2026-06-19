@@ -1,9 +1,14 @@
-import os
-import xml.etree.ElementTree as ET
-from difflib import get_close_matches
-from rdflib import Graph, Namespace
-import tkinter as tk
-from tkinter import ttk, messagebox
+import os                                # Check whether the RDF .ttl file exists
+import xml.etree.ElementTree as ET       # Read XML file, especially skill names and aliases
+from difflib import get_close_matches    # Suggest closest skill spelling, like pyhton → Python
+
+from rdflib import Graph, Namespace      # Graph      - Load and query the RDF Turtle graph
+                                         # Namespace  - Define RDF namespace, such as ex:
+
+import tkinter as tk                     # Create the popup GUI window
+
+from tkinter import ttk, messagebox      # ttk        - Create nicer widgets, such as dropdown combobox
+                                         # messagebox - Show popup messages, warnings, errors, and confirmation boxes
 
 
 # ------------------------------------------------------------
@@ -29,8 +34,8 @@ from tkinter import ttk, messagebox
 XML_FILE = "career_skill_data.xml"
 TTL_FILE = "career_skill_graph.ttl"
 
-XML_NS = {"cs": "https://tsw6223.example.edu/career-skill"}
-EX = Namespace("http://example.org/career-skill#")
+XML_NS   = {"cs": "https://tsw6223.example.edu/career-skill"}
+EX       = Namespace("http://example.org/career-skill#")
 
 
 def get_text(parent, tag_name):
