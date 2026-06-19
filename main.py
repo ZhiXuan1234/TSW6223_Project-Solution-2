@@ -2,6 +2,10 @@ from lxml import etree
 import subprocess
 import sys
 
+# etree      - A powerful library for XML processing, used here for validating XML against XSD.
+# subprocess - Allows us to run other Python files (like xml_to_rdf.py and gui_app.py) from this main program.
+# sys        - Used to use the same Python environment to run xml_to_rdf.py and gui_app.py to avoid issues 
+#              with different Python versions or environments.
 
 # ------------------------------------------------------------
 # TSW6223 Solution 2 Main Application
@@ -41,7 +45,7 @@ def validate_xml(xml_file, xsd_file):
         # Read the XSD schema file
         xsd_doc = etree.parse(xsd_file)
 
-        # Create schema object from XSD
+        # Create schema object from XSD (Turn the XSD document into a validation rule object.)
         schema = etree.XMLSchema(xsd_doc)
 
         # Validate XML against XSD
@@ -52,12 +56,13 @@ def validate_xml(xml_file, xsd_file):
 
         print("XML validation failed.")
 
-        # Print detailed validation errors
+        # Print detailed validation errors (If validation fails, show which line has the error and what the problem is.)
         for error in schema.error_log:
             print(f"Line {error.line}: {error.message}")
 
         return False
 
+    # Catches actual runtime exceptions thrown anywhere in the try block.
     except Exception as e:
         print("An error occurred during XML validation:")
         print(e)
@@ -76,13 +81,17 @@ def run_python_file(file_name):
     """
 
     try:
+        # Use the current Python interpreter to run the selected Python file.
         result = subprocess.run(
             [sys.executable, file_name],
+
+            # If the other Python file fails, raise an error.
             check=True
         )
 
         return result.returncode == 0
 
+    # Error catches if the subprocess (the other Python file) returns a non-zero exit code, indicating failure.
     except subprocess.CalledProcessError:
         print(f"Error: {file_name} did not run successfully.")
         return False
@@ -135,6 +144,6 @@ def main():
 
     print("\nProgram completed successfully.")
 
-
+# Only run main() when this file is executed directly.
 if __name__ == "__main__":
     main()
