@@ -555,22 +555,26 @@ class SkillGapGUI:
 
     This class creates the popup window and connects button actions
     to the SPARQL-powered skill gap analysis functions.
+    
+    - self means the SkillGapGUI object's own data.
     """
 
-    def __init__(self, root):
-        self.root = root
-        self.root.title("TSW6223 Semantic Career Path / Skill Gap Analyzer")
-        self.root.geometry("900x700")
+    def __init__(self, root):                                                  # The setup function for the GUI.
+        self.root = root                                                       # The root variable is the main window of the GUI, which is passed in when the SkillGapGUI object is created in the main() function.
+        self.root.title("TSW6223 Semantic Career Path / Skill Gap Analyzer")   # Set the title of the GUI window.
+        self.root.geometry("900x700")                                          # Set the default size of the GUI window (width x height in pixels).
 
         self.graph = load_rdf_graph()
         self.skill_names, self.alias_map = load_skill_aliases_from_xml()
 
+        # Error handling: If the RDF graph cannot be loaded, show an error message and close the GUI.
         if self.graph is None:
             self.root.destroy()
             return
 
         self.careers = get_available_careers(self.graph)
 
+        # Creates the visible GUI elements.
         self.create_widgets()
 
     def create_widgets(self):
@@ -584,6 +588,7 @@ class SkillGapGUI:
         )
         title_label.pack(pady=10)
 
+        # Create instruction label to guide the user on how to use the GUI.
         instruction_label = tk.Label(
             self.root,
             text="Select a target career and enter your current skills separated by commas.",
@@ -591,12 +596,15 @@ class SkillGapGUI:
         )
         instruction_label.pack(pady=5)
 
+        # Create form frame 
         form_frame = tk.Frame(self.root)
         form_frame.pack(pady=10)
 
+        # Career #
         career_label = tk.Label(form_frame, text="Target Career:", font=("Arial", 11))
         career_label.grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
+        # The dropdown list is based on RDF/SPARQL career data, not hard-coded manually.
         career_names = [career["career_name"] for career in self.careers]
 
         self.career_combo = ttk.Combobox(
@@ -607,9 +615,11 @@ class SkillGapGUI:
         )
         self.career_combo.grid(row=0, column=1, padx=5, pady=5)
 
+        # Selects the first career by default.
         if career_names:
             self.career_combo.current(0)
 
+        # Skills #
         skills_label = tk.Label(form_frame, text="Current Skills:", font=("Arial", 11))
         skills_label.grid(row=1, column=0, padx=5, pady=5, sticky="e")
 
@@ -617,6 +627,7 @@ class SkillGapGUI:
         self.skills_entry.grid(row=1, column=1, padx=5, pady=5)
         self.skills_entry.insert(0, "pyhton, sql, ml")
 
+        # Analyse Button #
         analyse_button = tk.Button(
             self.root,
             text="Analyse Skill Gap",
@@ -625,6 +636,7 @@ class SkillGapGUI:
         )
         analyse_button.pack(pady=10)
 
+        # Output Text Box #
         self.output_text = tk.Text(
             self.root,
             wrap="word",
@@ -700,8 +712,8 @@ class SkillGapGUI:
             alternative_careers
         )
 
-        self.output_text.delete("1.0", tk.END)
-        self.output_text.insert(tk.END, result_text)
+        self.output_text.delete("1.0", tk.END)        # Delete old result
+        self.output_text.insert(tk.END, result_text)  # Insert new result
 
 
 def main():
