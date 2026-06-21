@@ -11,11 +11,11 @@ The system is implemented as a semantic web-based prototype using:
 - **RDF/RDFS** as the semantic representation layer
 - **SPARQL** as the semantic query layer
 - **Python** as the implementation language
-- **Tkinter GUI** as the user interaction interface
+- **Flask Web UI** as the user interaction interface
 
-A student selects a target career and enters their current skills. The system then analyses the student's skills against the required skills of the selected career. The output includes matched skills, missing skills, missing skill priority, career readiness score, recommended courses, prerequisite skills, and alternative career suggestions.
+A student selects a target career and enters their current skills on the web interface. The system then analyses the student's skills against the required skills of the selected career. The output includes matched skills, missing skills, missing skill priority, career readiness score, recommended courses, prerequisite skills, and alternative career suggestions.
 
-The final application uses the terminal to show the backend semantic processing steps, including XML validation, RDF/RDFS conversion, and SPARQL proof queries. After that, a GUI popup window is launched for user interaction.
+The final application provides a responsive web dashboard for user interaction, powered by a Flask backend that handles the semantic processing, including XML validation, RDF/RDFS conversion, and SPARQL queries.
 
 ---
 
@@ -48,21 +48,19 @@ career_skill_graph.ttl
         ↓
 SPARQL queries over RDF graph
         ↓
-GUI-based skill gap analysis output
+SPARQL queries over RDF graph
+        ↓
+Web-based skill gap analysis output
 ```
 
 The final application flow is:
 
 ```text
-py main.py
+py web_app.py
    ↓
-Validate XML using XSD
+Launch Flask Web Server
    ↓
-Generate or update RDF/RDFS Turtle file
-   ↓
-Run SPARQL test queries in terminal
-   ↓
-Launch GUI Skill Gap Analyzer
+User navigates to http://localhost:5000
    ↓
 User selects target career
    ↓
@@ -72,7 +70,7 @@ System normalises input using aliases and typo handling
    ↓
 System retrieves required skills and courses using SPARQL
    ↓
-System displays skill gap analysis result in the GUI window
+System displays skill gap analysis result in the Web dashboard
 ```
 
 ---
@@ -174,20 +172,16 @@ This strengthens the solution because the final skill gap analysis retrieves sem
 
 The SPARQL implementation can be seen in both `skill_gap_analysis.py` and `gui_app.py`. The file `skill_gap_analysis.py` provides a terminal-based version of the analyzer, while `gui_app.py` provides the final GUI-based version. Both versions query the RDF graph using SPARQL to retrieve career options, required skills, course recommendations, prerequisite skills, and alternative career suggestions.
 
-### 4.5 Python and Tkinter GUI
+### 4.5 Python and Flask Web UI
 
 Python is used to implement the application logic. Python handles:
 
-- XML validation using XSD
-- XML parsing
-- XML-to-RDF/RDFS conversion
+- XML parsing and initial RDF conversion via `xml_to_rdf.py`
 - SPARQL query execution using RDFLib
-- user input normalisation
-- alias matching and fuzzy typo correction
-- readiness score calculation
-- GUI result display
+- User input normalisation (alias matching, fuzzy typo correction)
+- JSON API responses to the frontend
 
-Tkinter is used to provide a simple GUI popup window. The GUI allows the user to select a target career, enter current skills, and view the skill gap analysis result in a more user-friendly format.
+Flask, HTML, CSS, and JavaScript are used to provide a modern, responsive web dashboard. The web interface allows the user to select a target career, enter current skills interactively, and view a rich skill gap analysis result including graphical readiness scores and course timelines.
 
 ---
 
@@ -545,10 +539,13 @@ TSW6223_Project-Solution-2/
 ├── career_skill_graph.ttl
 ├── xml_to_rdf.py
 ├── skill_gap_analysis.py      ← terminal version / backup analyzer
-├── gui_app.py                 ← GUI version for final user interaction
-├── main.py                    ← final launcher
+├── gui_app.py                 ← Legacy GUI version for terminal interaction
+├── main.py                    ← Legacy final launcher
+├── web_app.py                 ← Flask backend API server
 ├── README.md
 │
+├── static/                    ← CSS and JS files for Web UI
+├── templates/                 ← HTML templates for Web UI
 └── testing/
     ├── validate_xml.py
     ├── parse_xml.py
@@ -564,8 +561,10 @@ TSW6223_Project-Solution-2/
 | `career_skill_graph.ttl`  | Generated RDF/RDFS Turtle graph created from the XML data.                                               |
 | `xml_to_rdf.py`           | Converts XML data into RDF/RDFS triples and runs SPARQL test queries.                                    |
 | `skill_gap_analysis.py`   | Runs the terminal-based SPARQL-powered skill gap analyzer. It is kept as a backup version.               |
-| `gui_app.py`              | Runs the GUI-based SPARQL-powered skill gap analyzer for final user interaction.                         |
-| `main.py`                 | Main launcher that validates XML, regenerates RDF/RDFS, runs SPARQL tests, and starts the GUI analyzer.  |
+| `gui_app.py`              | Legacy GUI-based SPARQL-powered skill gap analyzer.                                                      |
+| `web_app.py`              | Flask web server running the final API endpoints for the web UI.                                         |
+| `templates/index.html`    | Main HTML view for the user interaction dashboard.                                                       |
+| `main.py`                 | Legacy launcher that validates XML, regenerates RDF/RDFS, and runs SPARQL tests.                         |
 | `README.md`               | Project explanation and running instructions.                                                            |
 
 ### 12.2 Testing Files
@@ -595,6 +594,7 @@ The system includes:
 - prerequisite skill display
 - alternative career suggestions based on skill match percentage
 - GUI-based user interaction after backend semantic processing
+- A modern Flask web dashboard for user interaction
 
 ---
 
@@ -606,8 +606,7 @@ Possible future improvements include:
 - Expanding the number of careers, skills, and courses.
 - Aligning the system with ESCO for broader occupation-skill interoperability.
 - Adding OWL inference to infer related or equivalent skills.
-- Building a web-based user interface.
-- Adding student login and saved skill profiles.
+- Adding student login and saved skill profiles to the web UI.
 - Connecting Solution 2 with Solution 1 course recommendation.
 - Using real university course data and programme structures.
 
@@ -617,4 +616,4 @@ Possible future improvements include:
 
 Solution 2 is a semantic web-based Career Path / Skill Gap Analysis prototype. It uses a small O*NET-based dataset prepared in XML format and validated with XSD. The validated XML data is converted into RDF/RDFS triples and saved as a Turtle file. SPARQL is then used in the final application to query semantic relationships between careers, skills, and courses.
 
-The final system uses the terminal to display backend semantic processing steps and launches a GUI popup window for user interaction. The GUI provides students with matched skills, missing skills, readiness scores, recommended learning paths, prerequisite skills, and alternative career suggestions.
+The final system uses a Flask web server providing a responsive HTML/CSS/JS dashboard for user interaction. The Web UI provides students with matched skills, missing skills, readiness scores, recommended learning paths, prerequisite skills, and alternative career suggestions.
