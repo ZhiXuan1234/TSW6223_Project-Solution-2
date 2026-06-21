@@ -304,26 +304,33 @@ def get_courses_for_missing_skills(graph, missing_skills):
     """
     Retrieve recommended courses using SPARQL.
 
-    SPARQL retrieves all course-skill-prerequisite relationships.
-    Python then filters courses that teach the user's missing skills.
+    This query uses the SPARQL VALUES clause to inject the missing skills
+    directly into the query, filtering courses at the graph database level.
     """
-    missing_skill_names = [skill["skill_name"] for skill in missing_skills]
+    if not missing_skills:
+        return []
 
-    query = """
+    # Format missing skills for SPARQL (e.g., "Python" "Machine Learning")
+    skill_names_str = " ".join([f'"{skill["skill_name"]}"' for skill in missing_skills])
+
+    query = f"""
     PREFIX ex: <http://example.org/career-skill#>
 
     SELECT ?course ?courseName ?skillName ?prerequisiteName
-    WHERE {
+    WHERE {{
+        # This forces SPARQL to ONLY look for these specific missing skills
+        VALUES ?skillName {{ {skill_names_str} }} 
+
         ?course a ex:Course .
         ?course ex:courseName ?courseName .
         ?course ex:teachesSkill ?skill .
         ?skill ex:skillName ?skillName .
 
-        OPTIONAL {
+        OPTIONAL {{
             ?course ex:prerequisiteSkill ?prerequisite .
             ?prerequisite ex:skillName ?prerequisiteName .
-        }
-    }
+        }}
+    }}
     ORDER BY ?courseName ?skillName
     """
 
@@ -331,30 +338,28 @@ def get_courses_for_missing_skills(graph, missing_skills):
 
     for row in graph.query(query):
         skill_name = str(row.skillName)
+        course_uri = str(row.course)
+        course_name = str(row.courseName)
 
-        if skill_name in missing_skill_names:
-            course_uri = str(row.course)
-            course_name = str(row.courseName)
+        # If this course is not already in the recommended dictionary, 
+        # add it with empty lists for teaches_missing_skills and prerequisite_skills.
+        if course_uri not in recommended:
+            recommended[course_uri] = {
+                "course_name": course_name,
+                "teaches_missing_skills": [],
+                "prerequisite_skills": []
+            }
 
-            # If this course is not already in the recommended dictionary, 
-            # add it with empty lists for teaches_missing_skills and prerequisite_skills.
-            if course_uri not in recommended:
-                recommended[course_uri] = {
-                    "course_name": course_name,
-                    "teaches_missing_skills": [],
-                    "prerequisite_skills": []
-                }
+        # If the course teaches a missing skill, add it to the teaches_missing_skills list for that course.
+        if skill_name not in recommended[course_uri]["teaches_missing_skills"]:
+            recommended[course_uri]["teaches_missing_skills"].append(skill_name)
 
-            # If the course teaches a missing skill, add it to the teaches_missing_skills list for that course.
-            if skill_name not in recommended[course_uri]["teaches_missing_skills"]:
-                recommended[course_uri]["teaches_missing_skills"].append(skill_name)
+        # If there is a prerequisite skill, add it to the prerequisite_skills list for that course.
+        if row.prerequisiteName:
+            prerequisite_name = str(row.prerequisiteName)
 
-            # If there is a prerequisite skill, add it to the prerequisite_skills list for that course.
-            if row.prerequisiteName:
-                prerequisite_name = str(row.prerequisiteName)
-
-                if prerequisite_name not in recommended[course_uri]["prerequisite_skills"]:
-                    recommended[course_uri]["prerequisite_skills"].append(prerequisite_name)
+            if prerequisite_name not in recommended[course_uri]["prerequisite_skills"]:
+                recommended[course_uri]["prerequisite_skills"].append(prerequisite_name)
 
     # Converts the dictionary into a list. 
     # Each item in the list is a dictionary containing course_name, teaches_missing_skills, and prerequisite_skills.
@@ -365,17 +370,23 @@ def suggest_alternative_careers(graph, selected_career_uri, confirmed_skills):
     """
     Retrieve career-skill relationships using SPARQL and calculate
     match percentage for alternative careers.
+
+    This query filters out the selected target career at the SPARQL graph level.
     """
-    query = """
+    query = f"""
     PREFIX ex: <http://example.org/career-skill#>
 
     SELECT ?career ?careerName ?skillName
-    WHERE {
+    WHERE {{
         ?career a ex:Career .
         ?career ex:careerName ?careerName .
+
+        # Exclude the currently selected career at the graph level
+        FILTER(?career != <{selected_career_uri}>)
+
         ?career ex:requiresSkill ?skill .
         ?skill ex:skillName ?skillName .
-    }
+    }}
     ORDER BY ?careerName ?skillName
     """
 
@@ -397,11 +408,6 @@ def suggest_alternative_careers(graph, selected_career_uri, confirmed_skills):
     alternatives = []
 
     for career_uri, career_data in career_skill_map.items():
-
-        # Skip the selected career itself when suggesting alternatives.
-        if career_uri == selected_career_uri:
-            continue
-
         required_skills = career_data["required_skills"]
         matched_count = 0
 

@@ -14,6 +14,25 @@ ex:Source a rdfs:Class .
 
 ex:Student a rdfs:Class .
 
+ex:APIDevelopmentIntegration a ex:Course ;
+    ex:courseName "API Development & Integration" ;
+    ex:prerequisiteSkill ex:WebDevelopment ;
+    ex:teachesSkill ex:APIDesign .
+
+ex:AndroidDevelopment a ex:Course ;
+    ex:courseName "Android Development" ;
+    ex:teachesSkill ex:Java .
+
+ex:BackendSystems a ex:Course ;
+    ex:courseName "Backend Systems" ;
+    ex:teachesSkill ex:C,
+        ex:Go .
+
+ex:CloudArchitectureServices a ex:Course ;
+    ex:courseName "Cloud Architecture & Services" ;
+    ex:prerequisiteSkill ex:Networking ;
+    ex:teachesSkill ex:CloudComputing .
+
 ex:DataVisualizationFundamentals a ex:Course ;
     ex:courseName "Data Visualization Fundamentals" ;
     ex:prerequisiteSkill ex:Statistics ;
@@ -23,6 +42,16 @@ ex:DatabaseSystems a ex:Course ;
     ex:courseName "Database Systems" ;
     ex:teachesSkill ex:DatabaseManagement,
         ex:SQL .
+
+ex:DevOpsCICDPractices a ex:Course ;
+    ex:courseName "DevOps & CI/CD Practices" ;
+    ex:prerequisiteSkill ex:Python ;
+    ex:teachesSkill ex:DevOps .
+
+ex:FrontendMasters a ex:Course ;
+    ex:courseName "Frontend Masters" ;
+    ex:teachesSkill ex:JavaScript,
+        ex:TypeScript .
 
 ex:MachineLearningFundamentals a ex:Course ;
     ex:courseName "Machine Learning Fundamentals" ;
@@ -53,10 +82,20 @@ ex:StatisticsforDataAnalytics a ex:Course ;
     ex:courseName "Statistics for Data Analytics" ;
     ex:teachesSkill ex:Statistics .
 
+ex:SystemsProgramming a ex:Course ;
+    ex:courseName "Systems Programming" ;
+    ex:teachesSkill ex:C,
+        ex:Rust .
+
 ex:WebApplicationDevelopment a ex:Course ;
     ex:courseName "Web Application Development" ;
     ex:prerequisiteSkill ex:Python ;
     ex:teachesSkill ex:WebDevelopment .
+
+ex:WebScripting a ex:Course ;
+    ex:courseName "Web Scripting" ;
+    ex:teachesSkill ex:PHP,
+        ex:Ruby .
 
 ex:alias a rdf:Property ;
     rdfs:label "Skill alias" .
@@ -78,6 +117,10 @@ ex:hasRequirement a rdf:Property ;
 
 ex:hasSkill a rdf:Property ;
     rdfs:label "Student has a skill" .
+
+ex:iOSDevelopment a ex:Course ;
+    ex:courseName "iOS Development" ;
+    ex:teachesSkill ex:Swift .
 
 ex:prerequisiteSkill a rdf:Property ;
     rdfs:label "Course has a prerequisite skill" .
@@ -149,6 +192,26 @@ ex:AIEngineer_Statistics_Requirement a ex:SkillRequirement ;
     ex:requirementForCareer ex:AIEngineer ;
     ex:requiresSkill ex:Statistics .
 
+ex:CloudArchitect_CloudComputing_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:CloudArchitect ;
+    ex:requiresSkill ex:CloudComputing .
+
+ex:CloudArchitect_DevOps_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:CloudArchitect ;
+    ex:requiresSkill ex:DevOps .
+
+ex:CloudArchitect_Networking_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:CloudArchitect ;
+    ex:requiresSkill ex:Networking .
+
+ex:CloudArchitect_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:CloudArchitect ;
+    ex:requiresSkill ex:ProblemSolving .
+
 ex:CybersecurityAnalyst_Cybersecurity_Requirement a ex:SkillRequirement ;
     ex:priority "High" ;
     ex:requirementForCareer ex:CybersecurityAnalyst ;
@@ -194,6 +257,64 @@ ex:DataAnalyst_Statistics_Requirement a ex:SkillRequirement ;
     ex:requirementForCareer ex:DataAnalyst ;
     ex:requiresSkill ex:Statistics .
 
+ex:FullStackDeveloper_APIDesign_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:FullStackDeveloper ;
+    ex:requiresSkill ex:APIDesign .
+
+ex:FullStackDeveloper_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:FullStackDeveloper ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:FullStackDeveloper_Python_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:FullStackDeveloper ;
+    ex:requiresSkill ex:Python .
+
+ex:FullStackDeveloper_SQL_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:FullStackDeveloper ;
+    ex:requiresSkill ex:SQL .
+
+ex:FullStackDeveloper_WebDevelopment_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:FullStackDeveloper ;
+    ex:requiresSkill ex:WebDevelopment .
+
+ex:MobileDeveloper_JavaScript_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:MobileDeveloper ;
+    ex:requiresSkill ex:JavaScript .
+
+ex:MobileDeveloper_Java_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:MobileDeveloper ;
+    ex:requiresSkill ex:Java .
+
+ex:MobileDeveloper_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:MobileDeveloper ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:MobileDeveloper_Swift_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:MobileDeveloper ;
+    ex:requiresSkill ex:Swift .
+
+ex:PHP a ex:Skill ;
+    ex:alias "laravel",
+        "php" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "PHP" .
+
+ex:Ruby a ex:Skill ;
+    ex:alias "ror",
+        "ruby",
+        "ruby on rails" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Ruby" .
+
 ex:SoftwareDeveloper_DatabaseManagement_Requirement a ex:SkillRequirement ;
     ex:priority "Medium" ;
     ex:requirementForCareer ex:SoftwareDeveloper ;
@@ -219,6 +340,49 @@ ex:SoftwareDeveloper_WebDevelopment_Requirement a ex:SkillRequirement ;
     ex:requirementForCareer ex:SoftwareDeveloper ;
     ex:requiresSkill ex:WebDevelopment .
 
+ex:SystemsEngineer_C_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:SystemsEngineer ;
+    ex:requiresSkill ex:C .
+
+ex:SystemsEngineer_Go_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:SystemsEngineer ;
+    ex:requiresSkill ex:Go .
+
+ex:SystemsEngineer_ProblemSolving_Requirement a ex:SkillRequirement ;
+    ex:priority "Medium" ;
+    ex:requirementForCareer ex:SystemsEngineer ;
+    ex:requiresSkill ex:ProblemSolving .
+
+ex:SystemsEngineer_Rust_Requirement a ex:SkillRequirement ;
+    ex:priority "High" ;
+    ex:requirementForCareer ex:SystemsEngineer ;
+    ex:requiresSkill ex:Rust .
+
+ex:TypeScript a ex:Skill ;
+    ex:alias "ts",
+        "typescript" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "TypeScript" .
+
+ex:APIDesign a ex:Skill ;
+    ex:alias "api",
+        "api design",
+        "apis",
+        "rest api" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "API Design" .
+
+ex:CloudComputing a ex:Skill ;
+    ex:alias "aws",
+        "azure",
+        "cloud",
+        "cloud computing",
+        "gcp" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Cloud Computing" .
+
 ex:Cybersecurity a ex:Skill ;
     ex:alias "cyber security",
         "cybersecurity",
@@ -235,6 +399,33 @@ ex:DatabaseManagement a ex:Skill ;
     ex:skillCategory "Technical" ;
     ex:skillName "Database Management" .
 
+ex:DevOps a ex:Skill ;
+    ex:alias "ci/cd",
+        "devops",
+        "docker",
+        "kubernetes" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "DevOps" .
+
+ex:Go a ex:Skill ;
+    ex:alias "go",
+        "golang" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Go" .
+
+ex:Java a ex:Skill ;
+    ex:alias "java",
+        "jvm" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Java" .
+
+ex:JavaScript a ex:Skill ;
+    ex:alias "ecmascript",
+        "javascript",
+        "js" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "JavaScript" .
+
 ex:MachineLearning a ex:Skill ;
     ex:alias "machien learning",
         "machine learning",
@@ -242,21 +433,44 @@ ex:MachineLearning a ex:Skill ;
     ex:skillCategory "Technical" ;
     ex:skillName "Machine Learning" .
 
-ex:Networking a ex:Skill ;
-    ex:alias "computer network",
-        "computer networking",
-        "network",
-        "networking" ;
+ex:Rust a ex:Skill ;
+    ex:alias "rs",
+        "rust" ;
     ex:skillCategory "Technical" ;
-    ex:skillName "Networking" .
+    ex:skillName "Rust" .
 
-ex:WebDevelopment a ex:Skill ;
-    ex:alias "front end",
-        "frontend",
-        "html css javascript",
-        "web development" ;
+ex:Swift a ex:Skill ;
+    ex:alias "ios",
+        "swift" ;
     ex:skillCategory "Technical" ;
-    ex:skillName "Web Development" .
+    ex:skillName "Swift" .
+
+ex:C a ex:Skill ;
+    ex:alias ".net",
+        "c plus plus",
+        "c#",
+        "c++",
+        "cpp",
+        "csharp" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "C#",
+        "C++" .
+
+ex:CloudArchitect a ex:Career ;
+    ex:careerLevel "Advanced" ;
+    ex:careerName "Cloud Architect" ;
+    ex:hasRequirement ex:CloudArchitect_CloudComputing_Requirement,
+        ex:CloudArchitect_DevOps_Requirement,
+        ex:CloudArchitect_Networking_Requirement,
+        ex:CloudArchitect_ProblemSolving_Requirement ;
+    ex:requiresSkill ex:CloudComputing,
+        ex:DevOps,
+        ex:Networking,
+        ex:ProblemSolving ;
+    ex:sourceNote "Cloud Architect is represented using the O*NET Computer Systems Analysts occupation. Required skills focus on Cloud Computing, DevOps, Networking, and Essential Problem Solving." ;
+    ex:sourceOccupationCode "15-1211.00" ;
+    ex:sourceOccupationTitle "Computer Systems Analysts" ;
+    ex:usesSource ex:SRC001 .
 
 ex:CybersecurityAnalyst a ex:Career ;
     ex:careerLevel "Intermediate" ;
@@ -274,10 +488,37 @@ ex:CybersecurityAnalyst a ex:Career ;
     ex:sourceOccupationTitle "Information Security Analysts" ;
     ex:usesSource ex:SRC001 .
 
-ex:SRC001 a ex:Source ;
-    ex:description "Used as a real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships." ;
-    ex:sourceName "O*NET OnLine" ;
-    ex:sourceUrl "https://www.onetonline.org/" .
+ex:MobileDeveloper a ex:Career ;
+    ex:careerLevel "Intermediate" ;
+    ex:careerName "Mobile Developer" ;
+    ex:hasRequirement ex:MobileDeveloper_JavaScript_Requirement,
+        ex:MobileDeveloper_Java_Requirement,
+        ex:MobileDeveloper_ProblemSolving_Requirement,
+        ex:MobileDeveloper_Swift_Requirement ;
+    ex:requiresSkill ex:Java,
+        ex:JavaScript,
+        ex:ProblemSolving,
+        ex:Swift ;
+    ex:sourceNote "Mobile Developer using Swift and Java." ;
+    ex:sourceOccupationCode "15-1252.00" ;
+    ex:sourceOccupationTitle "Software Developers" ;
+    ex:usesSource ex:SRC001 .
+
+ex:SystemsEngineer a ex:Career ;
+    ex:careerLevel "Advanced" ;
+    ex:careerName "Systems Engineer" ;
+    ex:hasRequirement ex:SystemsEngineer_C_Requirement,
+        ex:SystemsEngineer_Go_Requirement,
+        ex:SystemsEngineer_ProblemSolving_Requirement,
+        ex:SystemsEngineer_Rust_Requirement ;
+    ex:requiresSkill ex:C,
+        ex:Go,
+        ex:ProblemSolving,
+        ex:Rust ;
+    ex:sourceNote "Systems Engineer requiring low-level languages." ;
+    ex:sourceOccupationCode "15-1252.00" ;
+    ex:sourceOccupationTitle "Software Developers" ;
+    ex:usesSource ex:SRC001 .
 
 ex:DataAnalyst a ex:Career ;
     ex:careerLevel "Intermediate" ;
@@ -304,6 +545,24 @@ ex:DataVisualization a ex:Skill ;
         "visualization" ;
     ex:skillCategory "Technical" ;
     ex:skillName "Data Visualization" .
+
+ex:FullStackDeveloper a ex:Career ;
+    ex:careerLevel "Advanced" ;
+    ex:careerName "Full Stack Developer" ;
+    ex:hasRequirement ex:FullStackDeveloper_APIDesign_Requirement,
+        ex:FullStackDeveloper_ProblemSolving_Requirement,
+        ex:FullStackDeveloper_Python_Requirement,
+        ex:FullStackDeveloper_SQL_Requirement,
+        ex:FullStackDeveloper_WebDevelopment_Requirement ;
+    ex:requiresSkill ex:APIDesign,
+        ex:ProblemSolving,
+        ex:Python,
+        ex:SQL,
+        ex:WebDevelopment ;
+    ex:sourceNote "Full Stack Developer is represented under the O*NET Software Developers profile, but requires a wider range of high-priority frontend, backend, and API design competencies." ;
+    ex:sourceOccupationCode "15-1252.00" ;
+    ex:sourceOccupationTitle "Software Developers" ;
+    ex:usesSource ex:SRC001 .
 
 ex:SoftwareDeveloper a ex:Career ;
     ex:careerLevel "Intermediate" ;
@@ -341,12 +600,33 @@ ex:AIEngineer a ex:Career ;
     ex:sourceOccupationTitle "Computer and Information Research Scientists" ;
     ex:usesSource ex:SRC001 .
 
+ex:Networking a ex:Skill ;
+    ex:alias "computer network",
+        "computer networking",
+        "network",
+        "networking" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Networking" .
+
+ex:WebDevelopment a ex:Skill ;
+    ex:alias "front end",
+        "frontend",
+        "html css javascript",
+        "web development" ;
+    ex:skillCategory "Technical" ;
+    ex:skillName "Web Development" .
+
 ex:Statistics a ex:Skill ;
     ex:alias "statistic",
         "statistics",
         "stats" ;
     ex:skillCategory "Technical" ;
     ex:skillName "Statistics" .
+
+ex:SRC001 a ex:Source ;
+    ex:description "Used as a real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships." ;
+    ex:sourceName "O*NET OnLine" ;
+    ex:sourceUrl "https://www.onetonline.org/" .
 
 ex:SQL a ex:Skill ;
     ex:alias "database query",
@@ -355,14 +635,6 @@ ex:SQL a ex:Skill ;
     ex:skillCategory "Technical" ;
     ex:skillName "SQL" .
 
-ex:ProblemSolving a ex:Skill ;
-    ex:alias "analytical thinking",
-        "critical thinking",
-        "problem solving",
-        "problem-solving" ;
-    ex:skillCategory "Essential" ;
-    ex:skillName "Problem Solving" .
-
 ex:Python a ex:Skill ;
     ex:alias "py",
         "pyhton",
@@ -370,4 +642,12 @@ ex:Python a ex:Skill ;
         "python programming" ;
     ex:skillCategory "Technical" ;
     ex:skillName "Python" .
+
+ex:ProblemSolving a ex:Skill ;
+    ex:alias "analytical thinking",
+        "critical thinking",
+        "problem solving",
+        "problem-solving" ;
+    ex:skillCategory "Essential" ;
+    ex:skillName "Problem Solving" .
 

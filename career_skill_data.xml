@@ -120,6 +120,125 @@
                 <alias>computer networking</alias>
             </aliases>
         </skill>
+
+        <skill id="SK011">
+            <skillName>Cloud Computing</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>cloud computing</alias>
+                <alias>cloud</alias>
+                <alias>aws</alias>
+                <alias>azure</alias>
+                <alias>gcp</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK012">
+            <skillName>DevOps</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>devops</alias>
+                <alias>ci/cd</alias>
+                <alias>docker</alias>
+                <alias>kubernetes</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK013">
+            <skillName>API Design</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>api design</alias>
+                <alias>rest api</alias>
+                <alias>api</alias>
+                <alias>apis</alias>
+            </aliases>
+        </skill>
+
+        <skill id="SK014">
+            <skillName>Java</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>java</alias>
+                <alias>jvm</alias>
+            </aliases>
+        </skill>
+        <skill id="SK015">
+            <skillName>C++</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>c++</alias>
+                <alias>cpp</alias>
+                <alias>c plus plus</alias>
+            </aliases>
+        </skill>
+        <skill id="SK016">
+            <skillName>C#</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>c#</alias>
+                <alias>csharp</alias>
+                <alias>.net</alias>
+            </aliases>
+        </skill>
+        <skill id="SK017">
+            <skillName>JavaScript</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>javascript</alias>
+                <alias>js</alias>
+                <alias>ecmascript</alias>
+            </aliases>
+        </skill>
+        <skill id="SK018">
+            <skillName>TypeScript</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>typescript</alias>
+                <alias>ts</alias>
+            </aliases>
+        </skill>
+        <skill id="SK019">
+            <skillName>Go</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>go</alias>
+                <alias>golang</alias>
+            </aliases>
+        </skill>
+        <skill id="SK020">
+            <skillName>Rust</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>rust</alias>
+                <alias>rs</alias>
+            </aliases>
+        </skill>
+        <skill id="SK021">
+            <skillName>Ruby</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>ruby</alias>
+                <alias>ror</alias>
+                <alias>ruby on rails</alias>
+            </aliases>
+        </skill>
+        <skill id="SK022">
+            <skillName>PHP</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>php</alias>
+                <alias>laravel</alias>
+            </aliases>
+        </skill>
+        <skill id="SK023">
+            <skillName>Swift</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>swift</alias>
+                <alias>ios</alias>
+            </aliases>
+        </skill>
     </skills>
 
     <careers>
@@ -177,6 +296,59 @@
                 <requiredSkill ref="SK006" priority="Medium"/>
             </requiredSkills>
         </career>
+
+        <career id="C005" sourceRef="SRC001" sourceOccupationCode="15-1211.00">
+            <careerName>Cloud Architect</careerName>
+            <sourceOccupationTitle>Computer Systems Analysts</sourceOccupationTitle>
+            <careerLevel>Advanced</careerLevel>
+            <sourceNote>Cloud Architect is represented using the O*NET Computer Systems Analysts occupation. Required skills focus on Cloud Computing, DevOps, Networking, and Essential Problem Solving.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK011" priority="High"/>
+                <requiredSkill ref="SK012" priority="High"/>
+                <requiredSkill ref="SK010" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
+
+        <career id="C006" sourceRef="SRC001" sourceOccupationCode="15-1252.00">
+            <careerName>Full Stack Developer</careerName>
+            <sourceOccupationTitle>Software Developers</sourceOccupationTitle>
+            <careerLevel>Advanced</careerLevel>
+            <sourceNote>Full Stack Developer is represented under the O*NET Software Developers profile, but requires a wider range of high-priority frontend, backend, and API design competencies.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK001" priority="High"/>
+                <requiredSkill ref="SK007" priority="High"/>
+                <requiredSkill ref="SK002" priority="High"/>
+                <requiredSkill ref="SK013" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
+
+        <career id="C007" sourceRef="SRC001" sourceOccupationCode="15-1252.00">
+            <careerName>Mobile Developer</careerName>
+            <sourceOccupationTitle>Software Developers</sourceOccupationTitle>
+            <careerLevel>Intermediate</careerLevel>
+            <sourceNote>Mobile Developer using Swift and Java.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK023" priority="High"/>
+                <requiredSkill ref="SK014" priority="High"/>
+                <requiredSkill ref="SK017" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
+
+        <career id="C008" sourceRef="SRC001" sourceOccupationCode="15-1252.00">
+            <careerName>Systems Engineer</careerName>
+            <sourceOccupationTitle>Software Developers</sourceOccupationTitle>
+            <careerLevel>Advanced</careerLevel>
+            <sourceNote>Systems Engineer requiring low-level languages.</sourceNote>
+            <requiredSkills>
+                <requiredSkill ref="SK015" priority="High"/>
+                <requiredSkill ref="SK020" priority="High"/>
+                <requiredSkill ref="SK019" priority="Medium"/>
+                <requiredSkill ref="SK006" priority="Medium"/>
+            </requiredSkills>
+        </career>
     </careers>
 
     <courses>
@@ -224,6 +396,58 @@
         <course id="CRS008">
             <courseName>Problem Solving for Computing</courseName>
             <teachesSkill ref="SK006"/>
+        </course>
+
+        <course id="CRS009">
+            <courseName>Cloud Architecture &amp; Services</courseName>
+            <teachesSkill ref="SK011"/>
+            <prerequisiteSkill ref="SK010"/>
+        </course>
+
+        <course id="CRS010">
+            <courseName>DevOps &amp; CI/CD Practices</courseName>
+            <teachesSkill ref="SK012"/>
+            <prerequisiteSkill ref="SK001"/>
+        </course>
+
+        <course id="CRS011">
+            <courseName>API Development &amp; Integration</courseName>
+            <teachesSkill ref="SK013"/>
+            <prerequisiteSkill ref="SK007"/>
+        </course>
+
+        <course id="CRS012">
+            <courseName>iOS Development</courseName>
+            <teachesSkill ref="SK023"/>
+        </course>
+
+        <course id="CRS013">
+            <courseName>Android Development</courseName>
+            <teachesSkill ref="SK014"/>
+        </course>
+
+        <course id="CRS014">
+            <courseName>Frontend Masters</courseName>
+            <teachesSkill ref="SK017"/>
+            <teachesSkill ref="SK018"/>
+        </course>
+
+        <course id="CRS015">
+            <courseName>Systems Programming</courseName>
+            <teachesSkill ref="SK015"/>
+            <teachesSkill ref="SK020"/>
+        </course>
+
+        <course id="CRS016">
+            <courseName>Backend Systems</courseName>
+            <teachesSkill ref="SK019"/>
+            <teachesSkill ref="SK016"/>
+        </course>
+
+        <course id="CRS017">
+            <courseName>Web Scripting</courseName>
+            <teachesSkill ref="SK021"/>
+            <teachesSkill ref="SK022"/>
         </course>
     </courses>
 
