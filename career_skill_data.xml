@@ -22,6 +22,8 @@
                 <alias>py</alias>
                 <alias>python programming</alias>
                 <alias>pyhton</alias>
+                <alias>pandas</alias>
+                <alias>numpy</alias>
             </aliases>
         </skill>
 
@@ -32,6 +34,9 @@
                 <alias>sql</alias>
                 <alias>structured query language</alias>
                 <alias>database query</alias>
+                <alias>mysql</alias>
+                <alias>postgresql</alias>
+                <alias>oracle</alias>
             </aliases>
         </skill>
 
@@ -42,6 +47,9 @@
                 <alias>machine learning</alias>
                 <alias>ml</alias>
                 <alias>machien learning</alias>
+                <alias>ai</alias>
+                <alias>artificial intelligence</alias>
+                <alias>deep learning</alias>
             </aliases>
         </skill>
 
@@ -85,6 +93,9 @@
                 <alias>html css javascript</alias>
                 <alias>frontend</alias>
                 <alias>front end</alias>
+                <alias>html</alias>
+                <alias>css</alias>
+                <alias>web design</alias>
             </aliases>
         </skill>
 
@@ -96,6 +107,8 @@
                 <alias>database</alias>
                 <alias>dbms</alias>
                 <alias>database systems</alias>
+                <alias>mongodb</alias>
+                <alias>nosql</alias>
             </aliases>
         </skill>
 
@@ -130,6 +143,8 @@
                 <alias>aws</alias>
                 <alias>azure</alias>
                 <alias>gcp</alias>
+                <alias>google cloud</alias>
+                <alias>amazon web services</alias>
             </aliases>
         </skill>
 
@@ -141,6 +156,8 @@
                 <alias>ci/cd</alias>
                 <alias>docker</alias>
                 <alias>kubernetes</alias>
+                <alias>jenkins</alias>
+                <alias>terraform</alias>
             </aliases>
         </skill>
 
@@ -239,6 +256,335 @@
                 <alias>ios</alias>
             </aliases>
         </skill>
+        <skill id="SK024">
+            <skillName>React</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>react</alias>
+                <alias>reactjs</alias>
+                <alias>react.js</alias>
+            </aliases>
+        </skill>
+        <skill id="SK025">
+            <skillName>Angular</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>angular</alias>
+                <alias>angularjs</alias>
+                <alias>angular.js</alias>
+            </aliases>
+        </skill>
+        <skill id="SK026">
+            <skillName>Node.js</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>node</alias>
+                <alias>nodejs</alias>
+                <alias>node.js</alias>
+            </aliases>
+        </skill>
+        <skill id="SK027">
+            <skillName>Django</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>django</alias>
+                <alias>django framework</alias>
+            </aliases>
+        </skill>
+        <skill id="SK028">
+            <skillName>Git</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>git</alias>
+                <alias>version control</alias>
+                <alias>github</alias>
+                <alias>gitlab</alias>
+            </aliases>
+        </skill>
+        <skill id="SK029">
+            <skillName>Linux</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>linux</alias>
+                <alias>unix</alias>
+                <alias>ubuntu</alias>
+                <alias>bash</alias>
+            </aliases>
+        </skill>
+        <skill id="SK030">
+            <skillName>Agile</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>agile</alias>
+                <alias>scrum</alias>
+                <alias>kanban</alias>
+            </aliases>
+        </skill>
+        <skill id="SK031">
+            <skillName>Communication</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>communication</alias>
+                <alias>verbal communication</alias>
+                <alias>written communication</alias>
+            </aliases>
+        </skill>
+        <skill id="SK032">
+            <skillName>Teamwork</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>teamwork</alias>
+                <alias>collaboration</alias>
+                <alias>team building</alias>
+            </aliases>
+        </skill>
+        <skill id="SK033">
+            <skillName>Leadership</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>leadership</alias>
+                <alias>management</alias>
+                <alias>mentoring</alias>
+            </aliases>
+        </skill>
+        <skill id="SK034">
+            <skillName>R</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>r</alias>
+                <alias>r programming</alias>
+                <alias>rstudio</alias>
+                <alias>r language</alias>
+            </aliases>
+        </skill>
+        <skill id="SK035">
+            <skillName>Kotlin</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>kotlin</alias>
+                <alias>android kotlin</alias>
+            </aliases>
+        </skill>
+        <skill id="SK036">
+            <skillName>Scala</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>scala</alias>
+                <alias>apache spark</alias>
+                <alias>spark</alias>
+            </aliases>
+        </skill>
+        <skill id="SK037">
+            <skillName>Vue.js</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>vue</alias>
+                <alias>vuejs</alias>
+                <alias>vue.js</alias>
+            </aliases>
+        </skill>
+        <skill id="SK038">
+            <skillName>Flask</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>flask</alias>
+                <alias>flask framework</alias>
+                <alias>python flask</alias>
+            </aliases>
+        </skill>
+        <skill id="SK039">
+            <skillName>Spring Boot</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>spring boot</alias>
+                <alias>spring</alias>
+                <alias>spring framework</alias>
+            </aliases>
+        </skill>
+        <skill id="SK040">
+            <skillName>TensorFlow</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>tensorflow</alias>
+                <alias>tf</alias>
+                <alias>keras</alias>
+                <alias>pytorch</alias>
+            </aliases>
+        </skill>
+        <skill id="SK041">
+            <skillName>UI/UX Design</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>ui/ux</alias>
+                <alias>ui ux</alias>
+                <alias>ux design</alias>
+                <alias>ui design</alias>
+                <alias>figma</alias>
+                <alias>user experience</alias>
+            </aliases>
+        </skill>
+        <skill id="SK042">
+            <skillName>Graphic Design</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>graphic design</alias>
+                <alias>photoshop</alias>
+                <alias>illustrator</alias>
+                <alias>adobe</alias>
+                <alias>canva</alias>
+            </aliases>
+        </skill>
+        <skill id="SK043">
+            <skillName>Excel</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>excel</alias>
+                <alias>microsoft excel</alias>
+                <alias>spreadsheet</alias>
+                <alias>google sheets</alias>
+            </aliases>
+        </skill>
+        <skill id="SK044">
+            <skillName>Power BI</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>power bi</alias>
+                <alias>powerbi</alias>
+                <alias>business intelligence</alias>
+                <alias>bi</alias>
+            </aliases>
+        </skill>
+        <skill id="SK045">
+            <skillName>Tableau</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>tableau</alias>
+                <alias>data dashboard</alias>
+            </aliases>
+        </skill>
+        <skill id="SK046">
+            <skillName>Software Testing</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>software testing</alias>
+                <alias>testing</alias>
+                <alias>qa</alias>
+                <alias>quality assurance</alias>
+                <alias>unit testing</alias>
+                <alias>selenium</alias>
+            </aliases>
+        </skill>
+        <skill id="SK047">
+            <skillName>Data Engineering</skillName>
+            <skillCategory>Technical</skillCategory>
+            <aliases>
+                <alias>data engineering</alias>
+                <alias>etl</alias>
+                <alias>data pipeline</alias>
+                <alias>airflow</alias>
+            </aliases>
+        </skill>
+        <skill id="SK048">
+            <skillName>Project Management</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>project management</alias>
+                <alias>pm</alias>
+                <alias>jira</alias>
+                <alias>trello</alias>
+                <alias>project planning</alias>
+            </aliases>
+        </skill>
+        <skill id="SK049">
+            <skillName>Time Management</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>time management</alias>
+                <alias>punctuality</alias>
+                <alias>prioritization</alias>
+            </aliases>
+        </skill>
+        <skill id="SK050">
+            <skillName>Adaptability</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>adaptability</alias>
+                <alias>flexibility</alias>
+                <alias>open-mindedness</alias>
+            </aliases>
+        </skill>
+        <skill id="SK051">
+            <skillName>Creativity</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>creativity</alias>
+                <alias>innovation</alias>
+                <alias>creative thinking</alias>
+            </aliases>
+        </skill>
+        <skill id="SK052">
+            <skillName>Critical Thinking</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>critical thinking</alias>
+                <alias>logical reasoning</alias>
+                <alias>analytical skills</alias>
+            </aliases>
+        </skill>
+        <skill id="SK053">
+            <skillName>Emotional Intelligence</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>emotional intelligence</alias>
+                <alias>eq</alias>
+                <alias>empathy</alias>
+            </aliases>
+        </skill>
+        <skill id="SK054">
+            <skillName>Work Ethic</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>work ethic</alias>
+                <alias>dedication</alias>
+                <alias>reliability</alias>
+            </aliases>
+        </skill>
+        <skill id="SK055">
+            <skillName>Interpersonal Skills</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>interpersonal skills</alias>
+                <alias>relationship building</alias>
+                <alias>social skills</alias>
+            </aliases>
+        </skill>
+        <skill id="SK056">
+            <skillName>Active Listening</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>active listening</alias>
+                <alias>listening skills</alias>
+                <alias>attentiveness</alias>
+            </aliases>
+        </skill>
+        <skill id="SK057">
+            <skillName>Conflict Resolution</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>conflict resolution</alias>
+                <alias>mediation</alias>
+                <alias>negotiation</alias>
+            </aliases>
+        </skill>
+        <skill id="SK058">
+            <skillName>Presentation Skills</skillName>
+            <skillCategory>Essential</skillCategory>
+            <aliases>
+                <alias>presentation skills</alias>
+                <alias>public speaking</alias>
+                <alias>presenting</alias>
+            </aliases>
+        </skill>
     </skills>
 
     <careers>
@@ -253,6 +599,12 @@
                 <requiredSkill ref="SK004" priority="High"/>
                 <requiredSkill ref="SK005" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK034" priority="Medium"/>
+                <requiredSkill ref="SK043" priority="High"/>
+                <requiredSkill ref="SK044" priority="Medium"/>
+                <requiredSkill ref="SK045" priority="Medium"/>
+                <requiredSkill ref="SK058" priority="Low"/>
+                <requiredSkill ref="SK052" priority="Medium"/>
             </requiredSkills>
         </career>
 
@@ -267,6 +619,13 @@
                 <requiredSkill ref="SK008" priority="Medium"/>
                 <requiredSkill ref="SK002" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK046" priority="Medium"/>
+                <requiredSkill ref="SK048" priority="Low"/>
+                <requiredSkill ref="SK028" priority="High"/>
+                <requiredSkill ref="SK029" priority="Low"/>
+                <requiredSkill ref="SK030" priority="Low"/>
+                <requiredSkill ref="SK049" priority="Low"/>
+                <requiredSkill ref="SK050" priority="Medium"/>
             </requiredSkills>
         </career>
 
@@ -280,6 +639,9 @@
                 <requiredSkill ref="SK010" priority="High"/>
                 <requiredSkill ref="SK002" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK029" priority="Medium"/>
+                <requiredSkill ref="SK052" priority="High"/>
+                <requiredSkill ref="SK054" priority="Medium"/>
             </requiredSkills>
         </career>
 
@@ -294,6 +656,11 @@
                 <requiredSkill ref="SK004" priority="High"/>
                 <requiredSkill ref="SK005" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK040" priority="High"/>
+                <requiredSkill ref="SK034" priority="Low"/>
+                <requiredSkill ref="SK036" priority="Low"/>
+                <requiredSkill ref="SK051" priority="Medium"/>
+                <requiredSkill ref="SK052" priority="High"/>
             </requiredSkills>
         </career>
 
@@ -307,6 +674,10 @@
                 <requiredSkill ref="SK012" priority="High"/>
                 <requiredSkill ref="SK010" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK047" priority="Low"/>
+                <requiredSkill ref="SK029" priority="Medium"/>
+                <requiredSkill ref="SK055" priority="Medium"/>
+                <requiredSkill ref="SK056" priority="Medium"/>
             </requiredSkills>
         </career>
 
@@ -321,6 +692,12 @@
                 <requiredSkill ref="SK002" priority="High"/>
                 <requiredSkill ref="SK013" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK037" priority="Medium"/>
+                <requiredSkill ref="SK038" priority="Low"/>
+                <requiredSkill ref="SK039" priority="Medium"/>
+                <requiredSkill ref="SK041" priority="Low"/>
+                <requiredSkill ref="SK050" priority="Medium"/>
+                <requiredSkill ref="SK049" priority="Medium"/>
             </requiredSkills>
         </career>
 
@@ -334,6 +711,10 @@
                 <requiredSkill ref="SK014" priority="High"/>
                 <requiredSkill ref="SK017" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK035" priority="High"/>
+                <requiredSkill ref="SK041" priority="Low"/>
+                <requiredSkill ref="SK051" priority="Medium"/>
+                <requiredSkill ref="SK054" priority="Medium"/>
             </requiredSkills>
         </career>
 
@@ -347,6 +728,9 @@
                 <requiredSkill ref="SK020" priority="High"/>
                 <requiredSkill ref="SK019" priority="Medium"/>
                 <requiredSkill ref="SK006" priority="Medium"/>
+                <requiredSkill ref="SK029" priority="High"/>
+                <requiredSkill ref="SK057" priority="Medium"/>
+                <requiredSkill ref="SK053" priority="Low"/>
             </requiredSkills>
         </career>
     </careers>
@@ -366,17 +750,24 @@
         <course id="CRS003">
             <courseName>Statistics for Data Analytics</courseName>
             <teachesSkill ref="SK004"/>
+            <teachesSkill ref="SK034"/>
         </course>
 
         <course id="CRS004">
             <courseName>Data Visualization Fundamentals</courseName>
             <teachesSkill ref="SK005"/>
+            <teachesSkill ref="SK043"/>
+            <teachesSkill ref="SK044"/>
+            <teachesSkill ref="SK045"/>
             <prerequisiteSkill ref="SK004"/>
         </course>
 
         <course id="CRS005">
             <courseName>Machine Learning Fundamentals</courseName>
             <teachesSkill ref="SK003"/>
+            <teachesSkill ref="SK040"/>
+            <teachesSkill ref="SK036"/>
+            <teachesSkill ref="SK047"/>
             <prerequisiteSkill ref="SK004"/>
             <prerequisiteSkill ref="SK001"/>
         </course>
@@ -384,6 +775,10 @@
         <course id="CRS006">
             <courseName>Web Application Development</courseName>
             <teachesSkill ref="SK007"/>
+            <teachesSkill ref="SK041"/>
+            <teachesSkill ref="SK042"/>
+            <teachesSkill ref="SK028"/>
+            <teachesSkill ref="SK046"/>
             <prerequisiteSkill ref="SK001"/>
         </course>
 
@@ -396,6 +791,20 @@
         <course id="CRS008">
             <courseName>Problem Solving for Computing</courseName>
             <teachesSkill ref="SK006"/>
+            <teachesSkill ref="SK048"/>
+            <teachesSkill ref="SK031"/>
+            <teachesSkill ref="SK032"/>
+            <teachesSkill ref="SK033"/>
+            <teachesSkill ref="SK049"/>
+            <teachesSkill ref="SK050"/>
+            <teachesSkill ref="SK051"/>
+            <teachesSkill ref="SK052"/>
+            <teachesSkill ref="SK053"/>
+            <teachesSkill ref="SK054"/>
+            <teachesSkill ref="SK055"/>
+            <teachesSkill ref="SK056"/>
+            <teachesSkill ref="SK057"/>
+            <teachesSkill ref="SK058"/>
         </course>
 
         <course id="CRS009">
@@ -407,6 +816,8 @@
         <course id="CRS010">
             <courseName>DevOps &amp; CI/CD Practices</courseName>
             <teachesSkill ref="SK012"/>
+            <teachesSkill ref="SK029"/>
+            <teachesSkill ref="SK030"/>
             <prerequisiteSkill ref="SK001"/>
         </course>
 
@@ -424,24 +835,29 @@
         <course id="CRS013">
             <courseName>Android Development</courseName>
             <teachesSkill ref="SK014"/>
+            <teachesSkill ref="SK035"/>
         </course>
 
         <course id="CRS014">
             <courseName>Frontend Masters</courseName>
             <teachesSkill ref="SK017"/>
             <teachesSkill ref="SK018"/>
+            <teachesSkill ref="SK037"/>
         </course>
 
         <course id="CRS015">
             <courseName>Systems Programming</courseName>
             <teachesSkill ref="SK015"/>
             <teachesSkill ref="SK020"/>
+            <teachesSkill ref="SK029"/>
         </course>
 
         <course id="CRS016">
             <courseName>Backend Systems</courseName>
             <teachesSkill ref="SK019"/>
             <teachesSkill ref="SK016"/>
+            <teachesSkill ref="SK038"/>
+            <teachesSkill ref="SK039"/>
         </course>
 
         <course id="CRS017">
