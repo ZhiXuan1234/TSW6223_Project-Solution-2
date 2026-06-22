@@ -18,11 +18,11 @@ A student selects a target career and enters their current skills. The system th
 
 The project includes three versions of the Skill Gap Analyzer interface. These versions use the same main semantic analysis concept, but they present the output in different ways.
 
-1. **Modern Web Dashboard** (`py web_app.py`)
-   A responsive Flask-based web interface with interactive skill tags, animated readiness scores, priority-grouped missing skills, recommended learning paths, and alternative career cards. It is accessed through a browser at `http://localhost:5000`.
+1. **Modern Web Dashboard** (`py web_app.py`) — **Default Interface**
+   The primary Flask-based web interface with interactive skill tags, animated readiness scores, priority-grouped missing skills, recommended learning paths, and alternative career cards. It is accessed through a browser at `http://localhost:5000`.
 
-2. **Legacy GUI Application** (`py main.py`)
-   The original Tkinter popup window version. When `py main.py` is executed, the system validates the XML file, regenerates the RDF/RDFS Turtle file, runs SPARQL test queries, and then launches `gui_app.py`.
+2. **Legacy GUI Application** (`py main.py`) — Optional Alternative
+   A Tkinter popup window version kept as a standalone option. When `py main.py` is executed, the system validates the XML file, regenerates the RDF/RDFS Turtle file, runs SPARQL test queries, and then launches `gui_app.py`. This is available as an alternative for users who prefer not to open a browser.
 
 3. **Terminal-Based Analyzer** (`py skill_gap_analysis.py`)
    A command-line version of the same SPARQL-powered skill gap analyzer. This version is kept as a backup and testing-friendly interface.
@@ -545,10 +545,10 @@ The web dashboard allows the user to:
 Important note:
 
 ```text
-web_app.py does not run through main.py by default. It is run separately because it starts a Flask web server.
+web_app.py is the default (primary) interface for this project. It is run directly and starts a Flask web server at http://localhost:5000.
 ```
 
-### 10.2 Run the Legacy GUI Application
+### 10.2 Run the Legacy GUI Application (Optional Alternative)
 
 To run the full end-to-end backend pipeline and launch the Tkinter popup GUI:
 
@@ -567,7 +567,7 @@ The application will automatically perform the following steps:
 
 After Step 3, a popup window will appear where the user can select a career, enter skills, and view the result in the output box.
 
-By default, `main.py` launches:
+`main.py` launches the optional Tkinter GUI:
 
 ```text
 gui_app.py
@@ -579,7 +579,7 @@ The terminal-based analyzer is available as a backup option inside `main.py` thr
 analysis_success = run_python_file("skill_gap_analysis.py")
 ```
 
-To use the terminal analyzer through `main.py`, the developer may change the default launcher line from `gui_app.py` to `skill_gap_analysis.py`.
+To use the terminal analyzer through `main.py`, the developer may change the launcher line from `gui_app.py` to `skill_gap_analysis.py`.
 
 ### 10.3 Run the Terminal-Based Analyzer
 
@@ -787,9 +787,9 @@ TSW6223_Project-Solution-2/
 | `career_skill_graph.ttl`  | Generated RDF/RDFS Turtle graph created from the XML data.                                                                                                                                                                                   |
 | `xml_to_rdf.py`           | Converts XML data into RDF/RDFS triples and runs SPARQL test queries.                                                                                                                                                                        |
 | `skill_gap_analysis.py`   | Terminal-based SPARQL-powered skill gap analyzer. It performs the same core analysis but displays the result in the command-line terminal.                                                                                                   |
-| `gui_app.py`              | Tkinter popup version of the SPARQL-powered skill gap analyzer. This is the default interface launched by `main.py`.                                                                                                                         |
-| `web_app.py`              | Flask web dashboard version of the SPARQL-powered skill gap analyzer. It performs the same core analysis but displays the result through a browser-based interface.                                                                          |
-| `main.py`                 | Legacy launcher that validates XML, regenerates RDF/RDFS, runs SPARQL test queries through `xml_to_rdf.py`, and starts `gui_app.py` by default. The terminal version can be used by switching the commented line to `skill_gap_analysis.py`. |
+| `gui_app.py`              | Tkinter popup version of the SPARQL-powered skill gap analyzer. This is an optional alternative interface launched by `main.py`.                                                                                                            |
+| `web_app.py`              | Flask web dashboard version of the SPARQL-powered skill gap analyzer. **This is the default (primary) interface for the project.** It performs the same core analysis but displays the result through a browser-based interface.             |
+| `main.py`                 | Optional launcher that validates XML, regenerates RDF/RDFS, runs SPARQL test queries through `xml_to_rdf.py`, and starts `gui_app.py`. The terminal version can be used by switching the commented line to `skill_gap_analysis.py`.          |
 | `README.md`               | Project explanation, architecture summary, file description, and running instructions.                                                                                                                                                       |
 
 ### 13.2 Web Interface Files
@@ -857,11 +857,11 @@ Solution 2 is a semantic web-based Career Path / Skill Gap Analysis prototype. I
 
 The system provides three ways to interact with the analyzer:
 
-1. **Modern Web Dashboard**
-   Run `py web_app.py` and open `http://localhost:5000` in a browser. This interface features interactive skill tags with validation, an animated readiness score, priority-grouped skill gaps, course recommendation timeline, alternative career cards, and dark/light theme support.
+1. **Modern Web Dashboard** (Default)
+   Run `py web_app.py` and open `http://localhost:5000` in a browser. This is the primary interface featuring interactive skill tags with validation, an animated readiness score, priority-grouped skill gaps, course recommendation timeline, alternative career cards, and dark/light theme support.
 
-2. **Legacy GUI Application**
-   Run `py main.py` to execute XML validation, RDF/RDFS conversion, and SPARQL test queries in the terminal, followed by a Tkinter popup window through `gui_app.py`.
+2. **Legacy GUI Application** (Optional Alternative)
+   Run `py main.py` to execute XML validation, RDF/RDFS conversion, and SPARQL test queries in the terminal, followed by a Tkinter popup window through `gui_app.py`. This is kept as a standalone option for users who prefer not to open a browser.
 
 3. **Terminal-Based Analyzer**
    Run `py skill_gap_analysis.py` to use the command-line version of the same SPARQL-powered skill gap analysis. This version is mainly kept as a backup and testing-friendly interface.
