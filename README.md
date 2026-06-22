@@ -6,28 +6,46 @@ Solution 2 focuses on the education domain, specifically the subdomain of **Care
 
 The system is implemented as a semantic web-based prototype using:
 
-- **XML** as the structured data layer
-- **XSD** as the XML validation layer
-- **RDF/RDFS** as the semantic representation layer
-- **SPARQL** as the semantic query layer
-- **Python** as the implementation language
-- **Flask** as the modern web dashboard framework
-- **Tkinter GUI** as the legacy user interaction interface
+* **XML** as the structured data layer
+* **XSD** as the XML validation layer
+* **RDF/RDFS** as the semantic representation layer
+* **SPARQL** as the semantic query layer
+* **Python** as the implementation language
+* **Flask** as the modern web dashboard framework
+* **Tkinter** as the legacy popup GUI framework
 
-A student selects a target career and enters their current skills. The system then analyses the student's skills against the required skills of the selected career. The output includes matched skills, missing skills, missing skill priority, career readiness score, recommended courses, prerequisite skills, and alternative career suggestions.
+A student selects a target career and enters their current skills. The system then analyses the student’s skills against the required skills of the selected career. The output includes matched skills, missing skills, missing skill priority, career readiness score, recommended courses, prerequisite skills, and alternative career suggestions.
 
-The application provides **two interfaces** to choose from:
+The project includes three versions of the Skill Gap Analyzer interface. These versions use the same main semantic analysis concept, but they present the output in different ways.
 
-1. **Modern Web Dashboard** (`py web_app.py`) — A responsive Flask-based web interface with interactive skill tags, animated readiness scores, and a visual results dashboard. Accessed via a web browser at `http://localhost:5000`.
-2. **Legacy GUI Application** (`py main.py`) — The original Tkinter popup window that runs after XML validation and RDF/RDFS conversion in the terminal.
+1. **Modern Web Dashboard** (`py web_app.py`)
+   A responsive Flask-based web interface with interactive skill tags, animated readiness scores, priority-grouped missing skills, recommended learning paths, and alternative career cards. It is accessed through a browser at `http://localhost:5000`.
+
+2. **Legacy GUI Application** (`py main.py`)
+   The original Tkinter popup window version. When `py main.py` is executed, the system validates the XML file, regenerates the RDF/RDFS Turtle file, runs SPARQL test queries, and then launches `gui_app.py`.
+
+3. **Terminal-Based Analyzer** (`py skill_gap_analysis.py`)
+   A command-line version of the same SPARQL-powered skill gap analyzer. This version is kept as a backup and testing-friendly interface.
+
+Although these three versions use different interfaces, they perform the same core analysis purpose. They retrieve career and skill relationships from the RDF graph using SPARQL, normalise user skill input using XML aliases, compare the user’s skills with selected career requirements, calculate a readiness score, recommend courses for missing skills, and suggest alternative career paths.
 
 ---
 
 ## 2. Problem Addressed
 
-Students often struggle to choose suitable courses and career paths because they may not clearly understand the relationship between their current skills, course learning outcomes, and career requirements. A normal course list does not clearly show which skills are needed for a particular career or which courses can help close a skill gap.
+Students often struggle to choose suitable courses and career paths because they may not clearly understand the relationship between their current skills, course learning outcomes, and career requirements. A normal career or course list does not clearly show which skills are needed for a particular career, which skills the student already has, which skills are missing, or which courses can help close the skill gap.
 
 This solution addresses the problem by structuring career, skill, and course data in a machine-readable format and using semantic web technologies to represent and query the relationships between them.
+
+The system supports skill-based career guidance by:
+
+* comparing student skills with selected career requirements
+* identifying matched and missing skills
+* grouping missing skills by priority
+* calculating a career readiness score
+* recommending courses for missing skills
+* showing prerequisite skills for recommended courses
+* suggesting alternative careers based on the student’s current skills
 
 ---
 
@@ -52,29 +70,31 @@ career_skill_graph.ttl
         ↓
 SPARQL queries over RDF graph
         ↓
-Modern Web Dashboard OR Legacy GUI output
+Terminal output OR Tkinter GUI output OR Web dashboard output
 ```
 
-The final application flow allows you to choose between two interfaces:
+The system has three interaction options.
 
-**Option A: Modern Web Dashboard (Phase 2)**
+### Option A: Modern Web Dashboard
+
 ```text
 py web_app.py
    ↓
-Starts Flask Server on http://localhost:5000
+Starts Flask server on http://localhost:5000
    ↓
 User accesses responsive web dashboard
    ↓
-User selects target career & enters skills via interactive tags
+User selects target career and enters skills through interactive tags
    ↓
-System normalises input using aliases and typo handling via API
+System normalises input using aliases and typo handling through API
    ↓
 System retrieves required skills and courses using SPARQL
    ↓
-System displays animated skill gap dashboard and alternative careers
+System displays readiness score, skill gaps, courses, and alternative careers
 ```
 
-**Option B: Legacy GUI Application (Phase 1)**
+### Option B: Legacy GUI Application
+
 ```text
 py main.py
    ↓
@@ -86,13 +106,31 @@ Run SPARQL test queries in terminal
    ↓
 Launch Tkinter GUI Skill Gap Analyzer
    ↓
-User selects target career & enters skills
+User selects target career and enters skills
    ↓
 System normalises input using aliases and typo handling
    ↓
 System retrieves required skills and courses using SPARQL
    ↓
 System displays skill gap analysis result in popup window
+```
+
+### Option C: Terminal-Based Analyzer
+
+```text
+py skill_gap_analysis.py
+   ↓
+Load RDF/RDFS Turtle graph
+   ↓
+Display available careers in terminal
+   ↓
+User selects target career and enters skills
+   ↓
+System normalises input using aliases and typo handling
+   ↓
+System retrieves required skills and courses using SPARQL
+   ↓
+System prints skill gap analysis result in terminal
 ```
 
 ---
@@ -109,16 +147,29 @@ The XML file used in this solution is:
 career_skill_data.xml
 ```
 
+The XML file stores:
+
+* data sources
+* skill names
+* skill categories
+* skill aliases
+* career paths
+* required skills for each career
+* priority level of each required skill
+* courses
+* prerequisite skills
+* sample student profile
+
 ### 4.2 XSD
 
-XSD is used to validate the XML file. It ensures that the XML follows the correct structure and that important values are controlled.
+XSD is used to validate the XML file. It ensures that the XML follows the correct structure and that important values are controlled before the data is processed.
 
 For example, the XSD checks that:
 
-- skill priority can only be `High`, `Medium`, or `Low`
-- career level can only be `Beginner`, `Intermediate`, or `Advanced`
-- skill category can only be `Technical` or `Essential`
-- referenced skills, careers, and sources must exist in the XML file
+* skill priority can only be `High`, `Medium`, or `Low`
+* career level can only be `Beginner`, `Intermediate`, or `Advanced`
+* skill category can only be `Technical` or `Essential`
+* referenced skills, careers, and sources must exist in the XML file
 
 The XSD file used in this solution is:
 
@@ -133,6 +184,7 @@ RDF/RDFS is used to convert the validated XML data into semantic triples. The ge
 ```text
 AI Engineer requiresSkill Machine Learning
 Machine Learning Fundamentals teachesSkill Machine Learning
+Data Visualization Fundamentals prerequisiteSkill Statistics
 Sample Student hasSkill Python
 Software Developer usesSource O*NET OnLine
 ```
@@ -148,7 +200,7 @@ Classes:
 - Student
 - SkillRequirement
 
-Properties:
+Object Properties:
 - requiresSkill
 - teachesSkill
 - prerequisiteSkill
@@ -157,6 +209,22 @@ Properties:
 - usesSource
 - hasRequirement
 - requirementForCareer
+
+Data Properties:
+- skillName
+- skillCategory
+- alias
+- careerName
+- careerLevel
+- sourceOccupationTitle
+- sourceOccupationCode
+- sourceNote
+- courseName
+- studentName
+- priority
+- sourceName
+- sourceUrl
+- description
 ```
 
 The generated RDF/RDFS Turtle file is:
@@ -171,7 +239,7 @@ This file can be regenerated by running:
 py xml_to_rdf.py
 ```
 
-or by running the full application:
+or by running the legacy launcher:
 
 ```bash
 py main.py
@@ -183,34 +251,49 @@ SPARQL is used to query the RDF graph. In the current implementation, SPARQL is 
 
 SPARQL is used to retrieve:
 
-- available career options
-- required skills for the selected career
-- skill priority and skill category
-- courses that teach missing skills
-- prerequisite skills for recommended courses
-- alternative career suggestions based on skill match percentage
+* available career options
+* required skills for the selected career
+* skill priority and skill category
+* courses that teach missing skills
+* prerequisite skills for recommended courses
+* alternative career suggestions based on skill match percentage
 
-This strengthens the solution because the final skill gap analysis retrieves semantic relationships from the RDF graph instead of relying only on Python dictionaries.
+This strengthens the solution because the final skill gap analysis retrieves semantic relationships from the RDF graph instead of relying only on static Python lists.
 
-The SPARQL implementation can be seen in both `skill_gap_analysis.py` and `gui_app.py`. The file `skill_gap_analysis.py` provides a terminal-based version of the analyzer, while `gui_app.py` provides the final GUI-based version. Both versions query the RDF graph using SPARQL to retrieve career options, required skills, course recommendations, prerequisite skills, and alternative career suggestions.
+The SPARQL implementation can be seen in:
 
-### 4.5 Python, Flask, and Tkinter GUI
+```text
+skill_gap_analysis.py
+gui_app.py
+web_app.py
+xml_to_rdf.py
+```
+
+The file `skill_gap_analysis.py` provides a terminal-based version of the analyzer. The file `gui_app.py` provides the Tkinter popup version. The file `web_app.py` provides the modern Flask web dashboard version. All three analyzer interfaces query the RDF graph using SPARQL to retrieve career options, required skills, course recommendations, prerequisite skills, and alternative career suggestions.
+
+The file `xml_to_rdf.py` also runs SPARQL test queries after converting XML data into RDF/RDFS triples. These test queries are used to prove that the RDF graph can be queried successfully.
+
+### 4.5 Python, Flask, and Tkinter
 
 Python is used to implement the application logic. Python handles:
 
-- XML validation using XSD
-- XML parsing
-- XML-to-RDF/RDFS conversion
-- SPARQL query execution using RDFLib
-- user input normalisation
-- alias matching and fuzzy typo correction
-- readiness score calculation
-- result display (web dashboard or GUI popup)
+* XML validation using XSD
+* XML parsing
+* XML-to-RDF/RDFS conversion
+* SPARQL query execution using RDFLib
+* user input normalisation
+* alias matching
+* fuzzy typo correction
+* readiness score calculation
+* result display through terminal, GUI, or web dashboard
 
-The project provides **two user interfaces**:
+The project provides three user interaction methods:
 
-- **Flask Web Dashboard** (`web_app.py`) — A modern, responsive web application served at `http://localhost:5000`. It provides interactive skill tag inputs with real-time validation, an animated circular readiness score, priority-grouped missing skills, a course recommendation timeline, and alternative career cards. It also supports dark/light theme toggling.
-- **Tkinter GUI** (`gui_app.py`) — The original simple popup window that allows the user to select a target career, enter current skills, and view the skill gap analysis result in a text-based format.
+| Interface           | File                    | Description                                                |
+| ------------------- | ----------------------- | ---------------------------------------------------------- |
+| Terminal Analyzer   | `skill_gap_analysis.py` | Runs the analyzer inside the command-line terminal.        |
+| Tkinter GUI         | `gui_app.py`            | Opens a simple Python popup window for user interaction.   |
+| Flask Web Dashboard | `web_app.py`            | Runs a browser-based dashboard at `http://localhost:5000`. |
 
 ---
 
@@ -218,12 +301,12 @@ The project provides **two user interfaces**:
 
 The dataset is prepared as a small prototype dataset based on selected real-world occupation information from **O*NET OnLine**. O*NET is used because it provides occupation profiles, worker requirements, software skills, essential skills, and occupation-related information.
 
-The system does **not** directly scrape or fetch live data from O*NET during runtime. Instead, a small selected chunk of relevant occupation information was manually reviewed and transformed into XML. This makes the prototype more stable for development, testing, and demonstration.
+The system does **not** directly scrape or fetch live data from O*NET during runtime. Instead, selected occupation information was manually reviewed and transformed into XML. This makes the prototype more stable for development, testing, and demonstration.
 
 The dataset currently uses one source:
 
-| Source ID | Source Name  | Source URL                  | Usage                                                 |
-|-----------|--------------|-----------------------------|-------------------------------------------------------|
+| Source ID | Source Name  | Source URL                  | Usage                                                                                                                                                 |
+| --------- | ------------ | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | SRC001    | O*NET OnLine | https://www.onetonline.org/ | Used as the real-world reference for occupation descriptions, worker requirements, software skills, essential skills, and career-skill relationships. |
 
 ---
@@ -232,12 +315,16 @@ The dataset currently uses one source:
 
 Some modern job titles are not always available as exact O*NET occupation titles. Therefore, the project career names are mapped to the closest available O*NET occupation profiles.
 
-| Project Career Name   | O*NET Occupation Title Used                  | O*NET Code | Reason for Mapping |
-|-----------------------|----------------------------------------------|------------|--------------------|
+| Project Career Name   | O*NET Occupation Title Used                  | O*NET Code | Reason for Mapping                                                                                                                           |
+| --------------------- | -------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Data Analyst          | Data Scientists                              | 15-2051.00 | Used as a close data-related occupation because O*NET search maps data analyst-related work to data science and business intelligence roles. |
-| Software Developer    | Software Developers                          | 15-1252.00 | Direct match with O*NET occupation title. |
-| Cybersecurity Analyst | Information Security Analysts                | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work. |
-| AI Engineer           | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title. |
+| Software Developer    | Software Developers                          | 15-1252.00 | Direct match with O*NET occupation title.                                                                                                    |
+| Cybersecurity Analyst | Information Security Analysts                | 15-1212.00 | Used as the closest official O*NET occupation title for cybersecurity-related analysis work.                                                 |
+| AI Engineer           | Computer and Information Research Scientists | 15-1221.00 | Used as the closest occupation because O*NET does not list AI Engineer as a direct main occupation title.                                    |
+| Cloud Architect       | Computer Systems Analysts                    | 15-1211.00 | Used as a close occupation for analysing cloud-related system planning and architecture skills.                                              |
+| Full Stack Developer  | Software Developers                          | 15-1252.00 | Mapped under software development because the role requires both frontend and backend software skills.                                       |
+| Mobile Developer      | Software Developers                          | 15-1252.00 | Mapped under software development because mobile application development is part of software development work.                               |
+| Systems Engineer      | Software Developers                          | 15-1252.00 | Mapped under software development because the prototype focuses on system-level programming and software-related skills.                     |
 
 This mapping is stored directly in the XML using fields such as:
 
@@ -261,13 +348,19 @@ It contains the following main sections.
 
 ### 7.1 dataSources
 
-Stores information about the source used to prepare the prototype dataset.
+The `dataSources` section stores information about the source used to prepare the prototype dataset.
+
+Example:
+
+```text
+SRC001 → O*NET OnLine
+```
 
 ### 7.2 skills
 
-Stores standard skill names, skill categories, and aliases. Aliases are included to support user input normalisation.
+The `skills` section stores standard skill names, skill categories, and aliases. Aliases are included to support user input normalisation.
 
-Example:
+Examples:
 
 ```text
 py → Python
@@ -275,19 +368,34 @@ python programming → Python
 pyhton → Python
 ml → Machine Learning
 machien learning → Machine Learning
+aws → Cloud Computing
+github → Git
 ```
 
 ### 7.3 careers
 
-Stores the project career paths, mapped O*NET occupation titles and codes, career level, source note, and required skills. Each required skill uses a skill ID reference and priority level.
+The `careers` section stores the project career paths, mapped O*NET occupation titles and codes, career level, source note, and required skills. Each required skill uses a skill ID reference and priority level.
+
+Example:
+
+```text
+AI Engineer requires Python, Machine Learning, Statistics, TensorFlow, Critical Thinking, and other related skills.
+```
 
 ### 7.4 courses
 
-Stores recommended courses and the skills they teach. Some courses also include prerequisite skills to support learning path sequencing.
+The `courses` section stores recommended courses and the skills they teach. Some courses also include prerequisite skills to support learning path sequencing.
+
+Example:
+
+```text
+Machine Learning Fundamentals teaches Machine Learning and TensorFlow.
+Prerequisite skills: Python and Statistics.
+```
 
 ### 7.5 students
 
-Stores a sample student profile for testing. The final application also allows users to enter their own skills through the GUI.
+The `students` section stores a sample student profile for testing. The actual application allows users to enter their own skills through the terminal, GUI, or web dashboard.
 
 ---
 
@@ -299,14 +407,14 @@ The input handling flow is:
 
 ```text
 Input Layer:
-- Accept comma-separated skills from user through the GUI
+- Accept skills from the user through terminal, GUI, or web dashboard
 
 Pre-processing Layer:
 - Convert input to lowercase
 - Remove extra spaces
 - Match aliases, e.g. "ml" → "Machine Learning"
 - Use fuzzy matching for typos, e.g. "pythn" → "Python"
-- Ask user to confirm fuzzy correction using a popup confirmation box
+- Confirm or display suggested corrections depending on the interface
 
 Semantic Layer:
 - Use confirmed standardised skill names
@@ -315,12 +423,22 @@ Semantic Layer:
 Output Layer:
 - Show matched skills
 - Show missing skills
+- Show missing skills by priority
 - Show readiness score
 - Show recommended courses
+- Show prerequisite skills
 - Show alternative careers
 ```
 
 This design is important because RDF and SPARQL matching are strict. The input normalisation layer helps ensure that casual user input can still be matched to standardised skill names.
+
+Different interfaces handle fuzzy matching slightly differently:
+
+| Interface         | Input Handling Behaviour                                                                       |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| Terminal Analyzer | Asks the user to enter `Y` or `N` when a fuzzy suggestion is found.                            |
+| Tkinter GUI       | Shows a popup confirmation box when a fuzzy suggestion is found.                               |
+| Web Dashboard     | Automatically accepts fuzzy corrections and displays the correction in the dashboard response. |
 
 ---
 
@@ -386,30 +504,53 @@ py -m pip install lxml rdflib flask
 The required libraries are:
 
 | Library  | Purpose                                                 |
-|----------|---------------------------------------------------------|
+| -------- | ------------------------------------------------------- |
 | `lxml`   | Used to validate the XML file against the XSD schema.   |
 | `rdflib` | Used to create RDF/RDFS triples and run SPARQL queries. |
-| `flask`  | Used to run the modern web-based UI dashboard.          |
+| `flask`  | Used to run the modern web-based dashboard.             |
 
 Tkinter is used for the legacy GUI popup window. It is normally included with standard Python installations on Windows, so no extra installation is usually needed.
 
-### 9.4 Run the Modern Web Interface (New!)
+---
 
-To launch the modern Flask-based web dashboard (Phase 2 of the roadmap):
+## 10. Running the Different Interfaces
 
-1. In the Visual Studio Code terminal, run the following command to start the server:
+### 10.1 Run the Modern Web Interface
+
+To launch the modern Flask-based web dashboard:
 
 ```bash
 py web_app.py
 ```
 
-2. Open your web browser and navigate to **`http://localhost:5000`**.
-3. Use the interface to select a target career, input your skills using the interactive tags (supports fuzzy matching and auto-correction), and click **Analyze My Skill Gap**.
-4. The system will display an interactive dashboard with a readiness score, categorized skill gaps, and course recommendations.
+Then open your browser and go to:
 
-### 9.5 Run the Legacy GUI Application
+```text
+http://localhost:5000
+```
 
-If you prefer the original Tkinter GUI or want to run the full end-to-end processing pipeline, run:
+The web dashboard allows the user to:
+
+* select a target career
+* enter skills using interactive tags
+* receive alias and typo handling
+* view an animated readiness score
+* view confirmed skills and missing skills
+* view missing skills by priority
+* view recommended courses
+* view prerequisite skills
+* view alternative career suggestions
+* switch between dark and light themes
+
+Important note:
+
+```text
+web_app.py does not run through main.py by default. It is run separately because it starts a Flask web server.
+```
+
+### 10.2 Run the Legacy GUI Application
+
+To run the full end-to-end backend pipeline and launch the Tkinter popup GUI:
 
 ```bash
 py main.py
@@ -419,52 +560,94 @@ The application will automatically perform the following steps:
 
 ```text
 1. Validate career_skill_data.xml using career_skill_schema.xsd
-2. Generate or update career_skill_graph.ttl
+2. Generate or update career_skill_graph.ttl using xml_to_rdf.py
 3. Run SPARQL test queries in the terminal
-4. Launch the GUI Skill Gap Analyzer popup window
+4. Launch the GUI Skill Gap Analyzer popup window using gui_app.py
 ```
 
-After Step 3, a popup window will appear where you can select a career, enter your skills (e.g., `pyhton, sql, ml`), and view the result in the output box. The system handles typing mistakes automatically.
+After Step 3, a popup window will appear where the user can select a career, enter skills, and view the result in the output box.
 
-### 9.6 Run Validation or Testing Files
+By default, `main.py` launches:
 
-The same Visual Studio Code terminal can also be used to run the validation and testing files.
-
-For example, to run XML validation only, enter:
-
-```bash
-py testing/validate_xml.py
+```text
+gui_app.py
 ```
 
-Other testing commands can also be entered in the same terminal:
+The terminal-based analyzer is available as a backup option inside `main.py` through a commented line:
 
-```bash
-py testing/parse_xml.py
+```text
+analysis_success = run_python_file("skill_gap_analysis.py")
 ```
 
-```bash
-py testing/skill_normalizer.py
-```
+To use the terminal analyzer through `main.py`, the developer may change the default launcher line from `gui_app.py` to `skill_gap_analysis.py`.
 
-For RDF/RDFS conversion testing, run:
+### 10.3 Run the Terminal-Based Analyzer
 
-```bash
-py xml_to_rdf.py
-```
-
-For the terminal-based backup skill gap analyzer, run:
+To run the terminal-based backup version directly:
 
 ```bash
 py skill_gap_analysis.py
 ```
 
-Important: run these commands from the main project folder, not from inside the `testing` folder.
+This version runs fully inside the terminal. The user selects a target career by number, enters their current skills, and receives the skill gap analysis result as terminal text.
+
+Before running `skill_gap_analysis.py`, make sure the RDF graph has already been generated by running either:
+
+```bash
+py xml_to_rdf.py
+```
+
+or:
+
+```bash
+py main.py
+```
+
+### 10.4 Run XML to RDF/RDFS Conversion Only
+
+To regenerate the RDF/RDFS Turtle graph only:
+
+```bash
+py xml_to_rdf.py
+```
+
+This command reads `career_skill_data.xml`, converts it into RDF/RDFS triples, saves the output as `career_skill_graph.ttl`, and runs SPARQL test queries.
+
+### 10.5 Run Validation or Testing Files
+
+The same Visual Studio Code terminal can also be used to run the validation and testing files.
+
+To run XML validation only:
+
+```bash
+py testing/validate_xml.py
+```
+
+To test XML parsing:
+
+```bash
+py testing/parse_xml.py
+```
+
+To test skill input normalisation:
+
+```bash
+py testing/skill_normalizer.py
+```
+
+Important:
+
+```text
+Run these commands from the main project folder, not from inside the testing folder.
+```
 
 ---
 
-## 10. Example System Output
+## 11. Example System Output
 
-The terminal first shows the backend semantic processing:
+### 11.1 Backend Processing Output
+
+When running `py main.py`, the terminal first shows the backend semantic processing:
 
 ```text
 ===== Step 1: XML Validation =====
@@ -473,102 +656,81 @@ career_skill_data.xml follows the structure defined in career_skill_schema.xsd.
 
 ===== Step 2: XML to RDF/RDFS Conversion =====
 Generating or updating career_skill_graph.ttl...
+Reading XML file...
+Creating RDF graph...
+Adding RDFS schema...
+Converting XML data into RDF triples...
+Saving RDF graph to career_skill_graph.ttl...
 RDF conversion completed successfully.
 
 ===== SPARQL Test 1: Careers and Required Skills =====
 AI Engineer requires Machine Learning
 Software Developer requires Python
 
-===== Step 3: Launch GUI Skill Gap Analyzer =====
+===== SPARQL Test 2: Courses and Skills They Teach =====
+Machine Learning Fundamentals teaches Machine Learning
+Python Programming teaches Python
+
+===== Step 3: Launch Skill Gap Analyzer =====
 A popup window will open for user interaction.
 ```
 
-The GUI then displays the user-facing skill gap analysis result. A sample result may look like this:
+### 11.2 Sample Analyzer Output
+
+A sample analyzer result may include:
 
 ```text
-===== Semantic Career Path / Skill Gap Analyzer =====
-
-Target Career: Software Developer
-O*NET Source Title: Software Developers
-O*NET Code: 15-1252.00
-Career Level: Intermediate
+Target Career: AI Engineer
+O*NET Source Title: Computer and Information Research Scientists
+O*NET Code: 15-1221.00
+Career Level: Advanced
 
 Confirmed Current Skills:
 - Python
+- Machine Learning
 
 Required Skills Retrieved Using SPARQL:
-- Git (High, Technical)
-- Python (High, Technical)
-- Web Development (High, Technical)
-- Agile (Low, Essential)
-- Linux (Low, Technical)
-- Project Management (Low, Essential)
-- Time Management (Low, Essential)
-- Adaptability (Medium, Essential)
-- Database Management (Medium, Technical)
-- Problem Solving (Medium, Essential)
-- SQL (Medium, Technical)
-- Software Testing (Medium, Technical)
+- Python
+- Machine Learning
+- Statistics
+- Data Visualization
+- Problem Solving
 
 Matched Skills:
 - Python
+- Machine Learning
 
 Missing Skills by Priority:
-
 [HIGH]
-- Git (Technical)
-- Web Development (Technical)
+- Statistics
 
 [MEDIUM]
-- Adaptability (Essential)
-- Database Management (Technical)
-- Problem Solving (Essential)
-- SQL (Technical)
-- Software Testing (Technical)
+- Data Visualization
+- Problem Solving
 
-[LOW]
-- Agile (Essential)
-- Linux (Technical)
-- Project Management (Essential)
-- Time Management (Essential)
-
-Career Readiness Score: 8%
+Career Readiness Score: 40%
 
 Recommended Learning Path Retrieved Using SPARQL:
-1. Database Systems
-   Reason: This course teaches missing skill(s): Database Management, SQL.
-   Prerequisite skill(s): None.
-2. DevOps & CI/CD Practices
-   Reason: This course teaches missing skill(s): Agile, Linux.
-   Prerequisite skill(s): Python.
+1. Statistics for Data Analytics
+2. Data Visualization Fundamentals
 3. Problem Solving for Computing
-   Reason: This course teaches missing skill(s): Adaptability, Problem Solving, Project Management, Time Management.
-   Prerequisite skill(s): None.
-4. Systems Programming
-   Reason: This course teaches missing skill(s): Linux.
-   Prerequisite skill(s): None.
-5. Web Application Development
-   Reason: This course teaches missing skill(s): Git, Software Testing, Web Development.
-   Prerequisite skill(s): Python.
 
 Alternative Career Suggestions Retrieved Using SPARQL:
-1. AI Engineer - 10% match
-2. Data Analyst - 9% match
-3. Full Stack Developer - 9% match
-4. Cloud Architect - 0% match
-5. Cybersecurity Analyst - 0% match
-6. Mobile Developer - 0% match
-7. Systems Engineer - 0% match
+1. Data Analyst - 40% match
+2. Full Stack Developer - 40% match
+3. Software Developer - 40% match
 ```
+
+The exact result may differ depending on the selected career, the current XML dataset, and the skills entered by the user.
 
 ---
 
-## 11. Functional Testing
+## 12. Functional Testing
 
 Recommended test cases include:
 
 | Test Case ID | Test Description                                                 | Expected Result                                                                |
-|--------------|------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| ------------ | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | S2-TC01      | Validate correct XML against XSD                                 | XML validation successful                                                      |
 | S2-TC02      | Enter invalid priority value in XML                              | XSD validation fails                                                           |
 | S2-TC03      | Enter skill alias such as `ml`                                   | System maps it to `Machine Learning`                                           |
@@ -580,11 +742,13 @@ Recommended test cases include:
 | S2-TC09      | Run `py main.py`                                                 | XML validation, RDF generation, SPARQL test, and GUI analyzer run successfully |
 | S2-TC10      | Delete or rename `career_skill_graph.ttl`, then run `py main.py` | TTL file is regenerated automatically                                          |
 | S2-TC11      | Enter `pythn` in the GUI                                         | Popup asks whether the user meant `Python`                                     |
-| S2-TC12      | Run `py testing/validate_xml.py` from the main folder            | XML validation test runs successfully                                          |
+| S2-TC12      | Run `py web_app.py`                                              | Flask server starts and the dashboard is accessible at `http://localhost:5000` |
+| S2-TC13      | Enter skills in the web dashboard                                | System validates skills and returns analysis through the dashboard             |
+| S2-TC14      | Run `py skill_gap_analysis.py`                                   | Terminal-based analyzer runs and displays skill gap results                    |
 
 ---
 
-## 12. Files in This Solution
+## 13. Files in This Solution
 
 ```text
 TSW6223_Project-Solution-2/
@@ -593,20 +757,20 @@ TSW6223_Project-Solution-2/
 ├── career_skill_schema.xsd
 ├── career_skill_graph.ttl
 ├── xml_to_rdf.py
-├── skill_gap_analysis.py      ← terminal version / backup analyzer
-├── gui_app.py                 ← legacy GUI version (Tkinter popup)
-├── web_app.py                 ← modern web dashboard (Flask)
-├── main.py                    ← legacy launcher (validation + GUI)
+├── skill_gap_analysis.py
+├── gui_app.py
+├── web_app.py
+├── main.py
 ├── README.md
 │
 ├── static/
 │   ├── css/
-│   │   └── style.css          ← web dashboard design system
+│   │   └── style.css
 │   └── js/
-│       └── app.js             ← web dashboard frontend logic
+│       └── app.js
 │
 ├── templates/
-│   └── index.html             ← web dashboard HTML template
+│   └── index.html
 │
 └── testing/
     ├── validate_xml.py
@@ -614,80 +778,94 @@ TSW6223_Project-Solution-2/
     └── skill_normalizer.py
 ```
 
-### 12.1 Main Files
+### 13.1 Main Files
 
-| File | Purpose |
-|---------------------------|----------------------------------------------------------------------------------------------------------|
-| `career_skill_data.xml`   | Stores the structured career, skill, course, source, and student data.                                   |
-| `career_skill_schema.xsd` | Validates the XML structure, controlled values, and ID references.                                       |
-| `career_skill_graph.ttl`  | Generated RDF/RDFS Turtle graph created from the XML data.                                               |
-| `xml_to_rdf.py`           | Converts XML data into RDF/RDFS triples and runs SPARQL test queries.                                    |
-| `skill_gap_analysis.py`   | Runs the terminal-based SPARQL-powered skill gap analyzer. It is kept as a backup version.               |
-| `gui_app.py`              | Runs the legacy GUI-based SPARQL-powered skill gap analyzer using Tkinter.                               |
-| `web_app.py`              | Runs the modern Flask web dashboard with interactive skill tags and animated results.                     |
-| `main.py`                 | Legacy launcher that validates XML, regenerates RDF/RDFS, runs SPARQL tests, and starts the GUI.         |
-| `README.md`               | Project explanation and running instructions.                                                            |
+| File                      | Purpose                                                                                                                                                                                                                                      |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `career_skill_data.xml`   | Stores the structured career, skill, course, source, alias, and sample student data.                                                                                                                                                         |
+| `career_skill_schema.xsd` | Validates the XML structure, controlled values, and ID references.                                                                                                                                                                           |
+| `career_skill_graph.ttl`  | Generated RDF/RDFS Turtle graph created from the XML data.                                                                                                                                                                                   |
+| `xml_to_rdf.py`           | Converts XML data into RDF/RDFS triples and runs SPARQL test queries.                                                                                                                                                                        |
+| `skill_gap_analysis.py`   | Terminal-based SPARQL-powered skill gap analyzer. It performs the same core analysis but displays the result in the command-line terminal.                                                                                                   |
+| `gui_app.py`              | Tkinter popup version of the SPARQL-powered skill gap analyzer. This is the default interface launched by `main.py`.                                                                                                                         |
+| `web_app.py`              | Flask web dashboard version of the SPARQL-powered skill gap analyzer. It performs the same core analysis but displays the result through a browser-based interface.                                                                          |
+| `main.py`                 | Legacy launcher that validates XML, regenerates RDF/RDFS, runs SPARQL test queries through `xml_to_rdf.py`, and starts `gui_app.py` by default. The terminal version can be used by switching the commented line to `skill_gap_analysis.py`. |
+| `README.md`               | Project explanation, architecture summary, file description, and running instructions.                                                                                                                                                       |
 
-### 12.2 Web Interface Files
+### 13.2 Web Interface Files
 
-| File                     | Purpose                                                              |
-|--------------------------|----------------------------------------------------------------------|
-| `static/css/style.css`   | Design system with dark/light themes, animations, and responsive layout. |
-| `static/js/app.js`       | Frontend logic for skill tag input, API calls, and dashboard rendering.  |
-| `templates/index.html`   | HTML template for the two-state web interface (input → results).         |
+| File                   | Purpose                                                                             |
+| ---------------------- | ----------------------------------------------------------------------------------- |
+| `static/css/style.css` | Design system with dark/light themes, animations, and responsive layout.            |
+| `static/js/app.js`     | Frontend logic for skill tag input, API calls, and dashboard rendering.             |
+| `templates/index.html` | HTML template for the two-state web interface, from input view to result dashboard. |
 
-### 12.3 Testing Files
+### 13.3 Testing Files
 
 | File                          | Purpose                                                         |
-|-------------------------------|-----------------------------------------------------------------|
+| ----------------------------- | --------------------------------------------------------------- |
 | `testing/validate_xml.py`     | Tests XML validation against XSD.                               |
 | `testing/parse_xml.py`        | Tests whether Python can correctly read and extract XML data.   |
 | `testing/skill_normalizer.py` | Tests alias matching and typo handling for user-entered skills. |
 
 ---
 
-## 13. Novelty of the Solution
+## 14. Novelty of the Solution
 
 The novelty of Solution 2 is that it does not only list missing skills. It provides a semantic and explainable skill gap analysis by combining XML, XSD, RDF/RDFS, SPARQL, Python, Flask, and a modern web dashboard.
 
 The system includes:
 
-- source-tracked career data based on O*NET occupation profiles
-- XML validation using XSD
-- RDF/RDFS semantic representation
-- SPARQL-powered retrieval of careers, skills, courses, and alternatives
-- skill alias matching and fuzzy typo correction
-- missing skill priority ranking
-- animated career readiness score with visual progress ring
-- course recommendation timeline with prerequisite display
-- alternative career suggestions based on skill match percentage
-- modern responsive web dashboard with dark/light theme support
-- interactive skill tag input with real-time validation
-- legacy Tkinter GUI as an alternative interface
+* source-tracked career data based on O*NET occupation profiles
+* XML validation using XSD
+* RDF/RDFS semantic representation
+* SPARQL-powered retrieval of careers, skills, courses, prerequisites, and alternatives
+* skill alias matching and fuzzy typo correction
+* missing skill priority ranking
+* career readiness score calculation
+* course recommendation with prerequisite display
+* alternative career suggestions based on skill match percentage
+* modern responsive web dashboard with dark/light theme support
+* interactive skill tag input with real-time validation
+* Tkinter GUI as an alternative popup interface
+* terminal-based analyzer as a backup and testing interface
+
+This makes the solution more meaningful than a simple static career list because the system can connect career requirements, user skills, courses, and learning paths through semantic relationships.
 
 ---
 
-## 14. Future Improvements
+## 15. Future Improvements
 
 Possible future improvements include:
 
-- Integrating live data from O*NET or other career-skill APIs.
-- Expanding the number of careers, skills, and courses.
-- Aligning the system with ESCO for broader occupation-skill interoperability.
-- Adding OWL inference to infer related or equivalent skills.
-- Adding student login and saved skill profiles.
-- Connecting Solution 2 with Solution 1 course recommendation.
-- Using real university course data and programme structures.
+* Integrating live data from O*NET or other career-skill APIs.
+* Expanding the number of careers, skills, and courses.
+* Aligning the system with ESCO for broader occupation-skill interoperability.
+* Adding OWL inference to infer related or equivalent skills.
+* Adding student login and saved skill profiles.
+* Saving user analysis history for future comparison.
+* Connecting Solution 2 with Solution 1 course recommendation.
+* Using real university course data and programme structures.
+* Adding more advanced scoring logic based on skill priority weight.
+* Allowing users to export the analysis result as PDF.
 
 ---
 
-## 15. Summary
+## 16. Summary
 
 Solution 2 is a semantic web-based Career Path / Skill Gap Analysis prototype. It uses a small O*NET-based dataset prepared in XML format and validated with XSD. The validated XML data is converted into RDF/RDFS triples and saved as a Turtle file. SPARQL is then used in the final application to query semantic relationships between careers, skills, and courses.
 
-The system provides two ways to interact with the analyzer:
+The system provides three ways to interact with the analyzer:
 
-1. **Modern Web Dashboard** — Run `py web_app.py` and open `http://localhost:5000` in a browser. This interface features interactive skill tags with real-time validation, an animated readiness score ring, priority-grouped skill gaps, a course recommendation timeline, alternative career cards, and dark/light theme support.
-2. **Legacy GUI Application** — Run `py main.py` to execute XML validation, RDF/RDFS conversion, and SPARQL tests in the terminal, followed by a Tkinter popup window for user interaction.
+1. **Modern Web Dashboard**
+   Run `py web_app.py` and open `http://localhost:5000` in a browser. This interface features interactive skill tags with validation, an animated readiness score, priority-grouped skill gaps, course recommendation timeline, alternative career cards, and dark/light theme support.
 
-Both interfaces provide students with matched skills, missing skills, readiness scores, recommended learning paths, prerequisite skills, and alternative career suggestions — all powered by SPARQL queries over the RDF knowledge graph.
+2. **Legacy GUI Application**
+   Run `py main.py` to execute XML validation, RDF/RDFS conversion, and SPARQL test queries in the terminal, followed by a Tkinter popup window through `gui_app.py`.
+
+3. **Terminal-Based Analyzer**
+   Run `py skill_gap_analysis.py` to use the command-line version of the same SPARQL-powered skill gap analysis. This version is mainly kept as a backup and testing-friendly interface.
+
+All three analyzer interfaces use the same semantic web foundation. They rely on XML/XSD for structured data and validation, RDF/RDFS for semantic representation, and SPARQL for retrieving career requirements, recommended courses, prerequisite skills, and alternative career suggestions.
+
+The final output helps students understand their current career readiness, identify missing skills, follow a suitable learning path, and explore alternative careers based on their existing skills.
